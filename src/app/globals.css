@@ -2,7 +2,8 @@
 
 @theme {
   --font-vazir : 'var(--font-vazir)' , 
-  --font-orbitron : 'var(--font-orbitron)'
+  --font-orbitron : 'var(--font-orbitron)' ,
+  --font-inter : "var(--font-inter) "
 }
 
 
