@@ -19,7 +19,7 @@ function Navbar() {
   }
   return (
     <>
-      <nav className="w-full flex justify-center">
+      <nav className="z-50 w-full flex justify-center">
         <div className=" fixed w-full mx-5 xl:w-[1240px] lg:w-[900px] md:w-[700px] bg-transparent md:flex items-center justify-between mt-5 backdrop-blur-xl p-2 rounded-2xl ">
           <div className="hidden md:block">
             <ul className="flex items-center justify-center gap-5 text-white">
@@ -55,12 +55,12 @@ function Navbar() {
               </span>
             </div>
           </div>
-          <div className="md:hidden flex items-center justify-between text-white text-2xl">
+          <div className="md:hidden flex items-center justify-between text-white text-4xl px-2">
             <IoIosMore onClick={toggleNav} />
+            <h3 className="text-3xl"> گیم نت 4K </h3>
             <Link href={"/"}>
             <TbBadge4KFilled />
             </Link>
-            
           </div>
         </div>
         <div className={` ${isOpen ? "flex" : "hidden" } p-5 absolute right-0 top-0 bottom-0 w-52 bg-gray-100 h-screen z-50 flex-col justify-between items-center `}>

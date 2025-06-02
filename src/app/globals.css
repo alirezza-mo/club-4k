@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-vazir : 'var(--font-vazir)' , 
-  --font-orbitron : 'var(--font-orbitron)' ,
-  --font-inter : "var(--font-inter) "
+  --font-vazir: 'var(--font-vazir)'
+}
+@theme {
+  
+  --font-orbitron : 'var(--font-orbitron)'
 }
 
 
@@ -13,4 +15,3 @@
   margin: 0 auto;
   padding: 20px;
 }
-

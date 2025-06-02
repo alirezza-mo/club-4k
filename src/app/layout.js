@@ -1,13 +1,8 @@
 import "./globals.css";
-import { Vazirmatn, Orbitron } from "next/font/google";
-import { Inter } from "next/font/google";
+import { Vazirmatn, Orbitron , Play } from "next/font/google";
 
 
-const inter = Inter({
-  subsets: ["latin"], 
-  weight: ["400", "500", "700"], 
-  variable: "--font-inter", 
-});
+
 
 const vazir = Vazirmatn({
   subsets: ["arabic"],
@@ -29,9 +24,9 @@ export default function RootLayout({ children }) {
     <html
       lang="fa"
       dir="rtl"
-      className={`${vazir.variable} ${orbitron.variable} font-sans ${inter.variable}`}
+      className={`${vazir.variable} ${orbitron.variable} font-sans  scroll-smooth `}
     >
-      <body className="font-vazir font-orbitron">{children}</body>
+      <body className="font-vazir">{children}</body>
     </html>
   );
 }
