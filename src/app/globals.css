@@ -8,6 +8,25 @@
   --font-orbitron : 'var(--font-orbitron)'
 }
 
+.mySwiper {
+  @apply pb-4; /* فاصله برای دکمه‌های ناوبری */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  @apply text-white bg-orange-600 rounded-full p-3;
+  transition: 0.3s;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  @apply bg-orange-500;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  @apply hidden; /* حذف آیکون پیش‌فرض Swiper */
+}
 
 .container {
   width: 100%;

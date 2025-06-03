@@ -63,7 +63,7 @@ function Navbar() {
             </Link>
           </div>
         </div>
-        <div className={` ${isOpen ? "flex" : "hidden" } p-5 absolute right-0 top-0 bottom-0 w-52 bg-gray-100 h-screen z-50 flex-col justify-between items-center `}>
+        <div className={` ${isOpen ? "flex" : "hidden" } fixed p-5  right-0 top-0 bottom-0 w-52 bg-gray-100 h-full z-50 flex-col justify-between items-center `}>
           <div className="flex items-center justify-between w-full">
             <h3 className="text-orange-600 text-xl font-extrabold "> گیم نت 4K </h3>
             <span>
