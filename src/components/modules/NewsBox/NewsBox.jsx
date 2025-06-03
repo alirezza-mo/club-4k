@@ -4,7 +4,7 @@ import React from "react";
 function NewsBox() {
   return (
     <>
-      <div className="cursor-pointer active:bg-orange-300 sm:flex md:w-[300px] md:h-[200px] lg:w-[400px] lg:h-[200px] xl:w-[600px] xl:h-[240px] rounded-3xl bg-white  transition-all hover:bg-orange-300 ">
+      <div className="cursor-pointer dark:active:bg-yellow-200 active:bg-orange-300 sm:flex md:w-[300px] md:h-[200px] lg:w-[400px] lg:h-[200px] xl:w-[600px] xl:h-[240px] rounded-3xl dark:bg-gray-900 bg-white  transition-all dark:hover:bg-yellow-200 hover:bg-orange-300 ">
         <div className="flex justify-center items-center p-2">
           <Image
             src={"/images/news.png"}
@@ -25,7 +25,7 @@ function NewsBox() {
               رقابت{" "}
             </span>
           </div>
-          <p className="text-center text-xs lg:text-lg text-black ">
+          <p className="text-center text-xs lg:text-lg text-black dark:text-gray-300 ">
             {" "}
             رکورد بیشترین باخت متوالی توسط علی ملتفت{" "}
           </p>

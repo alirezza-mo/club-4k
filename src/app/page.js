@@ -13,7 +13,7 @@ import Ranking from "@/components/templates/index/Ranking/Ranking";
 export default function Home() {
   return (
    <>
-    <main className="relative flex flex-col items-center bg-lime-100" >
+    <main className="relative flex flex-col items-center bg-lime-100 dark:bg-black/95" >
         <Navbar/>
         <Header/>
       <div className = 'container'>

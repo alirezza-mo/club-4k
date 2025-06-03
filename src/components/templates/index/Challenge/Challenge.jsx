@@ -8,7 +8,7 @@ function Challenge() {
     <>
       <section className="mt-20 w-full flex flex-col items-center gap-10">
         <div className="w-full flex justify-center items-center text-xl sm:text-3xl">
-          <h3 className=" font-bold flex items-center gap-2 border-b-4 border-orange-600 pb-2 hover:border-none ">
+          <h3 className="dark:text-white font-bold flex items-center gap-2 border-b-4 dark:border-gold border-orange-600 pb-2 dark:hover:border-none hover:border-none ">
             {" "}
             چلنج های آینده
             <GiBattleGear />

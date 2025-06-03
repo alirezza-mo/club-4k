@@ -57,33 +57,34 @@ export default function Products() {
     <section className="mt-20 w-full">
       <div className="w-full flex justify-between items-center text-xl sm:text-2xl px-4">
         <div className="flex flex-col">
-          <h3 className="font-bold flex items-center gap-2 border-none sm:border-b-4 border-orange-600 pb-2 hover:border-none">
+          <h3 className="font-bold flex items-center gap-2 border-none dark:border-gold dark:text-white sm:border-b-4 border-orange-600 pb-2 hover:border-none">
             محصولات
             <MdOutlineProductionQuantityLimits />
 
           </h3>
-          <span className="text-xs mt-5">
+          <span className="dark:text-white text-xs mt-5">
             تمامی محصولات از فروشگاه تکنولایف هستند.
           </span>
         </div>
         <Link
-          href="#"
-          className="text-xs sm:text-lg p-1 sm:p-2 rounded-lg bg-orange-600 text-white transition-all hover:bg-transparent active:bg-transparent hover:text-orange-600 active:text-orange-600"
-        >
-          مشاهده همه ...
-        </Link>
+            href={"#"}
+            className=" text-lg p-2 rounded-lg dark:bg-gold dark:text-white bg-orange-600 text-white transition-all hover:bg-transparent active:bg-transparent hover:text-orange-600 active:text-orange-600 dark:hover:bg-transparent dark:active:bg-transparent dark:hover:text-gold dark:active:text-gold"
+          >
+            {" "}
+            مشاهده همه ...{" "}
+          </Link>
       </div>
       <div className="mt-4 px-4 w-full ">
         <div className="flex justify-end gap-2 mb-4">
           <button
             ref={prevRef}
-            className="bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
+            className="dark:bg-gold dark:text-black dark:hover:bg-yellow-300  bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
           >
             <FaChevronRight className="text-lg" />
           </button>
           <button
             ref={nextRef}
-            className="bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
+            className="dark:bg-gold dark:text-black dark:hover:bg-yellow-300  bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
           >
             <FaChevronLeft className="text-lg" />
           </button>

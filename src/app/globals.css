@@ -7,6 +7,11 @@
   
   --font-orbitron : 'var(--font-orbitron)'
 }
+@theme {
+  --color-gold : #ccac00
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 .mySwiper {
   @apply pb-4; /* فاصله برای دکمه‌های ناوبری */

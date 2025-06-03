@@ -3,12 +3,12 @@ import { FaInstagram, FaTelegram, FaDiscord, FaYoutube } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-white  text-gray-700 py-12">
+    <footer className="dark:bg-gray-800 dark:text-white bg-white  text-gray-700 py-12">
       <div className=" mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
          
           <div>
-            <h3 className="font-inter text-xl font-bold text-orange-600  mb-4 [text-shadow:_0_0_5px_#FF6200] ">
+            <h3 className="font-inter text-xl font-bold   text-orange-600  mb-4 dark:text-gold dark:[text-shadow:_0_0_5px_#d19a1e] [text-shadow:_0_0_5px_#FF6200] ">
               درباره گیم‌نت 4K
             </h3>
             <p className=" text-sm leading-relaxed">
@@ -17,14 +17,14 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-inter text-xl font-bold text-orange-600  mb-4 [text-shadow:_0_0_5px_#FF6200] ">
+            <h3 className="font-inter text-xl font-bold text-orange-600  mb-4 dark:text-gold dark:[text-shadow:_0_0_5px_#d19a1e] [text-shadow:_0_0_5px_#FF6200] ">
               لینک‌های سریع
             </h3>
             <ul className="text-sm space-y-2">
               <li>
                 <Link
                   href="/products"
-                  className="hover:text-orange-600  transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
+                  className="hover:text-orange-600 dark:hover:text-gold dark:hover:[text-shadow:_0_0_5px_#d19a1e]   transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
                 >
                   محصولات
                 </Link>
@@ -32,7 +32,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/tournaments"
-                  className="hover:text-orange-600  transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
+                  className="hover:text-orange-600 dark:hover:text-gold dark:hover:[text-shadow:_0_0_5px_#d19a1e] transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
                 >
                   تورنمنت‌ها
                 </Link>
@@ -40,7 +40,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/leaderboard"
-                  className="hover:text-orange-600 transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
+                  className="hover:text-orange-600 dark:hover:text-gold dark:hover:[text-shadow:_0_0_5px_#d19a1e] transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
                 >
                   رتبه‌بندی
                 </Link>
@@ -48,7 +48,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-orange-600  transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200]"
+                  className="hover:text-orange-600 dark:hover:text-gold dark:hover:[text-shadow:_0_0_5px_#d19a1e] transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200]"
                 >
                   درباره ما
                 </Link>
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className=" text-xl font-bold text-orange-600  mb-4 [text-shadow:_0_0_5px_#FF6200] ">
+            <h3 className=" text-xl font-bold dark:text-gold dark:[text-shadow:_0_0_5px_#d19a1e] dark:hover:text-gold dark:hover:[text-shadow:_0_0_5px_#d19a1e] text-orange-600  mb-4 [text-shadow:_0_0_5px_#FF6200] ">
               تماس با ما
             </h3>
             <ul className="font-vazir text-sm space-y-2">
@@ -68,7 +68,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className=" text-xl font-bold text-orange-600  mb-4 [text-shadow:_0_0_5px_#FF6200] ">
+            <h3 className=" text-xl font-bold text-orange-600 dark:[text-shadow:_0_0_5px_#d19a1e] dark:text-gold mb-4 [text-shadow:_0_0_5px_#FF6200] ">
               ما رو دنبال کن
             </h3>
             <div className="flex gap-4">

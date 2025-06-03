@@ -1,8 +1,6 @@
+
 import "./globals.css";
-import { Vazirmatn, Orbitron , Play } from "next/font/google";
-
-
-
+import { Vazirmatn, Orbitron, Play } from "next/font/google";
 
 const vazir = Vazirmatn({
   subsets: ["arabic"],
@@ -24,9 +22,11 @@ export default function RootLayout({ children }) {
     <html
       lang="fa"
       dir="rtl"
-      className={`${vazir.variable} ${orbitron.variable} font-sans  scroll-smooth `}
+      className={`dark ${vazir.variable} ${orbitron.variable} font-sans  scroll-smooth `}
     >
+      {/* <ThemeScript> */}
       <body className="font-vazir">{children}</body>
+      {/* </ThemeScript> */}
     </html>
   );
 }
