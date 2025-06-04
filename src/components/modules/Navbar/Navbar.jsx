@@ -51,7 +51,7 @@ function Navbar() {
       <nav className="z-50 w-full flex justify-center">
         <div className=" fixed w-full mx-5 xl:w-[1240px] lg:w-[900px] md:w-[700px] bg-transparent md:flex items-center justify-between mt-5 backdrop-blur-xl p-2 rounded-2xl ">
           <div className="hidden md:block">
-            <ul className="flex items-center justify-center gap-5 text-white ">
+            <ul className="flex items-center justify-center gap-5 text-gray-500 dark:text-white ">
               <li className="transition-all cursor-pointer hover:text-gray-400">
                 {" "}
                 خانه{" "}
@@ -60,14 +60,14 @@ function Navbar() {
                 {" "}
                 نفرات برتر{" "}
               </li>
-              <li className="transition-all cursor-pointer hover:text-gray-400">
+              <Link href={"/about-us"} className="transition-all cursor-pointer hover:text-gray-400">
                 {" "}
                 درباره ما{" "}
-              </li>
-              <li className="transition-all cursor-pointer hover:text-gray-400">
+              </Link>
+              <Link href={"/contact"} className="transition-all cursor-pointer hover:text-gray-400">
                 {" "}
                 ارتباط با ما{" "}
-              </li>
+              </Link>
             </ul>
           </div>
           <div className=" items-center justify-center gap-5 hidden md:flex">
@@ -129,10 +129,10 @@ function Navbar() {
                 <GiChampions />
                 نفرات برتر
               </li>
-              <li className="flex items-center gap-5 justify-start transition-all p-1 hover:bg-orange-600 hover:text-white rounded-lg cursor-pointer active:bg-orange-600 active:text-white dark:hover:bg-gold dark:hover:text-black dark:active:bg-gold dark:active:text-black ">
+              <Link href={"/about-us"} className="flex items-center gap-5 justify-start transition-all p-1 hover:bg-orange-600 hover:text-white rounded-lg cursor-pointer active:bg-orange-600 active:text-white dark:hover:bg-gold dark:hover:text-black dark:active:bg-gold dark:active:text-black ">
                 <MdRoundaboutLeft />
                 درباره ما
-              </li>
+              </Link>
               <li className="flex items-center gap-5 justify-start transition-all p-1 hover:bg-orange-600 hover:text-white rounded-lg cursor-pointer active:bg-orange-600 active:text-white dark:hover:bg-gold dark:hover:text-black dark:active:bg-gold dark:active:text-black ">
                 <IoIosContact />
                 ارتباط با ما

@@ -25,7 +25,7 @@ function NewsBox() {
               رقابت{" "}
             </span>
           </div>
-          <p className="text-center text-xs lg:text-lg text-black dark:text-gray-300 ">
+          <p className="text-center text-xs lg:text-lg text-black dark:text-gray-400 ">
             {" "}
             رکورد بیشترین باخت متوالی توسط علی ملتفت{" "}
           </p>
