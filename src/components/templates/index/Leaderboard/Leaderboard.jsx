@@ -5,7 +5,7 @@ import { FaAnglesDown } from "react-icons/fa6";
 function Leaderboard() {
   return (
     <>
-      <section className='mt-14 w-full flex flex-col items-center justify-center gap-10'>
+      <section id='leaderboard' className='mt-14 w-full flex flex-col items-center justify-center gap-10'>
         <h3 className='text-3xl md:text-5xl font-bold text-center dark:text-white '> به سایت گیم نت 4K خوش آمدید </h3>
         {/* <div className='flex justify-between items-center w-full'> */}
         <h5 className='text-2xl text-orange-600 dark:text-gold' > تجربه هیجان انگیز بیشتر گیمینگ  </h5>
