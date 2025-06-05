@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaInstagram, FaTelegram, FaDiscord, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaTelegram, FaDiscord, FaYoutube, FaWhatsapp } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -92,9 +92,9 @@ export default function Footer() {
                 href="https://discord.gg/club4k"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl hover:text-orange-600  transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
+                className="text-2xl hover:text-green-600  transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
               >
-                <FaDiscord />
+                <FaWhatsapp />
               </a>
               <a
                 href="https://youtube.com/club4k"

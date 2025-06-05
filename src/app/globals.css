@@ -8,8 +8,11 @@
   --font-orbitron : 'var(--font-orbitron)'
 }
 @theme {
-  --color-gold : #ccac00
+  /* --color-gold : #ccac00 */
+  --color-gold : #ae8625
+  /* --color-gold : #d2ac47 */
 }
+
 
 @custom-variant dark (&:where(.dark, .dark *));
 
