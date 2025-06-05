@@ -39,7 +39,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/leaderboard"
+                  href="/ranking"
                   className="hover:text-orange-600 dark:hover:text-gold dark:hover:[text-shadow:_0_0_5px_#d19a1e] transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200] "
                 >
                   رتبه‌بندی
@@ -47,7 +47,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/about-us"
                   className="hover:text-orange-600 dark:hover:text-gold dark:hover:[text-shadow:_0_0_5px_#d19a1e] transition duration-300 hover:[text-shadow:_0_0_5px_#FF6200]"
                 >
                   درباره ما

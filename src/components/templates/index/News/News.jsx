@@ -8,7 +8,9 @@ function News() {
     <>
       <section className="mt-20 w-full ">
         <div className="w-full flex justify-between items-center text-xl sm:text-2xl">
-          <h3 className="dark:text-white font-bold flex items-center gap-2 border-b-4 dark:border-gold border-orange-600 pb-2 hover:border-none ">
+          <h3 className=" dark:text-white font-bold flex items-center gap-2 border-b-4    dark:border-gold border-orange-600 pb-2 hover:border-none "
+          
+          >
             {" "}
             اخبار
             <GiNewspaper />

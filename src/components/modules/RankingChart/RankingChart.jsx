@@ -57,11 +57,11 @@ export default function RankingChart() {
                 className={`w-full h-full bg-linear-to-r from-white/30 to-black/20 p-6 rounded-lg
                 ${
                   index === 0
-                    ? "bg-linear-to-r from-yellow-300/20 to-yellow-300/40 hover:bg-black text-white "
+                    ? "shadow-[0_0_12px_10px_rgba(255,215,0,0.4)] bg-linear-to-r from-yellow-300/20 to-yellow-300/40 hover:bg-black text-white "
                     : index === 1
-                    ? "bg-linear-to-r from-gray-600/20 to-gray-600/40 hover:bg-black text-white  "
+                    ? "shadow-[0_0_12px_10px_rgba(192,192,192,0.4)] bg-linear-to-r from-gray-600/20 to-gray-600/40 hover:bg-black text-white  "
                     : index === 2
-                    ? "bg-linear-to-r from-orange-600/20 to-orange-600/40 hover:bg-black text-white "
+                    ? "shadow-[0_0_12px_10px_rgba(184,115,51,0.4)] bg-linear-to-r from-orange-600/20 to-orange-600/40 hover:bg-black text-white "
                     : " text-gray-300"
                 }
                 `}

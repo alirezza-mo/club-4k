@@ -75,20 +75,7 @@ export default function Products() {
           </Link>
       </div>
       <div className="mt-4 px-4 w-full ">
-        <div className="flex justify-end gap-2 mb-4">
-          <button
-            ref={prevRef}
-            className="dark:bg-gold dark:text-black dark:hover:bg-yellow-300  bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
-          >
-            <FaChevronRight className="text-lg" />
-          </button>
-          <button
-            ref={nextRef}
-            className="dark:bg-gold dark:text-black dark:hover:bg-yellow-300  bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
-          >
-            <FaChevronLeft className="text-lg" />
-          </button>
-        </div>
+        
         <div>
           <Swiper
             modules={[Navigation, Autoplay]}
@@ -132,6 +119,20 @@ export default function Products() {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+        <div className="flex justify-start gap-2 mt-4">
+          <button
+            ref={prevRef}
+            className="dark:bg-gold dark:text-black dark:hover:bg-yellow-300  bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
+          >
+            <FaChevronRight className="text-lg" />
+          </button>
+          <button
+            ref={nextRef}
+            className="dark:bg-gold dark:text-black dark:hover:bg-yellow-300  bg-orange-600 text-white p-2 rounded-full hover:bg-orange-500 transition duration-300 block"
+          >
+            <FaChevronLeft className="text-lg" />
+          </button>
         </div>
       </div>
     </section>

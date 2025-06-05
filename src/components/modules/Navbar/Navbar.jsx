@@ -48,7 +48,7 @@ function Navbar() {
   };
   return (
     <>
-      <nav className="z-50 w-full flex justify-center">
+      <nav className="absolute z-50 w-full flex justify-center">
         <div className=" fixed w-full mx-5 xl:w-[1240px] lg:w-[900px] md:w-[700px] bg-transparent md:flex items-center justify-between mt-5 backdrop-blur-xl p-2 rounded-2xl ">
           <div className="hidden md:block">
             <ul className="flex items-center justify-center gap-5 text-gray-500 dark:text-white ">
@@ -56,10 +56,10 @@ function Navbar() {
                 {" "}
                 خانه{" "}
               </li>
-              <li className="transition-all cursor-pointer hover:text-gray-400">
+              <Link href={'/ranking'} className="transition-all cursor-pointer hover:text-gray-400">
                 {" "}
                 نفرات برتر{" "}
-              </li>
+              </Link>
               <Link href={"/about-us"} className="transition-all cursor-pointer hover:text-gray-400">
                 {" "}
                 درباره ما{" "}
@@ -125,10 +125,10 @@ function Navbar() {
                 <CiHome />
                 خانه
               </li>
-              <li className="flex items-center gap-5 justify-start transition-all p-1 hover:bg-orange-600 hover:text-white rounded-lg cursor-pointer active:bg-orange-600 active:text-white dark:hover:bg-gold dark:hover:text-black dark:active:bg-gold dark:active:text-black ">
+              <Link href={'/ranking'} className="flex items-center gap-5 justify-start transition-all p-1 hover:bg-orange-600 hover:text-white rounded-lg cursor-pointer active:bg-orange-600 active:text-white dark:hover:bg-gold dark:hover:text-black dark:active:bg-gold dark:active:text-black ">
                 <GiChampions />
                 نفرات برتر
-              </li>
+              </Link>
               <Link href={"/about-us"} className="flex items-center gap-5 justify-start transition-all p-1 hover:bg-orange-600 hover:text-white rounded-lg cursor-pointer active:bg-orange-600 active:text-white dark:hover:bg-gold dark:hover:text-black dark:active:bg-gold dark:active:text-black ">
                 <MdRoundaboutLeft />
                 درباره ما
