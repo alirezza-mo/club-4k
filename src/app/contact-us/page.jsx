@@ -4,9 +4,11 @@ import ContactForm from "@/components/templates/contactus/ContactForm";
 import React from "react";
 import { FaEnvelope, FaInstagram, FaPhone, FaTelegram, FaWhatsapp } from "react-icons/fa";
 
-async function page() {
+function page() {
+
   
   return (
+
     <>
       <main className="relative dark:bg-black/90">
         <Navbar />

@@ -16,7 +16,7 @@ function News() {
             <GiNewspaper />
           </h3>
           <Link
-            href={"#"}
+            href={"/news"}
             className=" text-lg p-2 rounded-lg dark:bg-gold dark:text-white bg-orange-600 text-white transition-all hover:bg-transparent active:bg-transparent hover:text-orange-600 active:text-orange-600 dark:hover:bg-transparent dark:active:bg-transparent dark:hover:text-gold dark:active:text-gold"
           >
             {" "}

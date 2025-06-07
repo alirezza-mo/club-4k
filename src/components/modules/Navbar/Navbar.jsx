@@ -49,7 +49,7 @@ function Navbar() {
   return (
     <>
       <nav className="absolute z-50 w-full flex justify-center">
-        <div className=" fixed w-full mx-5 xl:w-[1240px] lg:w-[900px] md:w-[700px] bg-transparent md:flex items-center justify-between mt-5 backdrop-blur-xl p-2 rounded-2xl ">
+        <div className=" fixed w-full mx-5 xl:w-[1240px] lg:w-[900px] md:w-[700px] bg-transparent md:flex items-center justify-between mt-5 backdrop-blur-xl p-2 rounded-2xl">
           <div className="hidden md:block">
             <ul className="flex items-center justify-center gap-5 text-gray-500 dark:text-white ">
               <Link href={"/"} className="transition-all cursor-pointer hover:text-gray-400">
@@ -96,7 +96,7 @@ function Navbar() {
           </div>
           <div className="md:hidden flex items-center justify-between text-white text-4xl px-2">
             <IoIosMore onClick={toggleNav} />
-            <h3 className="text-3xl"> گیم نت 4K </h3>
+            <h3 className="text-2xl"> گیم نت 4K </h3>
             <Link href={"/"}>
               <TbBadge4KFilled />
             </Link>

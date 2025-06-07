@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @theme {
+  --breakpoint-mb : 520px
+}
+
+@theme {
   --font-vazir: 'var(--font-vazir)'
 }
 @theme {

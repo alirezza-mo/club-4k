@@ -30,9 +30,9 @@ function page() {
         <Navbar/>
         <div className='container flex flex-col gap-10 items-center justify-center  '>
           <div className='flex lg:flex-row flex-col items-start'>
-            <div className='flex flex-col gap-10 w-80 mt-52  lg:mt-32 '>
-            <SelectDropdown/>
-            <RankFilterSelect/>
+            <div className='flex flex-col gap-10 w-80 mt-52  lg:mt-32  '>
+              <SelectDropdown/>
+              <RankFilterSelect/>
           </div>
           <div className='w-full flex flex-wrap items-center justify-center gap-5 mt-32'>
             {topPlayers.map((player) => (

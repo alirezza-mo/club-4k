@@ -20,7 +20,7 @@ function Challenge() {
           <ChallengeBox/>
           <ChallengeBox/>
         </div>
-        <Link href={"#"} className="p-2 rounded-lg bg-red-600 text-white font-bold text-2xl">
+        <Link href={"/challenge"} className="p-2 rounded-lg bg-red-600 text-white font-bold text-2xl">
           به چالش کشیدن 
         </Link>
       </section>
