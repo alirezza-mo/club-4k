@@ -12,7 +12,7 @@ function MotivationBox() {
           </h5>
         </div>
         <div className=" mt-4 ">
-          <h4 className=" w-full h-20 text-wrap truncate dark:text-black text-white ">
+          <h4 className=" w-full h-20 p-1 text-wrap truncate dark:text-black text-white ">
             هر شکست، قدمی به سوی پیروزی است.
           </h4>
         </div>

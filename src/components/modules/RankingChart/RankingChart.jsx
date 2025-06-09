@@ -1,6 +1,7 @@
 // app/components/Leaderboard.tsx
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaTrophy } from "react-icons/fa";
 
@@ -78,7 +79,7 @@ export default function RankingChart() {
                     {index < 3 ? "" : `رتبه ${player.rank}`}
                   </span>
                 </div>
-                <h3 className=" text-xl font-bold">{player.name}</h3>
+                <Link href={'/profile'} className=" text-xl font-bold">{player.name}</Link>
                 <p className=" text-sm">امتیاز: {player.score}</p>
               </div>
             </div>

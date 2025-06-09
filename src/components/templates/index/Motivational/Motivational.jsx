@@ -14,7 +14,7 @@ function Motivational() {
             <TbArrowsRandom />
           </h3>
           <Link
-            href={"#"}
+            href={"/randomsentence"}
             className=" text-lg p-2 rounded-lg dark:bg-gold  bg-orange-600 dark:text-white text-white transition-all dark:hover:bg-transparent hover:bg-transparent dark:active:bg-transparent active:bg-transparent dark:hover:text-gold hover:text-orange-600 dark:active:text-gold active:text-orange-600 "
           >
             {" "}
