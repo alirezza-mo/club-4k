@@ -46,3 +46,37 @@
   margin: 0 auto;
   padding: 20px;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* پس‌زمینه اسکرول‌بار (Track) */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+/* خود اسکرول‌بار (Thumb) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ff6200, #ae8625); /* نارنجی تا طلایی */
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ff620080, 0 0 20px #ae862540;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #ff6200, 0 0 25px #ae862580;
+}
+
+/* برای Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff6200 #111111; /* thumb رنگ اول، track رنگ دوم */
+}
+
+html.dark * {
+  scrollbar-color: #ae8625 #111111;
+}

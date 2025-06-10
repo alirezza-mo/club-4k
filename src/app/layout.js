@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
     <html
       lang="fa"
       dir="rtl"
-      className={`dark ${vazir.variable} ${orbitron.variable} font-sans  scroll-smooth `}
+      className={` ${vazir.variable} ${orbitron.variable} font-sans  scroll-smooth `}
     >
       {/* <ThemeScript> */}
       <body className="font-vazir">{children}</body>
