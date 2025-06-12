@@ -71,7 +71,7 @@ export default function AdminTicketsTable() {
       </div>
 
       <div className="overflow-x-auto rounded-lg shadow-md">
-        <table className="min-w-full bg-white dark:bg-gray-900 text-sm">
+        <table className="min-w-full bg-white dark:bg-gray-900 text-sm overflow-x-scroll">
           <thead>
             <tr className="text-right bg-orange-100 dark:bg-gold text-orange-800 dark:text-yellow-300">
               <th className="py-3 px-4">عنوان</th>

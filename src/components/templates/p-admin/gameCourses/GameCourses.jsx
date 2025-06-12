@@ -44,7 +44,7 @@ export default function GameSessionsTable({ sessions = [] }) {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="min-w-full table-auto border border-orange-500 dark:border-gold">
+        <table className="min-w-full table-auto border overflow-x-auto border-orange-500 dark:border-gold">
           <thead className="bg-orange-600 dark:bg-yellow-600 text-white dark:text-black">
             <tr>
               <th className="px-4 py-2 text-center">#</th>

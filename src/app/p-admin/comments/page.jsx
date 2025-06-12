@@ -6,7 +6,7 @@ function page() {
   return (
     <>
       <Layout>
-        <div className='mt-14'>
+        <div className='w-full mt-14'>
           <AdminCommentsPage/>
         </div>
       </Layout>

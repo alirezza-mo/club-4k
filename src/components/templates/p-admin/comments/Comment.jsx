@@ -56,7 +56,7 @@ export default function AdminCommentsPage() {
       <h2 className="text-2xl font-bold mb-6 text-orange-600 dark:text-yellow-400">مدیریت کامنت‌ها</h2>
 
       {/* فیلتر و جستجو */}
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
+      <div className=" px-2 w-full flex flex-col md:flex-row gap-4 mb-6">
         <input
           type="text"
           placeholder="جستجو بر اساس کاربر یا متن..."
@@ -76,8 +76,8 @@ export default function AdminCommentsPage() {
       </div>
 
       {/* جدول */}
-      <div className="overflow-x-auto rounded-lg shadow">
-        <table className="min-w-full text-sm text-right bg-white dark:bg-gray-900">
+      <div className="overflow-x-scroll rounded-lg shadow">
+        <table className="min-w-full text-sm text-right bg-white dark:bg-gray-900 overflow-x-scroll">
           <thead>
             <tr className="bg-orange-100 dark:bg-gold text-orange-800 dark:text-yellow-300">
               <th className="py-3 px-4">کاربر</th>
@@ -91,7 +91,7 @@ export default function AdminCommentsPage() {
             {paginatedComments.map((comment) => (
               <tr key={comment.id} className="border-b border-gray-200 dark:text-white dark:border-gray-700">
                 <td className="py-3 px-4">{comment.user}</td>
-                <td className="py-3 px-4">{comment.content}</td>
+                <td className="py-3 px-4 truncate">{comment.content}</td>
                 <td className="py-3 px-4">
                   {new Date(comment.createdAt).toLocaleString("fa-IR")}
                 </td>

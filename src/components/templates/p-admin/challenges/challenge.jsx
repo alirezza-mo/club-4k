@@ -72,7 +72,7 @@ const ChallengeAdminPage = () => {
         </select>
       </div>
 
-      <table className="w-full text-sm md:text-base border-separate border-spacing-y-2">
+      <table className="min-w-full text-sm md:text-base border-separate border-spacing-y-2 overflow-scroll ">
         <thead>
           <tr className="bg-orange-600 dark:bg-yellow-500 text-white dark:text-black rounded">
             <th className="p-3 rounded-s-md">#</th>
