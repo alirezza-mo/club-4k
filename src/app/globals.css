@@ -80,3 +80,7 @@
 html.dark * {
   scrollbar-color: #ae8625 #111111;
 }
+/* استایل‌های جدید برای سایدبار */
+#sidebar-toggle:checked ~ .sidebar {
+  transform: translateX(0);
+}
