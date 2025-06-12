@@ -46,7 +46,7 @@ function SideBar() {
           داشبورد{" "}
         </Link>
         <Link
-          href={"/p-admin/user"}
+          href={"/p-admin/users"}
           className="flex items-center justify-center gap-5 dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-lg hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
         >
           <LuUsers />
@@ -54,7 +54,7 @@ function SideBar() {
           کاربران{" "}
         </Link>
         <Link
-          href={"/p-admin/courses"}
+          href={"/p-admin/game-courses"}
           className="flex items-center justify-center gap-5 dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-lg hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
         >
           <FaDiscourse />
@@ -80,22 +80,14 @@ function SideBar() {
           کامنت ها{" "}
         </Link>
         <Link
-          href={"/p-admin/challenge"}
+          href={"/p-admin/challenges"}
           className="flex items-center justify-center gap-5 dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-lg hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
         >
           <GiBattleGear />
           {" "}
           چلنج ها{" "}
         </Link>
-        <Link
-          href={"/p-admin/editprofile"}
-          className="flex items-center justify-center gap-5 dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-lg hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
-        >
-            <CiEdit />
-
-          {" "}
-          ویرایش اطلاعات{" "}
-        </Link>
+        
         <button className="text-white text-lg hover:bg-red-500 bg-red-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
           {" "}
           خروج از حساب{" "}
@@ -142,53 +134,65 @@ function SideBar() {
             <IoExitOutline />{" "}
           </button>
         </div>
-        <div className="rounded-lg py-7 text-white font-bold dark:bg-gold dark:text-black bg-orange-600 w-full text-center">
-          <h3> هخامنش </h3>
-        </div>
+        
         <ul className="flex flex-col items-center justify-center gap-5 w-full mt-10 ">
           <Link
-            href={"/p-user"}
+            href={"/p-admin"}
             className=" flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center"
           >
             {" "}
             <RxDashboard />
-            پنل کاربری{" "}
+          {" "}
+          داشبورد{" "}
           </Link>
           <Link
-            href={"/p-user/my-statistics"}
+            href={"/p-admin/users"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
             {" "}
-            <GoDatabase />
-            آمار من{" "}
+            <LuUsers />
+          {" "}
+          کاربران{" "}
           </Link>
           <Link
-            href={"/p-user/tickets"}
+            href={"/p-admin/game-courses"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
             {" "}
-            <LuTicketCheck />
-            تیکت ها{" "}
+           <FaDiscourse />
+
+          {" "}
+          جلسات بازی{" "}
           </Link>
           <Link
-            href={"/p-user/challenge"}
+            href={"/p-admin/tickets"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
-            <GiBattleGear />
-            رقابت ها (چلنج)
+             <LuTicketCheck />
+
+          تیکت ها
           </Link>
           <Link
-            href={"/p-user/comments"}
+            href={"/p-admin/comments"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
             {" "}
             <AiOutlineComment />
-            کامنت ها{" "}
+
+          {" "}
+          کامنت ها{" "}
           </Link>
-          <Link href={"/p-user/editprofile"} className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center ">
+          <Link href={"/p-admin/challenges"} className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center ">
+            {" "}
+            <GiBattleGear />
+          {" "}
+          چلنج ها{" "}
+          </Link>
+          <Link href={"/p-admin/editProfile"} className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center ">
             {" "}
             <CiEdit />
-            ویرایش اطلاعات{" "}
+          {" "}
+          ویرایش اطلاعات{" "}
           </Link>
           <button className="flex items-center justify-center gap-5 active:bg-red-300 active:text-white text-white text-lg hover:bg-red-300 hover:text-white bg-red-600 rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
             {" "}
