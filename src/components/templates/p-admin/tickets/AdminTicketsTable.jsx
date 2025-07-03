@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FiEye } from 'react-icons/fi';
 import { FaSearch } from 'react-icons/fa';
+import TicketModal from './TicketModal';
 
 const demoTickets = [
   {
@@ -26,7 +27,15 @@ export default function AdminTicketsTable() {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedTicket, setSelectedTicket] = useState(null);
   const ticketsPerPage = 5;
+
+  const handleReply = (ticketId, replyText) => {
+  // اینجا می‌تونی به API ارسال کنی یا ذخیره کنی
+  console.log(`پاسخ به تیکت ${ticketId}: ${replyText}`);
+  // اگر خواستی بعداً وضعیت پاسخ داده شده را تغییر بده
+};
+
 
   const filteredTickets = demoTickets
     .filter(ticket =>
@@ -92,7 +101,7 @@ export default function AdminTicketsTable() {
                 <td className="py-2 px-4">{ticket.createdAt}</td>
                 <td className="py-2 px-4">{ticket.status}</td>
                 <td className="py-2 px-4">
-                  <button className="text-orange-600 dark:text-gold hover:underline flex items-center gap-1"  >
+                  <button className="text-orange-600 dark:text-gold hover:underline flex items-center gap-1" onClick={() => setSelectedTicket(ticket)} >
                     <FiEye />
                     مشاهده
                   </button>
@@ -119,6 +128,13 @@ export default function AdminTicketsTable() {
           </button>
         ))}
       </div>
+       {selectedTicket && (
+        <TicketModal
+          ticket={selectedTicket}
+          onClose={() => setSelectedTicket(null)}
+          onReply={handleReply}
+        />
+      )}
      
     </div>
   );
