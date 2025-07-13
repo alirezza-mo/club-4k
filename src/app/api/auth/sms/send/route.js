@@ -25,7 +25,7 @@ export async function POST(req) {
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 دقیقه اعتبار
     
-    // console.log(phone , code , expiresAt , userName , isExistUser , process.env.SMS_TEMPLATE_ID);
+    console.log(phone , code , expiresAt , userName , isExistUser , process.env.SMS_TEMPLATE_ID);
     await Otp.deleteMany({ phone });
     await Otp.create({ phone, code, expiresAt });
 
