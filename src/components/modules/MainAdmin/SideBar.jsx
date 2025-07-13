@@ -57,6 +57,7 @@ function SideBar() {
           href={"/main-admin/admins"}
           className="flex items-center justify-center gap-5 dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-lg hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
         >
+          {" "}
           <FaUser /> مدیران{" "}
         </Link>
         <Link
@@ -146,49 +147,70 @@ function SideBar() {
 
         <ul className="flex flex-col items-center justify-center gap-5 w-full mt-10 ">
           <Link
-            href={"/p-admin"}
+            href={"/main-admin"}
             className=" flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center"
           >
             {" "}
             <RxDashboard /> داشبورد{" "}
           </Link>
           <Link
-            href={"/p-admin/users"}
+            href={"/main-admin/game-net"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
             {" "}
-            <LuUsers /> کاربران{" "}
+            <IoGameController /> گیم نت ها{" "}
           </Link>
           <Link
-            href={"/p-admin/game-courses"}
+            href={"/main-admin/admins"}
+            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+          >
+            {" "}
+            <FaUser /> مدیران{" "}
+          </Link>
+          <Link
+            href={"/main-admin/users"}
+            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+          >
+            <FaUsers /> کاربران{" "}
+          </Link>
+          <Link
+            href={"/main-admin/sessions"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
             {" "}
             <FaDiscourse /> جلسات بازی{" "}
           </Link>
           <Link
-            href={"/p-admin/tickets"}
-            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
-          >
-            <LuTicketCheck />
-            تیکت ها
-          </Link>
-          <Link
-            href={"/p-admin/comments"}
-            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
-          >
-            {" "}
-            <AiOutlineComment /> کامنت ها{" "}
-          </Link>
-          <Link
-            href={"/p-admin/challenges"}
+            href={"/main-admin/challenge"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
             {" "}
             <GiBattleGear /> چلنج ها{" "}
           </Link>
           <Link
-            href={"/p-admin/editProfile"}
+            href={"/main-admin/tickets"}
+            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+          >
+            {" "}
+            <LuTicketCheck />
+            تیکت ها{" "}
+          </Link>
+          <Link
+            href={"/main-admin/comments"}
+            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+          >
+            {" "}
+             <AiOutlineComment /> کامنت ها
+          </Link>
+          <Link
+            href={"/main-admin/chatRoom"}
+            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+          >
+            {" "}
+              <CiChat1 /> تالار گفتگو
+          </Link>
+          <Link
+            href={"/main-admin/editProfile"}
             className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
           >
             {" "}

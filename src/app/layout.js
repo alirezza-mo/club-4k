@@ -1,6 +1,6 @@
 
 import "./globals.css";
-import { Vazirmatn, Orbitron, Play } from "next/font/google";
+import { Vazirmatn, Orbitron } from "next/font/google";
 
 const vazir = Vazirmatn({
   subsets: ["arabic"],
@@ -17,7 +17,9 @@ const orbitron = Orbitron({
 export const metadata = {
   title: "وبسایت گیم نت 4K",
 };
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+
+
   return (
     <html
       lang="fa"
