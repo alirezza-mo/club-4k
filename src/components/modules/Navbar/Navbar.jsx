@@ -180,7 +180,7 @@ function Navbar() {
             </ul>
           </div>
           <div className="flex items-center gap-5">
-            {/* {user ? (
+            {user ? (
               <Link
                 href={"/p-user"}
                 className="border dark:text-white dark:border-gold border-orange-600 p-1 rounded-lg cursor-pointer transition-all  active:bg-orange-700 active:text-white dark:active:bg-gold dark:active:text-black "
@@ -195,7 +195,7 @@ function Navbar() {
                 {" "}
                 ورود | عضویت{" "}
               </Link>
-            )} */}
+            )}
             <span>
               {isDark ? (
                 <FaSun
