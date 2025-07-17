@@ -87,6 +87,7 @@ export default function Register() {
       !confirmPassword ||
       !selectedOption
     ) {
+      setIsLoading(false)
       return swal({
         title: "اخطار",
         text: "لطفا همه موارد را پر کنید.",
@@ -99,6 +100,7 @@ export default function Register() {
     const isValidPhone = await validatePhone(phone);
 
     if (!isValidPass) {
+      setIsLoading(false)
       return swal({
         title: "اخطار",
         text: "رمز عبور شامل یک حرف بزرک، یک عدد و یک نماد باشد",
@@ -107,6 +109,7 @@ export default function Register() {
       });
     }
     if (!isValidPhone) {
+      setIsLoading(false)
       return swal({
         title: "اخطار",
         text: "شماره ای که وارد کردید صحیح نیست",

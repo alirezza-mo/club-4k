@@ -1,22 +1,24 @@
-// utils/fetchWithRefresh.ts
-export async function fetchWithRefresh(input, init) {
-  let res = await fetch(input, { ...init, credentials: "include" });
+
+export async function fetchWithRefresh(input) {
+
+  let res = await fetch(input, {credentials: "include" });
+  console.log(res);
+  
 
   if (res.status === 401) {
     const refreshRes = await fetch("/api/auth/refresh-token", {
       method: "POST",
       credentials: "include",
     });
-
+    
     if (refreshRes.ok) {
-      res = await fetch(input, { ...init, credentials: "include" });
+      res = await fetch(input, { credentials: "include" });
       return res;
     } 
-    // else {
-    //   window.location.href = "/login"; 
-    //   return null;
-    // }
   }
+
+  console.log(res);
+  
 
   return res;
 }

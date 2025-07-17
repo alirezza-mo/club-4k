@@ -9,12 +9,10 @@ export async function GET() {
   await connectToDb();
 
   const token = (await cookies()).get("accessToken")?.value;
-  // console.log(5 , token);
+  
   if (!token) {
     return NextResponse.json({ message: "access token نیست" }, { status: 401 });
   }
-
-  
 
   const payload = verifyAccessToken(token);
   if (!payload) {
@@ -22,7 +20,6 @@ export async function GET() {
   }
 
   console.log(payload);
-  
 
   const user = await User.findById(payload.id).select("-password");
   if (!user) {
