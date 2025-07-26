@@ -16,7 +16,6 @@ function Navbar() {
   const [isDark, setIsDark] = useState(false);
   const { user, loading } = useUser();
 
-  loading && null;
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -87,22 +86,24 @@ function Navbar() {
             </ul>
           </div>
           <div className=" items-center justify-center gap-5 hidden md:flex">
-            {user ? (
+            {loading ? (
+              <div className="w-20 h-6 bg-gray-300 dark:bg-gray-700 animate-pulse rounded-md" />
+            ) : user ? (
               <Link
-                href={"/p-user"}
-                className="px-2 py-2 dark:bg-gold bg-orange-600  text-gray-100 transition-all cursor-pointer dark:hover:bg-amber-300 hover:bg-red-600 hover:text-white rounded-lg "
+                href={`${user.gameNet ? `/p-admin` : `/p-user`}`}
+                className="px-2 py-2 dark:bg-gold bg-orange-600 text-gray-100 transition-all cursor-pointer dark:hover:bg-amber-300 hover:bg-red-600 hover:text-white rounded-lg"
               >
-                {user.userName}
+                {user.userName || user.gameNet}
               </Link>
             ) : (
               <Link
                 href={"/register"}
-                className="px-2 py-2 dark:bg-gold bg-orange-600  text-gray-100 transition-all cursor-pointer dark:hover:bg-amber-300 hover:bg-red-600 hover:text-white rounded-lg "
+                className="px-2 py-2 dark:bg-gold bg-orange-600 text-gray-100 transition-all cursor-pointer dark:hover:bg-amber-300 hover:bg-red-600 hover:text-white rounded-lg"
               >
-                {" "}
-                ثبت نام | عضویت{" "}
+                ثبت نام | عضویت
               </Link>
             )}
+
             <div className="flex items-center justify-center gap-2 text-black dark:text-white ">
               <span>
                 <CiSearch className="text-3xl transition-all cursor-pointer hover:text-gray-600" />
@@ -180,9 +181,12 @@ function Navbar() {
             </ul>
           </div>
           <div className="flex items-center gap-5">
-            {user ? (
+           
+            {loading ? (
+              <div className="w-20 h-6 bg-gray-300 dark:bg-gray-700 animate-pulse rounded-md" />
+            ) : user ? (
               <Link
-                href={"/p-user"}
+                href={`${user.gameNet ? `/p-admin` : `/p-user`}`}
                 className="border dark:text-white dark:border-gold border-orange-600 p-1 rounded-lg cursor-pointer transition-all  active:bg-orange-700 active:text-white dark:active:bg-gold dark:active:text-black "
               >
                 {user.userName}
@@ -190,12 +194,12 @@ function Navbar() {
             ) : (
               <Link
                 href={"/register"}
-                className="border dark:text-white dark:border-gold border-orange-600 p-1 rounded-lg cursor-pointer transition-all  active:bg-orange-700 active:text-white dark:active:bg-gold dark:active:text-black "
+                className="border dark:text-white dark:border-gold border-orange-600 p-1 rounded-lg cursor-pointer transition-all  active:bg-orange-700 active:text-white dark:active:bg-gold dark:active:text-black"
               >
-                {" "}
-                ورود | عضویت{" "}
+                ثبت نام | عضویت
               </Link>
             )}
+
             <span>
               {isDark ? (
                 <FaSun

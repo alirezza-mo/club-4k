@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 
-function TopBar() {
+function TopBar({userName , gameNet}) {
   const [isDark, setIsDark] = useState();
   const toggleTheme = () => {
     const newTheme = !isDark;
@@ -16,12 +16,13 @@ function TopBar() {
     setIsDark(newTheme);
   };
 
+
   return (
     <>
       <div className="md:flex h-20 px-5 hidden items-center justify-between bg-white dark:bg-gray-800 ">
         <h3 className="text-lg dark:text-white">
           {" "}
-          4K | هخامنش به پنل کاربری خود خوش آمدید 🧡💛{" "}
+          {gameNet} | {userName} به پنل کاربری خود خوش آمدید 🧡💛{" "}
         </h3>
         <button>
           {isDark ? (

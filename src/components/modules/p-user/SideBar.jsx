@@ -11,8 +11,10 @@ import { CiEdit } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import { IoExitOutline } from "react-icons/io5";
 import Link from "next/link";
+import swal from "sweetalert";
+import { redirect } from "next/navigation";
 
-function SideBar() {
+function SideBar({ userName, gameNet }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -30,10 +32,48 @@ function SideBar() {
     setIsDark(newTheme);
   };
 
+  const handleLogout = () => {
+    swal({
+      title: "آیا مطمئنی؟",
+      text: "با این کار از حساب کاربری خارج می‌شوی",
+      icon: "warning",
+      buttons: ["لغو", "خروج"],
+      dangerMode: true,
+    }).then((willLogout) => {
+      if (willLogout) {
+        fetch("/api/auth/signOut", {
+          method: "POST",
+          credentials: "include",
+        })
+          .then((res) => {
+            if (res.ok) {
+              swal("با موفقیت از حساب خارج شدید!", {
+                icon: "success",
+              }).then(() => {
+                redirect("/");
+              });
+            } else {
+              swal("خطایی رخ داد! دوباره تلاش کنید.", {
+                icon: "error",
+              });
+            }
+          })
+          .catch(() => {
+            swal("در ارتباط با سرور مشکلی پیش آمده!", {
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
+
   return (
     <div className="z-50 fixed left-0 right-0 md:bottom-0 top-0 md:w-[20%] h-24 md:min-h-screen flex flex-col items-center p-2 bg-white dark:bg-black md:dark:bg-gray-800 ">
       <div className="w-full md:flex hidden flex-col justify-between items-center gap-2 p-2 bg-orange-500 dark:bg-gold rounded-lg ">
-        <p className="text-lg font-bold text-white "> هخامنش </p>
+        <p className="text-lg font-bold text-white ">
+          {" "}
+          {userName} - {gameNet}{" "}
+        </p>
         <Image
           src={"/images/user.jpg"}
           height={50}
@@ -84,7 +124,10 @@ function SideBar() {
           {" "}
           ویرایش اطلاعات{" "}
         </Link>
-        <button className="text-white text-lg hover:bg-red-500 bg-red-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
+        <button
+          onClick={handleLogout}
+          className="text-white text-lg hover:bg-red-500 bg-red-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end "
+        >
           {" "}
           خروج از حساب{" "}
         </button>
@@ -131,7 +174,10 @@ function SideBar() {
           </button>
         </div>
         <div className="rounded-lg py-7 text-white font-bold dark:bg-gold dark:text-black bg-orange-600 w-full text-center">
-          <h3> هخامنش </h3>
+          <h3>
+            {" "}
+            {userName}-{gameNet}{" "}
+          </h3>
         </div>
         <ul className="flex flex-col items-center justify-center gap-5 w-full mt-10 ">
           <Link
@@ -172,12 +218,18 @@ function SideBar() {
             <AiOutlineComment />
             کامنت ها{" "}
           </Link>
-          <Link href={"/p-user/editprofile"} className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center ">
+          <Link
+            href={"/p-user/editprofile"}
+            className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+          >
             {" "}
             <CiEdit />
             ویرایش اطلاعات{" "}
           </Link>
-          <button className="flex items-center justify-center gap-5 active:bg-red-300 active:text-white text-white text-lg hover:bg-red-300 hover:text-white bg-red-600 rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
+          <button
+            onClick={handleLogout}
+            className="flex items-center justify-center gap-5 active:bg-red-300 active:text-white text-white text-lg hover:bg-red-300 hover:text-white bg-red-600 rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end "
+          >
             {" "}
             <CiLogout />
             خروج از حساب{" "}

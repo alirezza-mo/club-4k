@@ -31,7 +31,7 @@ const schema = mongoose.Schema(
       type: String,
     },
     bio: {
-      Type: String,
+      type: String,
     },
     xp: {
       type: String,
@@ -41,7 +41,7 @@ const schema = mongoose.Schema(
       default: true,
     },
   },
-  { timeStamps: true }
+  { timestamps: true  }
 );
 
 const model = mongoose.models.Users || mongoose.model("Users", schema);

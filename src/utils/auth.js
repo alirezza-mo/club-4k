@@ -1,4 +1,4 @@
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
 
 export const hashedPass = async (password) => {
@@ -24,6 +24,31 @@ export function generateRefreshToken(user) {
     { expiresIn: "15d" }
   );
 }
+export const generateAdminToken = async (admin) => {
+  const token = sign(
+    { id: admin._id, gameNet: admin.gameNet },
+    process.env.ACCESS_SECRET,
+    {
+      expiresIn: "15m",
+    }
+  );
+  return token;
+};
+
+export function generateRefreshAdminToken(admin) {
+  return sign(
+    { id: admin._id, gameNet: admin.gameNet},
+    process.env.REFRESH_SECRET,
+    { expiresIn: "15d" }
+  );
+}
+
+export async function comparePassword (newPassword , oldPassword) {
+  const comparePass = await compare(oldPassword , newPassword)
+  return comparePass
+}
+
+
 
 export function verifyAccessToken(token) {
   return verify(token, process.env.ACCESS_SECRET);

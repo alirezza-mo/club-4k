@@ -81,11 +81,12 @@ export default function Register() {
     setIsLoading(true);
 
     if (
-      !userName ||
+      !userName.trim() ||
       !phone ||
       !password ||
       !confirmPassword ||
-      !selectedOption
+      !selectedOption ||
+      !agreeTerms
     ) {
       setIsLoading(false)
       return swal({
@@ -120,7 +121,7 @@ export default function Register() {
 
     const data = {
       phone,
-      userName,
+      userName ,
     };
 
     const resOtp = await fetch("api/auth/sms/send", {
@@ -245,7 +246,7 @@ export default function Register() {
                       id="username"
                       name="username"
                       value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      onChange={(e) => setUserName(e.target.value.trim())}
                       className="w-full px-4 py-2 border border-gray-600 rounded-lg bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-gold "
                     />
                     {errors.username && (

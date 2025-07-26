@@ -14,9 +14,12 @@ export function useUser() {
         setLoading(false);
         return;
       }
-
+      
+      
       const data = await res.json();
-      setUser(data.user);
+      console.log(data);
+      
+      setUser(data);
       setLoading(false);
     };
 

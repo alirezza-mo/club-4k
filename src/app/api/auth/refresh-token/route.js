@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectToDb from "../../../../../configs/db";
 import { generateToken, verifyRefreshToken } from "@/utils/auth";
 import UsersModel from "../../../../../models/Users";
+import AdminModel from "../../../../../models/Admin";
 
 export async function POST(req) {
   await connectToDb();
@@ -15,26 +16,28 @@ export async function POST(req) {
 
   try {
     const payload = verifyRefreshToken(token);
+    let accessToken = null;
 
     const user = await UsersModel.findOne({ userName: payload.userName });
 
-    if (!user) {
-      return NextResponse.json({ error: "کاربر یافت نشد" }, { status: 404 });
+    if (user) {
+      accessToken = await generateToken(user);
+    } else {
+      const admin = await AdminModel.findOne({ gameNet: payload.gameNet });
+
+      if (admin) {
+        accessToken = await generateToken(admin);
+      } else {
+        return NextResponse.json({ error: "کاربر یا ادمین یافت نشد" }, { status: 404 });
+      }
     }
-
-    const savedUser = await user.save();
-
-    const newAccessToken = await generateToken(savedUser);
 
     const response = NextResponse.json({
       success: true,
       message: "اکسس توکن جدید ساخته شد",
-      user: {
-        id: user._id,
-        userName: user.userName,
-      },
     });
-    response.cookies.set("accessToken", newAccessToken, {
+
+    response.cookies.set("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -43,14 +46,11 @@ export async function POST(req) {
     });
 
     return response;
-    
   } catch (err) {
-    console.log(err);
-
+    console.error("خطا در بررسی توکن:", err);
     return NextResponse.json(
       { error: "توکن نامعتبر است" },
-      { status: 400 },
-      { mse: err }
+      { status: 400 }
     );
   }
 }
