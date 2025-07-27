@@ -1,31 +1,35 @@
-import { NextResponse } from "next/server";
+import { validatePhone } from "@/utils/auth";
 import connectToDb from "../../../../../../configs/db";
+import { NextResponse } from "next/server";
+import UserModel from "../../../../../../models/Users";
 import Otp from "../../../../../../models/Otp";
-import Users from "../../../../../../models/Users";
 import axios from "axios";
 
-export async function POST(req) {
-  await connectToDb();
-
+export const POST = async (req) => {
+  const body = await req.json();
+  const { phone } = body;
   try {
-    const { phone, userName } = await req.json();
-
-    let isExistUser = await Users.findOne({
-      $or: [{ userName }, { phone }],
-    });
-
-    if (isExistUser) {
-      console.log(isExistUser);
+    await connectToDb();
+    const isValidPhone = validatePhone(phone);
+    if (!isValidPhone) {
       return NextResponse.json(
-        { success: false, message: "bad" },
-        { status: 401 }
+        { status: 402 },
+        { msg: "phone in not valid ..." }
       );
     }
-    
+    const user = await UserModel.findOne({ phone });
+   
+    if (!user) {
+     return NextResponse.json(
+        { error: "این نام کاربری وجود ندارد." },
+        { status: 404 }
+      );
+    }
+
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 2 * 60 * 1000); 
+    const expiresAt = new Date(Date.now() + 2 * 60 * 1000);
     await Otp.deleteMany({ phone });
-    await Otp.create({ phone, code, expiresAt })
+    await Otp.create({ phone, code, expiresAt });
 
     await axios.post(
       "https://api.sms.ir/v1/send/verify",
@@ -38,7 +42,7 @@ export async function POST(req) {
         headers: {
           "Content-Type": "application/json",
           Accept: "text/plain",
-          "x-api-key": process.env.SMS_API_KEY, 
+          "x-api-key": process.env.SMS_API_KEY,
         },
       }
     );
@@ -55,4 +59,4 @@ export async function POST(req) {
       { status: 500 }
     );
   }
-}
+};

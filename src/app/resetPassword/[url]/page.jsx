@@ -1,10 +1,10 @@
-import ForgotPassword from '@/components/forgotPassword/ForgotPassword'
+import ResetPassword from '@/components/templates/resetPassword/ResetPassword'
 import React from 'react'
 
 function page() {
   return (
     <div>
-      <ForgotPassword/>
+      <ResetPassword/>
     </div>
   )
 }

@@ -41,7 +41,6 @@ export const POST = async (req) => {
       )
     }
 
-    // چک وجود کاربر
     const isUserExist = await UsersModel.findOne({
       $or: [{ userName }, { phone }],
     });
@@ -52,7 +51,6 @@ export const POST = async (req) => {
       );
     }
 
-    // بررسی کد OTP
     const record = await Otp.findOne({ phone });
     if (!record) {
       return NextResponse.json(
@@ -84,12 +82,9 @@ export const POST = async (req) => {
 
     const savedUser = await user.save();
 
-
-    // تولید توکن‌ها
     const accessToken = await generateToken(savedUser);
     const refreshToken = await generateRefreshToken(savedUser);
 
-    // ساخت پاسخ با کوکی
     const res = NextResponse.json({
       message: "ثبت‌نام موفقیت‌آمیز بود",
       accessToken,
