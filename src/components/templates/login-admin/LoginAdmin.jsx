@@ -90,7 +90,7 @@ function LoginAdmin() {
   return (
     <>
       <main className="flex items-center justify-center  w-full h-screen bg-lime-200">
-        <section className="sm:w-96 sm:h-[450px] w-80 h-96 bg-white rounded-xl flex flex-col items-start gap-3 sm:gap-10 p-3 ">
+        <section className="sm:w-96 sm:h-[550px] w-80 h-[450px] bg-white rounded-xl flex flex-col items-start gap-3 sm:gap-10 p-3 ">
           <h1 className="text-orange-600 text-2xl font-bold"> عضویت ادمین </h1>
           <form onSubmit={handleLogin} className="w-full space-y-4">
             <div className="">
@@ -154,7 +154,7 @@ function LoginAdmin() {
           </form>
           <Link href={"/register-admin"} className=" text-gray-700 underline ">
             {" "}
-            ایجاد حساب کاربری{" "}
+            ایجاد حساب {" "}
           </Link>
           <Link href={"/forget-password"} className=" text-gray-700 underline ">
             {" "}

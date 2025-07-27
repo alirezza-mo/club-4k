@@ -21,7 +21,6 @@ export const POST = async (req) => {
       );
     }
     const admin = await AdminModel.findOne({ $or: [{ phone }, { code }] });
-    console.log(admin);
     
     if (!admin) {
       return Response.json(
