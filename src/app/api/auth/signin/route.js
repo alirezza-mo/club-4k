@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
-import { generateRefreshToken, generateToken, hashedPass, validatePassword, validatePhone } from "@/utils/auth";
+import {
+  generateRefreshToken,
+  generateToken,
+  hashedPass,
+  validatePassword,
+  validatePhone,
+} from "@/utils/auth";
 import connectToDb from "../../../../../configs/db";
 import UsersModel from "../../../../../models/Users";
+import AdminModel from "../../../../../models/Admin";
 import Otp from "../../../../../models/Otp";
 
 export const POST = async (req) => {
@@ -10,40 +17,50 @@ export const POST = async (req) => {
     const body = await req.json();
     const { userName, phone, password, confirmPassword, gameNet, otp } = body;
 
-    // چک فیلدها
+
     if (!userName || !password || !confirmPassword || !phone || !gameNet) {
       return NextResponse.json(
         { error: "لطفاً همه فیلدها را پر کنید" },
         { status: 400 }
       );
     }
-
+    const isAdminExist = await AdminModel.findOne({ phone });
+    if (isAdminExist) {
+      return NextResponse.json(
+        { error: "این شماره قبلا با نقش ادمین وارد شده است." },
+        { status: 411 }
+      );
+    }
     if (password !== confirmPassword) {
       return NextResponse.json(
         { error: "رمز عبور و تکرار آن یکسان نیستند" },
         { status: 401 }
       );
     }
-    
-    const isValidPass = await validatePassword(password)
-    const isValidPhone = await validatePhone(phone)
 
-    if(!isValidPass){
+    const isValidPass = await validatePassword(password);
+    const isValidPhone = await validatePhone(phone);
+
+    if (!isValidPass) {
       return NextResponse.json(
-        {error : "رمز عبور معتبر نیست. باید شامل یک حرف بزرگ انگلیسی، یک عدد و یک نماد باشد."} ,
-        {status : 408}
-      )
+        {
+          error:
+            "رمز عبور معتبر نیست. باید شامل یک حرف بزرگ انگلیسی، یک عدد و یک نماد باشد.",
+        },
+        { status: 408 }
+      );
     }
-    if(!isValidPhone){
+    if (!isValidPhone) {
       return NextResponse.json(
-        {error : "شماره تماس اشتباه است"} ,
-        { status : 407 }
-      )
+        { error: "شماره تماس اشتباه است" },
+        { status: 407 }
+      );
     }
 
     const isUserExist = await UsersModel.findOne({
       $or: [{ userName }, { phone }],
     });
+
     if (isUserExist) {
       return NextResponse.json(
         { error: "این نام کاربری قبلاً استفاده شده است" },
@@ -61,17 +78,13 @@ export const POST = async (req) => {
 
     if (new Date() > record.expiresAt) {
       await Otp.deleteOne({ phone });
-      return NextResponse.json(
-        { error: "کد منقضی شده است" },
-        { status: 405 }
-      );
+      return NextResponse.json({ error: "کد منقضی شده است" }, { status: 405 });
     }
 
     if (record.code !== otp) {
       return NextResponse.json({ error: "کد اشتباه است" }, { status: 406 });
     }
 
-    // ایجاد کاربر جدید
     const hashedPassword = await hashedPass(password);
     const user = await UsersModel.create({
       userName,

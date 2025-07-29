@@ -88,7 +88,7 @@ export default function Register() {
       !selectedOption ||
       !agreeTerms
     ) {
-      setIsLoading(false)
+      setIsLoading(false);
       return swal({
         title: "اخطار",
         text: "لطفا همه موارد را پر کنید.",
@@ -101,7 +101,7 @@ export default function Register() {
     const isValidPhone = await validatePhone(phone);
 
     if (!isValidPass) {
-      setIsLoading(false)
+      setIsLoading(false);
       return swal({
         title: "اخطار",
         text: "رمز عبور شامل یک حرف بزرک، یک عدد و یک نماد باشد",
@@ -110,7 +110,7 @@ export default function Register() {
       });
     }
     if (!isValidPhone) {
-      setIsLoading(false)
+      setIsLoading(false);
       return swal({
         title: "اخطار",
         text: "شماره ای که وارد کردید صحیح نیست",
@@ -121,7 +121,7 @@ export default function Register() {
 
     const data = {
       phone,
-      userName ,
+      userName,
     };
 
     const resOtp = await fetch("api/auth/sms/send", {
@@ -129,6 +129,16 @@ export default function Register() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+
+    if (resOtp.status === 411) {
+      setIsLoading(false);
+      return swal({
+        title: "اخطار",
+        text: " این شماره قبلا با نقش ادمین وارد شده است ، جهت تغییر به مدیریت تیکت دهید. ",
+        icon: "error",
+        button: "باشد",
+      });
+    }
     if (resOtp.status === 401) {
       setIsLoading(false);
       return swal({
@@ -161,6 +171,13 @@ export default function Register() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
+    res.status === 411 &&
+      swal({
+        title: "اخطار",
+        text: " این شماره قبلا با نقش ادمین وارد شده است ، جهت تغییر به مدیریت تیکت دهید. ",
+        icon: "error",
+        button: "باشد",
+      });
     res.status === 410 &&
       swal({
         title: "اخطار",
@@ -254,8 +271,10 @@ export default function Register() {
                         {errors.username}
                       </p>
                     )}
-                    <p className="block my-1 text-gray-400 mb-1 text-xs"> بیشتر از 5 حرف و یک حروف بزرگ و عدد و نماد باشد. </p>
-
+                    <p className="block my-1 text-gray-400 mb-1 text-xs">
+                      {" "}
+                      بیشتر از 5 حرف و یک حروف بزرگ و عدد و نماد باشد.{" "}
+                    </p>
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-gray-300 mb-1">

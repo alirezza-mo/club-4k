@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  validatePassword,
-  validatePhone,
-} from "@/utils/auth";
+import { validatePassword, validatePhone } from "@/utils/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
@@ -29,16 +26,31 @@ function ForgotPassword() {
         button: "باشد",
       });
     }
-    const user = {
+    const role = {
       phone,
     };
     const res = await fetch("/api/auth/forgotPassword/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
+      body: JSON.stringify(role),
     });
     if (res.status === 200 || res.status === 201) {
       setStep(2);
+    }
+    if (res.status === 402) {
+      return swal({
+        title: "اخطار",
+        text: " شماره همراه خالی است یا به درستی وارد نشده است. ",
+        icon: "error",
+        button: "باشد",
+      });
+    } else if (res.status === 404) {
+      return swal({
+        title: "اخطار",
+        text: " کاربری||نقشی یافت نشد . ",
+        icon: "error",
+        button: "باشد",
+      });
     }
   };
 
@@ -56,6 +68,27 @@ function ForgotPassword() {
       });
       if (checkCode.status === 200) {
         setStep(3);
+      } else if (checkCode.status === 410) {
+        return swal({
+          title: "اخطار",
+          text: " عدم ارسال کد به این شماره همراه ",
+          icon: "error",
+          button: "باشد",
+        });
+      } else if (checkCode.status === 405) {
+        return swal({
+          title: "اخطار",
+          text: " کد منقضی شده است، زمان ارسال تا تائید کد 2 دقیقه است. ",
+          icon: "error",
+          button: "باشد",
+        });
+      } else if (checkCode.status === 406) {
+        return swal({
+          title: "اخطار",
+          text: " کد اشتباه است ",
+          icon: "error",
+          button: "باشد",
+        });
       }
     }
   };
@@ -81,16 +114,40 @@ function ForgotPassword() {
       });
     }
     const resetPass = {
-      phone ,
-      password
-    } 
+      phone,
+      password,
+    };
     const res = await fetch("/api/auth/forgotPassword/resetPassword", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(resetPass),
     });
-    
-    res.status === 200 && redirect('/login')
+
+    res.status === 200 && redirect("/login");
+    res.status === 201 && redirect("/login-admin");
+
+    if (res.status === 401) {
+      return swal({
+        title: "اخطار",
+        text: " رمز صحیح نمی باشد.",
+        icon: "error",
+        button: "باشد",
+      });
+    } else if (res.status === 402) {
+      return swal({
+        title: "اخطار",
+        text: " شماره تماس صحیح نیست. ",
+        icon: "error",
+        button: "باشد",
+      });
+    } else if (res.status === 405) {
+      return swal({
+        title: "اخطار",
+        text: " کاربر || نقشی یافت نشد. ",
+        icon: "error",
+        button: "باشد",
+      });
+    }
   };
 
   return (
@@ -168,14 +225,14 @@ function ForgotPassword() {
             {step === 3 && (
               <>
                 <input
-                  type="password"
+                  type="text"
                   placeholder="رمز جدید"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full border p-2 rounded"
                 />
                 <input
-                  type="password"
+                  type="text"
                   placeholder="تکرار رمز جدید"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}

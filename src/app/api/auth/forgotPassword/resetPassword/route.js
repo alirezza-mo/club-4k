@@ -1,5 +1,6 @@
 
 import Users from "../../../../../../models/Users"
+import Admin from "../../../../../../models/Admin"
 import { hashedPass, validatePassword, validatePhone } from "@/utils/auth";
 import connectToDb from "../../../../../../configs/db";
 
@@ -23,14 +24,26 @@ export async function POST(req) {
       { phone },
       { password: hashedPassword }
     );
-    if (!user) {
+    const admin = await Admin.findOneAndUpdate(
+      { phone },
+      { password: hashedPassword }
+    );
+    if (!user && !admin) {
       return Response.json({ message: "کاربری پیدا نشد." }, { status: 405 });
     }
 
-    return Response.json(
+    if(user){
+      return Response.json(
       { message: "رمز جدید با موفقیت ثبت شد." },
       { status: 200 }
     );
+    } else if(admin){
+      return Response.json(
+      { message: "رمز جدید با موفقیت ثبت شد." },
+      { status: 201 }
+    );
+    }
+    
   } catch (err) {
     console.error("ارسال ناموفق:", err?.response?.data || err.message);
     return new NextResponse(

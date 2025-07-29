@@ -59,6 +59,7 @@ function RegisterAdmin() {
     });
     console.log(res);
 
+
     res.status === 400 &&
       swal({
         title: "اخطار",
@@ -91,6 +92,13 @@ function RegisterAdmin() {
       swal({
         title: "اخطار",
         text: "کد های شناسایی مغایرت ندارد.",
+        icon: "error",
+        button: "باشد",
+      });
+      res.status === 411 &&
+      swal({
+        title: "اخطار",
+        text: "این شماره تماس قبلاً با نقش کاربر وارد شده است .",
         icon: "error",
         button: "باشد",
       });

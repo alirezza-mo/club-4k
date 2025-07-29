@@ -2,6 +2,7 @@ import { validatePhone } from "@/utils/auth";
 import connectToDb from "../../../../../../configs/db";
 import { NextResponse } from "next/server";
 import UserModel from "../../../../../../models/Users";
+import AdminModel from "../../../../../../models/Admin"
 import Otp from "../../../../../../models/Otp";
 import axios from "axios";
 
@@ -18,10 +19,11 @@ export const POST = async (req) => {
       );
     }
     const user = await UserModel.findOne({ phone });
-   
-    if (!user) {
-     return NextResponse.json(
-        { error: "این نام کاربری وجود ندارد." },
+    const admin = await AdminModel.findOne({ phone });
+
+    if (!user && !admin) {
+      return NextResponse.json(
+        { error: "این شماره در سامانه ثبت نشده است." },
         { status: 404 }
       );
     }

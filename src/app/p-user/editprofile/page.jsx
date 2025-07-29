@@ -60,7 +60,7 @@ function page() {
     <>
       <Layout>
         <div className='mt-10'>
-          <EditProfileForm user={data} />
+          <EditProfileForm />
         </div>
       </Layout>
     </>

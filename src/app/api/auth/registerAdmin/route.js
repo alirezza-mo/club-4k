@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectToDb from "../../../../../configs/db";
 import { generateAdminToken, generateRefreshAdminToken, hashedPass, validatePassword, validatePhone } from "@/utils/auth";
 import AdminModel from "../../../../../models/Admin";
+import UserModel from "../../../../../models/Users";
 
 export const POST = async (req) => {
   await connectToDb();
@@ -20,11 +21,18 @@ export const POST = async (req) => {
     }
     
     const isAdminExist = await AdminModel.findOne({phone});
+    const isUserExist = await UserModel.findOne({phone});
     
      if (isAdminExist) {
       return NextResponse.json(
         { error: "این شماره تماس قبلاً استفاده شده است" },
         { status: 409 }
+      );
+    }
+    if (isUserExist) {
+      return NextResponse.json(
+        { error: "این شماره تماس قبلاً با نقش کاربر وارد شده است ." },
+        { status: 411 }
       );
     }
 

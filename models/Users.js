@@ -36,6 +36,15 @@ const schema = mongoose.Schema(
     xp: {
       type: String,
     },
+    age : {
+      type: String,
+    } ,
+    firstName : {
+      type: String,
+    } ,
+    lastName : {
+      type: String,
+    } ,
     isActive: {
       type: Boolean,
       default: true,

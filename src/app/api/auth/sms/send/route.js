@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectToDb from "../../../../../../configs/db";
 import Otp from "../../../../../../models/Otp";
 import Users from "../../../../../../models/Users";
+import AdminModel from "../../../../../../models/Admin"
 import axios from "axios";
 
 export async function POST(req) {
@@ -21,11 +22,18 @@ export async function POST(req) {
         { status: 401 }
       );
     }
-    
+    const isAdminExist = await AdminModel.findOne({ phone });
+    if (isAdminExist) {
+      return NextResponse.json(
+        { error: "این شماره قبلا با نقش ادمین وارد شده است." },
+        { status: 411 }
+      );
+    }
+
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 2 * 60 * 1000); 
+    const expiresAt = new Date(Date.now() + 2 * 60 * 1000);
     await Otp.deleteMany({ phone });
-    await Otp.create({ phone, code, expiresAt })
+    await Otp.create({ phone, code, expiresAt });
 
     await axios.post(
       "https://api.sms.ir/v1/send/verify",
@@ -38,7 +46,7 @@ export async function POST(req) {
         headers: {
           "Content-Type": "application/json",
           Accept: "text/plain",
-          "x-api-key": process.env.SMS_API_KEY, 
+          "x-api-key": process.env.SMS_API_KEY,
         },
       }
     );
