@@ -8,7 +8,7 @@ import connectToDb from "../../../../../configs/db";
 async function Comments() {
   await connectToDb();
   const comments = await CommentModel.find()
-    .limit(4)
+    .limit(6)
     .populate("user", "userName")
     .lean();
 

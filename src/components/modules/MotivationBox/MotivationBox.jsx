@@ -3,7 +3,7 @@ import React from "react";
 function MotivationBox({message , userName}) {
   return (
     <>
-      <div className="w-96 h-36 p-3 rounded-lg">
+      <div className="bg-white dark:bg-gray-800 w-96 h-36 p-3 rounded-lg">
         <div className="w-full flex items-center justify-between ">
           <h4 className="text-orange-600 dark:text-gold font-bold "> {userName} </h4>
         </div>

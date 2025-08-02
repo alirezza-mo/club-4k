@@ -2,8 +2,15 @@ import MotivationBox from "@/components/modules/MotivationBox/MotivationBox";
 import Link from "next/link";
 import React from "react";
 import { TbArrowsRandom } from "react-icons/tb";
+import EchoModel from "../../../../../models/Echo";
+import connectToDb from "../../../../../configs/db";
 
-function Motivational() {
+async function Motivational() {
+  await connectToDb();
+  const echos = await EchoModel.find()
+    .limit(6)
+    .populate("user", "userName")
+    .lean();
   return (
     <>
       <section id="ranking" className="mt-20 w-full ">
@@ -22,9 +29,9 @@ function Motivational() {
           </Link>
         </div>
         <div className="mt-14 w-full rounded-lg flex items-center justify-center lg:justify-between gap-5 flex-wrap">
-          <MotivationBox/>
-          <MotivationBox/>
-          <MotivationBox/>
+          {echos.map((echo) => (
+            <MotivationBox key={echo._id} message ={echo.message} userName = {echo.user.userName} />
+          ))}
         </div>
       </section>
     </>
