@@ -14,8 +14,10 @@ import { LuUsers } from "react-icons/lu";
 import { FaDiscourse } from "react-icons/fa6";
 import { GiBattleGear } from "react-icons/gi";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function SideBar() {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -32,6 +34,16 @@ function SideBar() {
     }
     setIsDark(newTheme);
   };
+
+  const handleSignOut = async () => {
+    const res = await fetch("/api/auth/signOutAdmin" , {
+      method : "DELETE"
+    })
+
+    if(res.status === 200 || res.status === 201){
+      router.push("/register-admin")
+    }
+  }
 
   return (
     <div className="z-50 fixed left-0 right-0 md:bottom-0 top-0 md:w-[20%] h-24 md:min-h-screen flex flex-col items-center justify-center p-2 bg-white dark:bg-black md:dark:bg-gray-800 ">
@@ -88,7 +100,7 @@ function SideBar() {
           چلنج ها{" "}
         </Link>
         
-        <button className="text-white text-lg hover:bg-red-500 bg-red-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
+        <button onClick={handleSignOut} className="text-white text-lg hover:bg-red-500 bg-red-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
           {" "}
           خروج از حساب{" "}
         </button>
@@ -194,7 +206,7 @@ function SideBar() {
           {" "}
           ویرایش اطلاعات{" "}
           </Link>
-          <button className="flex items-center justify-center gap-5 active:bg-red-300 active:text-white text-white text-lg hover:bg-red-300 hover:text-white bg-red-600 rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
+          <button onClick={handleSignOut} className="flex items-center justify-center gap-5 active:bg-red-300 active:text-white text-white text-lg hover:bg-red-300 hover:text-white bg-red-600 rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
             {" "}
             <CiLogout />
             خروج از حساب{" "}

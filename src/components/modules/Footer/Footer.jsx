@@ -3,7 +3,7 @@ import { FaInstagram, FaTelegram, FaDiscord, FaYoutube, FaWhatsapp } from 'react
 
 export default function Footer() {
   return (
-    <footer className="dark:bg-gray-800 dark:text-white bg-white  text-gray-700 py-12">
+    <footer className="dark:bg-gray-800 dark:text-white bg-white  text-gray-700 py-12 relative bottom-0">
       <div className=" mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
          

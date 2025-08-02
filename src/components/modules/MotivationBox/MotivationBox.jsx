@@ -1,19 +1,15 @@
 import React from "react";
 
-function MotivationBox() {
+function MotivationBox({message , userName}) {
   return (
     <>
-      <div className="w-96 h-36 p-3 dark:bg-gold bg-orange-600 rounded-lg">
+      <div className="w-96 h-36 p-3 rounded-lg">
         <div className="w-full flex items-center justify-between ">
-          <h4 className=" font-bold dark:text-black text-white "> احمد اسموک </h4>
-          <h5 className=" text-sm text-gray-300 dark:text-gray-200 ">
-            {" "}
-            1 آذر 1404{" "}
-          </h5>
+          <h4 className="text-orange-600 dark:text-gold font-bold "> {userName} </h4>
         </div>
         <div className=" mt-4 ">
-          <h4 className=" w-full h-20 p-1 text-wrap truncate dark:text-black text-white ">
-            هر شکست، قدمی به سوی پیروزی است.
+          <h4 className=" w-full h-20 p-1 break-words whitespace-pre-wrap text-gray-500 ">
+            {message}
           </h4>
         </div>
       </div>

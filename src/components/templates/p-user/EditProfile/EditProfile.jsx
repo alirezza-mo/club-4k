@@ -1,8 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 import swal from "sweetalert";
 
 export default function EditProfileForm() {
@@ -20,11 +19,12 @@ export default function EditProfileForm() {
 
   const validateForm = () => {
     if (bio.length > 150) {
-      toast.error("بیو حداکثر ۱۵۰ کاراکتر می‌تواند باشد");
-      return false;
-    }
-    if (age && (age < 13 || age > 100)) {
-      toast.error("سن باید بین ۱۳ تا ۱۰۰ باشد");
+       swal({
+          title: "❌",
+          text: "بیو حداکثر ۱۵۰ کاراکتر می‌تواند باشد",
+          icon: "error",
+          button: "باشد",
+        });
       return false;
     }
     return true;
@@ -35,7 +35,12 @@ export default function EditProfileForm() {
     if (!file) return;
 
     if (!["image/jpeg", "image/png"].includes(file.type)) {
-      toast.error("فایل باید JPG یا PNG باشد");
+      swal({
+          title: "❌",
+          text: "فایل باید JPG یا PNG باشد",
+          icon: "error",
+          button: "باشد",
+        });
       return;
     }
 
@@ -72,24 +77,24 @@ export default function EditProfileForm() {
       const data = await res.json();
       const idUser = data.savedUser._id;
 
-      if (!res.ok) throw new Error(data.message || "خطا در ذخیره اطلاعات")
+      if (!res.ok) throw new Error(data.message || "خطا در ذخیره اطلاعات");
 
-        if( res.status ===401 ){
-          swal({
+      if (res.status === 401) {
+        swal({
           title: "اخطار",
           text: "توکنی ارسال نشد",
           icon: "error",
           button: "باشد",
         });
-        }
-        if( res.status ===404 ){
-          swal({
+      }
+      if (res.status === 404) {
+        swal({
           title: "اخطار",
           text: "کاربری یافت نشد",
           icon: "error",
           button: "باشد",
         });
-        }
+      }
 
       if (res.status === 200 || res.status === 201) {
         swal({
@@ -101,94 +106,163 @@ export default function EditProfileForm() {
         router.push(`/profile/${idUser}`);
       }
     } catch (err) {
-      toast.error(err.message);
+      swal({
+        title: "اخطار",
+        text: err.message,
+        icon: "error",
+        button: "باشد",
+      });
     }
   };
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || "خطا در دریافت اطلاعات");
+
+        setBio(data.bio || "");
+        setFirstName(data.firstName || "");
+        setLastName(data.lastName || "");
+        setAge(data.age || "");
+
+        setAvatarPreview(
+          data.avatar ? `${process.env.GET_LIARA}/${data.avatar}` : ""
+        );
+        setCoverPhotoPreview(
+          data.profile ? `${process.env.GET_LIARA}/${data.profile}` : ""
+        );
+      } catch (err) {
+        swal({
+          title: "❌",
+          text: "خطا در بارگذاری اطلاعات کاربر",
+          icon: "error",
+          button: "باشد",
+        }); 
+        
+        console.error(err);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl mx-auto p-6 bg-white shadow-xl rounded-2xl space-y-8"
+    >
       {/* Cover Photo */}
-      <div>
-        <label className="block mb-1 font-semibold">تصویر کاور</label>
-        <input
-          type="file"
-          accept="image/jpeg,image/png"
-          onChange={(e) =>
-            handleImageChange(e, setCoverPhoto, setCoverPhotoPreview)
-          }
-          className="mb-2"
-          aria-label="آپلود تصویر کاور"
-        />
-        {coverPhotoPreview && (
-          <img
-            src={coverPhotoPreview}
-            alt="پیش‌نمایش کاور"
-            className="w-full h-40 object-cover rounded-md"
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-gray-700">
+          تصویر کاور
+        </label>
+        <div className="relative rounded-xl overflow-hidden border border-dashed border-gray-300 hover:border-orange-500 transition duration-300">
+          <input
+            type="file"
+            accept="image/jpeg,image/png"
+            onChange={(e) =>
+              handleImageChange(e, setCoverPhoto, setCoverPhotoPreview)
+            }
+            className="absolute inset-0 opacity-0 cursor-pointer z-10"
+            aria-label="آپلود تصویر کاور"
           />
-        )}
+          {coverPhotoPreview ? (
+            <img
+              src={coverPhotoPreview}
+              alt="پیش‌نمایش کاور"
+              className="w-full h-48 object-cover transition-all duration-300 ease-in-out"
+            />
+          ) : (
+            <div className="h-48 flex items-center justify-center text-gray-400">
+              انتخاب تصویر کاور
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Avatar */}
-      <div>
-        <label className="block mb-1 font-semibold">آواتار</label>
-        <input
-          type="file"
-          accept="image/jpeg,image/png"
-          onChange={(e) => handleImageChange(e, setAvatar, setAvatarPreview)}
-          className="mb-2"
-          aria-label="آپلود آواتار"
-        />
-        {avatarPreview && (
-          <img
-            src={avatarPreview}
-            alt="پیش‌نمایش آواتار"
-            className="w-24 h-24 object-cover rounded-full"
-          />
-        )}
+      <div className="space-y-2">
+        <label className="text-sm font-semibold text-gray-700">آواتار</label>
+        <div className="flex items-center gap-4">
+          <div className="relative w-24 h-24 rounded-full border-2 border-gray-300 shadow-md overflow-hidden">
+            <input
+              type="file"
+              accept="image/jpeg,image/png"
+              onChange={(e) =>
+                handleImageChange(e, setAvatar, setAvatarPreview)
+              }
+              className="absolute inset-0 opacity-0 cursor-pointer z-10"
+              aria-label="آپلود آواتار"
+            />
+            {avatarPreview ? (
+              <img
+                src={avatarPreview}
+                alt="آواتار"
+                className="w-full h-full object-cover transition-all duration-300"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-400">
+                انتخاب آواتار
+              </div>
+            )}
+          </div>
+          <span className="text-sm text-gray-500">
+            حداکثر ۲ مگابایت - PNG/JPG
+          </span>
+        </div>
       </div>
 
+      {/* Bio */}
       <div>
-        <label className="block mb-1 font-semibold">بیو</label>
+        <label className="text-sm font-semibold text-gray-700 mb-1 block">
+          بیو
+        </label>
         <textarea
           value={bio}
           onChange={(e) => setBio(e.target.value)}
           placeholder="بیو (حداکثر ۱۵۰ کاراکتر)"
-          className="w-full p-2 border rounded"
-          rows={4}
           maxLength={150}
-          aria-label="بیو"
+          rows={4}
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
         />
       </div>
 
       {/* First Name */}
       <div>
-        <label className="block mb-1 font-semibold">نام</label>
+        <label className="text-sm font-semibold text-gray-700 mb-1 block">
+          نام
+        </label>
         <input
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           placeholder="نام"
-          className="w-full p-2 border rounded"
-          aria-label="نام"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
         />
       </div>
 
       {/* Last Name */}
       <div>
-        <label className="block mb-1 font-semibold">نام خانوادگی</label>
+        <label className="text-sm font-semibold text-gray-700 mb-1 block">
+          نام خانوادگی
+        </label>
         <input
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           placeholder="نام خانوادگی"
-          className="w-full p-2 border rounded"
-          aria-label="نام خانوادگی"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
         />
       </div>
 
       {/* Age */}
       <div>
-        <label className="block mb-1 font-semibold">سن</label>
+        <label className="text-sm font-semibold text-gray-700 mb-1 block">
+          سن
+        </label>
         <input
           type="number"
           value={age}
@@ -196,16 +270,14 @@ export default function EditProfileForm() {
           placeholder="سن"
           min="13"
           max="100"
-          className="w-full p-2 border rounded"
-          aria-label="سن"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
         />
       </div>
 
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-orange-600 text-white p-3 rounded hover:bg-orange-700 transition"
-        aria-label="ذخیره تغییرات"
+        className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-xl text-lg font-semibold hover:shadow-lg transition duration-300"
       >
         ذخیره تغییرات
       </button>

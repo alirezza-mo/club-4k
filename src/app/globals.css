@@ -7,10 +7,7 @@
 @theme {
   --font-vazir: 'var(--font-vazir)'
 }
-@theme {
-  
-  --font-orbitron : 'var(--font-orbitron)'
-}
+
 @theme {
   /* --color-gold : #ccac00 */
   --color-gold : #ae8625

@@ -1,6 +1,6 @@
 
 import "./globals.css";
-import { Vazirmatn, Orbitron } from "next/font/google";
+import { Vazirmatn } from "next/font/google";
 
 const vazir = Vazirmatn({
   subsets: ["arabic"],
@@ -8,12 +8,7 @@ const vazir = Vazirmatn({
   variable: "--font-vazir",
   display: "swap",
 });
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-orbitron",
-  display: "swap",
-});
+
 export const metadata = {
   title: "وبسایت گیم نت 4K",
 };
@@ -24,7 +19,7 @@ export default async function RootLayout({ children }) {
     <html
       lang="fa"
       dir="rtl"
-      className={` ${vazir.variable} ${orbitron.variable} font-sans  scroll-smooth `}
+      className={` ${vazir.variable} font-sans  scroll-smooth `}
     >
       {/* <ThemeScript> */}
       <body className="font-vazir">{children}</body>

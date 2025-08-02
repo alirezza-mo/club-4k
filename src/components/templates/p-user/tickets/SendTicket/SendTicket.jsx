@@ -3,28 +3,42 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaUpload } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function SupportTicketForm() {
-  const [form, setForm] = useState({
-    subject: "",
-    category: "",
-    message: "",
-    file: null,
-  });
+  const [title , setTitle] = useState("")
+  const [department , setDepartment] = useState("")
+  const [body , setBody] = useState("")
+  const [priority , setPriority] = useState(1) 
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "file") {
-      setForm({ ...form, file: files[0] });
-    } else {
-      setForm({ ...form, [name]: value });
-    }  
-  };
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
-    // ارسال داده‌ها به سرور
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/ticket", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (res.ok) {
+        router.push("/p-user/tickets");
+      } else {
+        alert("خطا در ارسال تیکت");
+      }
+    } catch (err) {
+      alert("مشکلی پیش آمده");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,6 +52,7 @@ export default function SupportTicketForm() {
             بازگشت به تیکت‌ها
           </Link>
         </div>
+
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* انتخاب دسته‌بندی */}
           <div>
@@ -45,10 +60,11 @@ export default function SupportTicketForm() {
               دسته‌بندی تیکت:
             </label>
             <select
-              name="category"
-              value={form.category}
-              onChange={handleChange}
-              className="w-full bg-gray-100 dark:bg-zinc-800 border border-orange-400 dark:border-yellow-400 text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-yellow-400"
+              name="department"
+              value={department}
+              onChange={e => setDepartment(e.target.value)}
+              required
+              className="w-full bg-gray-100 dark:bg-zinc-800 border border-orange-400 dark:border-yellow-400 text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2"
             >
               <option value="">انتخاب دسته‌بندی</option>
               <option value="مالی">مالی</option>
@@ -64,11 +80,12 @@ export default function SupportTicketForm() {
             </label>
             <input
               type="text"
-              name="subject"
-              value={form.subject}
-              onChange={handleChange}
+              name="title"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              required
               placeholder="مثال: مشکل در پرداخت"
-              className="w-full bg-gray-100 dark:bg-zinc-800 border border-orange-600 dark:border-gold text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-yellow-400"
+              className="w-full bg-gray-100 dark:bg-zinc-800 border border-orange-600 dark:border-gold text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2"
             />
           </div>
 
@@ -78,33 +95,41 @@ export default function SupportTicketForm() {
               متن تیکت:
             </label>
             <textarea
-              name="message"
-              value={form.message}
-              onChange={handleChange}
+              name="body"
+              value={body}
+              onChange={e => setBody(e.target.value)}
+              required
               rows="6"
               placeholder="متن پیام خود را وارد کنید..."
-              className="w-full bg-gray-100 dark:bg-zinc-800 border border-orange-600 dark:border-gold text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-yellow-400"
+              className="w-full bg-gray-100 dark:bg-zinc-800 border border-orange-600 dark:border-gold text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2 resize-none"
             ></textarea>
           </div>
 
-          {/* فایل پیوست */}
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <label className="flex items-center gap-2 text-green-600 dark:text-gold cursor-pointer hover:text-green-700 dark:hover:text-yellow-400 transition">
-              <FaUpload />
-              <span>آپلود پیوست</span>
-              <input
-                type="file"
-                name="file"
-                onChange={handleChange}
-                className="hidden"
-              />
+          {/* اولویت */}
+          <div>
+            <label className="block text-gray-700 dark:text-gray-300 mb-2">
+              اولویت:
             </label>
+            <select
+              name="priority"
+              value={priority}
+              onChange={e => setPriority(e.target.value)}
+              className="w-full bg-gray-100 dark:bg-zinc-800 border border-orange-400 dark:border-yellow-400 text-gray-800 dark:text-gray-200 rounded-lg px-4 py-2"
+            >
+              <option value={1}>کم</option>
+              <option value={2}>متوسط</option>
+              <option value={3}>زیاد</option>
+            </select>
+          </div>
 
+          {/* دکمه ارسال */}
+          <div className="flex justify-end">
             <button
               type="submit"
-              className="bg-green-600 text-white dark:text-gray-900 dark:bg-gold hover:bg-green-700 dark:hover:bg-yellow-500 transition px-5 py-2 rounded-lg"
+              disabled={loading}
+              className="bg-green-600 text-white hover:bg-green-700 px-6 py-2 rounded-lg disabled:opacity-50"
             >
-              ارسال تیکت
+              {loading ? "در حال ارسال..." : "ارسال تیکت"}
             </button>
           </div>
         </form>
