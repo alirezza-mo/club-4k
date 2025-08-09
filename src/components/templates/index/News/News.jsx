@@ -27,8 +27,8 @@ async function News() {
   const payload = validToken?.payload;
 
   const role =
-    (await AdminModel.findById(payload.id)) ||
-    (await UserModel.findById(payload.id));
+    (await AdminModel.findById(payload?.id)) ||
+    (await UserModel.findById(payload?.id));
   return (
     <>
       <section className="mt-20 w-full ">
