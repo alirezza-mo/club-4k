@@ -34,7 +34,7 @@ function Messages({ gameNetName, gameNet, userName }) {
                   className="self-start max-w-[70%] dark:bg-gold dark:text-black bg-rose-600 text-white rounded-xl p-2 flex flex-col"
                 >
                   <Link
-                    href={userName && `/profile/${message.sender._id}`}
+                    href={`/profile/${message.sender._id}`}
                     className="text-xs dark:text-gray-700 text-gray-300 self-start"
                   >
                     {message.sender.userName
@@ -74,7 +74,7 @@ function Messages({ gameNetName, gameNet, userName }) {
                 className="self-end max-w-[70%] dark:bg-gray-800 dark:text-gray-300 bg-gray-300 text-black rounded-xl p-2 flex flex-col"
               >
                 <Link
-                  href={userName && `/profile/${message.sender._id}`}
+                  href={`/profile/${message.sender._id}`}
                   className="text-xs dark:text-gray-700 text-gray-500 self-start"
                 >
                   {message.sender.userName
@@ -93,6 +93,7 @@ function Messages({ gameNetName, gameNet, userName }) {
       ) : (
         <div className="w-full h-[500px] flex flex-col-reverse gap-2 p-2 overflow-y-auto scroll-box">
           {messages?.map((message) => {
+            
             if (
               message.senderModel === "Users" &&
               message.sender.userName === userName
@@ -103,7 +104,7 @@ function Messages({ gameNetName, gameNet, userName }) {
                   className="self-start max-w-[70%] dark:bg-gold dark:text-black bg-rose-600 text-white rounded-xl p-2 flex flex-col"
                 >
                   <Link
-                    href={userName && `/profile/${message.sender._id}`}
+                    href={`/profile/${message.sender._id}`}
                     className="text-xs dark:text-gray-700 text-gray-300 self-start"
                   >
                     {message.sender.userName
@@ -142,8 +143,9 @@ function Messages({ gameNetName, gameNet, userName }) {
                 key={message._id}
                 className="self-end max-w-[70%] dark:bg-gray-800 dark:text-gray-300 bg-gray-300 text-black rounded-xl p-2 flex flex-col"
               >
+               
                 <Link
-                  href={userName && `/profile/${message.sender._id}`}
+                  href={`/profile/${message.sender._id}`}
                   className="text-xs dark:text-gray-700 text-gray-500 self-start"
                 >
                   {message.sender.userName
