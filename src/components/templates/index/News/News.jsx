@@ -22,8 +22,9 @@ async function News() {
     .populate("admin", "gameNet")
     .lean();
 
-  const token = await cookies().get("accessToken")?.value;
-  const { payload } = await getValidAccessToken()
+  const validToken = await getValidAccessToken();
+
+  const payload = validToken?.payload;
 
   const role =
     (await AdminModel.findById(payload.id)) ||
