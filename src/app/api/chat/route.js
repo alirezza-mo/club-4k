@@ -69,7 +69,7 @@ export async function POST(req) {
 export async function GET() {
   try {
     await connectToDb();
-    const messages = await ChatModel.find({}).populate('sender', 'userName gameNet role').sort({ createdAt: -1 });
+    const messages = await ChatModel.find({}).populate('sender', 'userName gameNet role').sort({ createdAt: - 1 });
     console.log(messages);
     
     return NextResponse.json({ messages }, { status: 200 });

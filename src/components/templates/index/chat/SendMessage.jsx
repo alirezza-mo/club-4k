@@ -1,8 +1,10 @@
 "use client";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import swal from "sweetalert";
 
 function SendMessage() {
+  const route = useRouter()
   const [message, setMessage] = useState("");
   const handleSend = async () => {
     if(!message.trim()) {
@@ -18,7 +20,14 @@ function SendMessage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({message}),
     })
-    res.status === 200 && setMessage("")
+    res.status === 400 && swal({
+        title: "اخطار",
+        text: " بدون وارد کردن کاراکتر خاص",
+        icon: "error",
+        button: "باشد",
+      })
+      res.status === 404 && route.push("/register")
+    res.status === 201 && setMessage("")
     setMessage("")
   }
   return (
