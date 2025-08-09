@@ -14,7 +14,9 @@ import { LuUsers } from "react-icons/lu";
 import { FaDiscourse } from "react-icons/fa6";
 import { GiBattleGear } from "react-icons/gi";
 import Link from "next/link";
+import { FaRegNewspaper } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+
 
 function SideBar() {
   const router = useRouter()
@@ -98,6 +100,14 @@ function SideBar() {
           <GiBattleGear />
           {" "}
           چلنج ها{" "}
+        </Link>
+        <Link
+          href={"/p-admin/news"}
+          className="flex items-center justify-center gap-5 dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-lg hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+        >
+          <FaRegNewspaper />
+          {" "}
+          اخبار {" "}
         </Link>
         
         <button onClick={handleSignOut} className="text-white text-lg hover:bg-red-500 bg-red-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center justify-self-end ">
@@ -199,6 +209,12 @@ function SideBar() {
             <GiBattleGear />
           {" "}
           چلنج ها{" "}
+          </Link>
+          <Link href={"/p-admin/news"} className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center ">
+            {" "}
+            <FaRegNewspaper />
+          {" "}
+           اخبار{" "}
           </Link>
           <Link href={"/p-admin/editProfile"} className="flex items-center justify-center gap-5 active:bg-orange-600 active:text-white dark:active:bg-gold dark:active:text-black dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-base hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center ">
             {" "}

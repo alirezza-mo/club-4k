@@ -12,7 +12,7 @@ async function Comment({userName , date , message}) {
           <h5 className=' text-sm text-orange-700 dark:text-gold '> {new Date(date).toLocaleString("fa-IR")} </h5> 
         </div>
         <div className=' mt-4 '>
-          <h4 className='w-full h-20 text-wrap truncate dark:text-white '> {message} </h4>
+          <h4 className='w-full h-20 break-words whitespace-pre-wrap dark:text-white '> {message} </h4>
         </div>
       </div>
     </>

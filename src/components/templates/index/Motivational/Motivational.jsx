@@ -30,7 +30,7 @@ async function Motivational() {
         </div>
         <div className="mt-14 w-full rounded-lg flex items-center justify-center lg:justify-between gap-5 flex-wrap">
           {echos.map((echo) => (
-            <MotivationBox key={echo._id} message ={echo.message} userName = {echo.user.userName} />
+            <MotivationBox key={echo._id} message ={echo.message} userName = {echo.user?.userName} />
           ))}
         </div>
       </section>

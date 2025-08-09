@@ -4,7 +4,7 @@ const nextConfig = {
     domains: ['bucket-club.storage.c2.liara.space'],
   },
   env : {
-      GET_LIARA : process.env.GET_LIARA
+      GET_LIARA : process.env.GET_LIARA 
   }
 } ;
 

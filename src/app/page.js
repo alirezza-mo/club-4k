@@ -1,6 +1,7 @@
 import Footer from "@/components/modules/Footer/Footer";
 import Navbar from "@/components/modules/Navbar/Navbar";
 import Challenge from "@/components/templates/index/Challenge/Challenge";
+import Chat from "@/components/templates/index/chat/Chat";
 import Comments from "@/components/templates/index/Comments/Comments";
 import Gallery from "@/components/templates/index/Gallery/Gallery";
 import Header from "@/components/templates/index/Header/Header";
@@ -12,6 +13,7 @@ import Ranking from "@/components/templates/index/Ranking/Ranking";
 
 
 export default function Home() {
+
   return (
    <>
     <main className="relative flex flex-col items-center bg-lime-100 dark:bg-black/95" >
@@ -21,6 +23,7 @@ export default function Home() {
         <Leaderboard/>
         <Ranking/>
         <Challenge/>
+        <Chat/>
         <Gallery/>
         <News/>
         <Motivational/>

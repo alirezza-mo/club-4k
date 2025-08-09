@@ -58,6 +58,15 @@ export function verifyRefreshToken(token) {
   return verify(token, process.env.REFRESH_SECRET);
 }
 
+export function verifyAdminAccessToken(token) {
+  return verify(token, process.env.ACCESS_SECRET);
+}
+
+export function verifyAdminRefreshToken(token) {
+  return verify(token, process.env.REFRESH_SECRET);
+}
+
+
 export const validatePhone = (phone) => {
   const pattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
   return pattern.test(phone);

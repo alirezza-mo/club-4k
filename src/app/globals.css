@@ -81,3 +81,12 @@ html.dark * {
 #sidebar-toggle:checked ~ .sidebar {
   transform: translateX(0);
 }
+.scroll-box {
+  scrollbar-width: thin;
+  scrollbar-color: #acacac #e5e5e5;
+}
+.scroll-box-dark {
+  scrollbar-width: thin;
+  scrollbar-color: #202020 #2e2e2e;
+}
+

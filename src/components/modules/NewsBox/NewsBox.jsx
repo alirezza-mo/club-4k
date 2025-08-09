@@ -1,42 +1,47 @@
 import Image from "next/image";
 import React from "react";
 
-function NewsBox() {
+function NewsBox({ content, publishedAt, image }) {
   return (
-    <>
-      <div className="cursor-pointer dark:active:bg-yellow-200 active:bg-orange-300 sm:flex md:w-[300px] md:h-[200px] lg:w-[400px] lg:h-[200px] xl:w-[550px] xl:h-[240px] rounded-3xl dark:bg-gray-900 bg-white  transition-all dark:hover:bg-yellow-200 hover:bg-orange-300 ">
-        <div className="flex justify-center items-center p-2">
+    <div className="cursor-pointer w-full max-w-[600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-3xl dark:bg-gray-900 bg-white transition-all hover:bg-orange-100 dark:hover:bg-yellow-200">
+      {/* تصویر */}
+      {image && (
+        <div className="flex-shrink-0 w-full sm:w-1/3 flex justify-center">
           <Image
-            src={"/images/news.png"}
-            width={280}
-            height={240}
-            alt="#blog"
-            className="rounded-2xl md:h-44 mx-auto lg:h-[220px] "
+            src={`${process.env.GET_LIARA}/${image}`}
+            width={120}
+            height={120}
+            alt="news image"
+            className="rounded-2xl object-contain max-h-[120px]"
           />
         </div>
-        <div className="flex flex-col gap-1 p-1  md:gap-5 md:p-2 xl:gap-5 xl:p-7 lg:gap-3 lg:p-5">
-          <div className="flex items-center justify-center  gap-2">
-            <span className="text-xs text-indigo-500 bg-indigo-700/10 backdrop-blur-md px-2 sm:px-5 py-1 rounded-xl ">
-              {" "}
-              اخبار{" "}
-            </span>
-            <span className="text-xs  text-indigo-500 bg-indigo-600/10 backdrop-blur-md px-2 sm:px-5 py-1 rounded-xl ">
-              {" "}
-              رقابت{" "}
-            </span>
-          </div>
-          <p className="text-center text-xs lg:text-lg text-black dark:text-gray-400 ">
-            {" "}
-            رکورد بیشترین باخت متوالی توسط علی ملتفت{" "}
-          </p>
-          <button className="sm:block hidden bg-gray-300 rounded-xl text-sm dark:bg-gray-700 dark:text-white px-5 py-2 cursor-pointer">
-            {" "}
-            مشاهده خبر{" "}
-          </button>
+      )}
+
+      {/* محتوا */}
+      <div className={`flex flex-col justify-between gap-2 w-full ${!image ? "text-center" : ""}`}>
+        {/* تگ‌ها */}
+        <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+          <span className="text-xs text-indigo-500 bg-indigo-700/10 px-3 py-1 rounded-xl">
+            اخبار
+          </span>
+          <span className="text-xs text-indigo-500 bg-indigo-600/10 px-3 py-1 rounded-xl">
+            رقابت
+          </span>
+        </div>
+
+        {/* متن خبر */}
+        <p className="text-sm text-black dark:text-gray-300 leading-6 line-clamp-4">
+          {content}
+        </p>
+
+        {/* تاریخ */}
+        <div className="bg-gray-200 dark:bg-gray-700 text-xs text-center text-gray-800 dark:text-white rounded-xl px-4 py-1 w-fit mx-auto sm:mx-0">
+          {new Date(publishedAt).toLocaleString("fa-IR")}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 export default NewsBox;
+  

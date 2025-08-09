@@ -33,7 +33,7 @@ async function Comments() {
           {comments.map((comment) => (
             <Comment
               key={comment._id}
-              userName={comment.user.userName}
+              userName={comment.user?.userName}
               date={comment.createdAt}
               message={comment.message}
             />
