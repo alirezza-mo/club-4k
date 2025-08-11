@@ -18,7 +18,6 @@ export function useUser() {
       setUser(data);
       setLoading(false);
     };
-    setLoading(false);
     loadUser();
   }, []);
 

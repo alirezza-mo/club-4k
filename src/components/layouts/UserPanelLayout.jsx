@@ -8,12 +8,13 @@
   import { redirect } from "next/navigation";
 
   async function Layout({ children }) {
+
     await connectToDb();
 
-    const token = cookies().get("accessToken")?.value;
+    const token = await cookies().get("accessToken")?.value;
 
     if (!token) {
-      redirect("/login");
+      redirect("/");
     }
 
     let user = null;

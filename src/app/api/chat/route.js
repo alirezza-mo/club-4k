@@ -66,12 +66,20 @@ export async function POST(req) {
     return NextResponse.json({ message: "خطای سرور" }, { status: 500 });
   }
 }
-export async function GET() {
+export async function GET(req) {
   try {
     await connectToDb();
-    const messages = await ChatModel.find({}).populate('sender', 'userName gameNet role').sort({ createdAt: - 1 });
-    console.log(messages);
-    
+    const { searchParams } = new URL(req.url);
+    const roomId = searchParams.get("roomId");
+    const skip = parseInt(searchParams.get("skip")) || 0;
+    const limit = parseInt(searchParams.get("limit")) || 20;
+
+    const messages = await ChatModel.find({roomId})
+      .populate("sender", "userName gameNet role")
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
     return NextResponse.json({ messages }, { status: 200 });
   } catch (err) {
     console.log(err);

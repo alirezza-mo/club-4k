@@ -1,12 +1,13 @@
 "use client";
 import { validatePassword, validatePhone } from "@/utils/auth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import swal from "sweetalert";
-import { redirect } from "next/navigation";
 
 function Login() {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -55,13 +56,11 @@ function Login() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
-    res.status === 200 && redirect ("/p-user")
-      swal({
-        title: "اخطار",
-        text: "همه موارد را خالی نگذارید",
-        icon: "success",
-        button: "باشد",
-      });
+    console.log(res);
+    
+    if(res.status === 200 || res.status === 201){
+       router.push("/p-user")
+    }
 
     setIsLoading(false);
 

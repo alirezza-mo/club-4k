@@ -8,7 +8,6 @@ import UserModel from "../../../../../models/Users";
 import connectToDb from "../../../../../configs/db";
 import { cookies } from "next/headers";
 import { verifyAccessToken } from "@/utils/auth";
-import { getValidAccessToken } from "@/utils/tokenHandler";
 
 async function News() {
   await connectToDb();
@@ -22,9 +21,9 @@ async function News() {
     .populate("admin", "gameNet")
     .lean();
 
-  const validToken = await getValidAccessToken();
 
-  const payload = validToken?.payload;
+  const token = (await cookies()).get("accessToken")?.value
+  const payload = await verifyAccessToken(token);
 
   const role =
     (await AdminModel.findById(payload?.id)) ||
