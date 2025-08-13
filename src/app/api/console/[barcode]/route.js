@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import connectToDb from "../../../../../../configs/db";
-import Console from "../../../../../../models/Console";
-import GameSession from "../../../../../../models/GameSession";
+import Console from "../../../../../models/Console";
+import GameSession from "../../../../../models/GameSession";
+import connectToDb from "../../../../../configs/db";
 
 export async function GET(req, { params }) {
   try {
