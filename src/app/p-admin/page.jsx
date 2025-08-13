@@ -41,6 +41,8 @@ async function page() {
       </Layout>
     </>
   );
+
 }
 
 export default page;
+
