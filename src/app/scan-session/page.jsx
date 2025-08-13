@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import { useRouter } from "next/navigation";
 import { fetchWithRefresh } from "@/utils/getAccessToken";
+import Swal from "sweetalert";
+import { getCurrentUserId } from "@/utils/getAccessToken";
 
 export default function ScanSessionPage() {
   const router = useRouter();
@@ -18,8 +20,32 @@ export default function ScanSessionPage() {
   const [isScanning, setIsScanning] = useState(false);
   const [showPermissionModal, setShowPermissionModal] = useState(false);
   const [manualBarcode, setManualBarcode] = useState("");
+  const [timer, setTimer] = useState(0);
+  const [player1, setPlayer1] = useState(null);
+  const [player2, setPlayer2] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   const lastScanRef = useRef({ value: null, at: 0 });
+
+  // گرفتن userId کاربر فعلی
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const userId = await getCurrentUserId();
+        setCurrentUserId(userId);
+      } catch (err) {
+        console.error("Error fetching userId:", err);
+        Swal({
+          title: "خطا",
+          text: "لطفاً وارد حساب کاربری خود شوید",
+          icon: "error",
+          button: "باشد",
+        });
+        router.push(`/login?returnUrl=/scan-session`);
+      }
+    };
+    fetchUserId();
+  }, [router]);
 
   // Start scanner
   const startScanner = async () => {
@@ -28,18 +54,21 @@ export default function ScanSessionPage() {
 
       const readerEl = document.getElementById("reader");
       if (!readerEl) {
-        setMessage("عنصر اسکنر پیدا نشد");
+        Swal({
+          title: "خطا",
+          text: "عنصر اسکنر پیدا نشد",
+          icon: "error",
+          button: "باشد",
+        });
         return;
       }
 
-      // جلوگیری از دوبار mount در StrictMode
       if (!isMountedRef.current) {
         isMountedRef.current = true;
       } else {
         return;
       }
 
-      // ساخت نمونه اسکنر فقط یکبار
       if (!qrInstanceRef.current) {
         qrInstanceRef.current = new Html5Qrcode("reader", { verbose: false });
       }
@@ -50,7 +79,7 @@ export default function ScanSessionPage() {
           fps: 10,
           qrbox: 280,
           disableFlip: true,
-          disableBeep: true, // غیرفعال کردن beep
+          disableBeep: true,
         },
         async (decodedText) => {
           await onScan(decodedText);
@@ -60,14 +89,18 @@ export default function ScanSessionPage() {
         }
       );
 
-      // مکث کوتاه تا video کامل آماده شود
       await new Promise((res) => setTimeout(res, 300));
 
       isRunningRef.current = true;
       setIsScanning(true);
     } catch (err) {
       console.error("Scanner start error:", err);
-      setMessage("دسترسی به دوربین یا شروع اسکن ممکن نشد");
+      Swal({
+        title: "خطا",
+        text: "دسترسی به دوربین یا شروع اسکن ممکن نشد",
+        icon: "error",
+        button: "باشد",
+      });
       setIsScanning(false);
       isRunningRef.current = false;
     }
@@ -77,7 +110,7 @@ export default function ScanSessionPage() {
   const stopScanner = async () => {
     try {
       if (qrInstanceRef.current && isRunningRef.current) {
-        await new Promise((res) => setTimeout(res, 100)); // مکث کوتاه
+        await new Promise((res) => setTimeout(res, 100));
         try {
           await qrInstanceRef.current.stop();
         } catch (e) {}
@@ -88,8 +121,20 @@ export default function ScanSessionPage() {
     } finally {
       setIsScanning(false);
       isRunningRef.current = false;
+      setTimer(0);
     }
   };
+
+  // Real-time timer for active session
+  useEffect(() => {
+    let interval;
+    if (state === "active" && currentUserId && (player1 === currentUserId || player2 === currentUserId)) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [state, currentUserId, player1, player2]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -99,11 +144,21 @@ export default function ScanSessionPage() {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
-      // ❌ stopScanner اینجا فراخوانی نمیشه تا دوربین خاموش نشه
     };
   }, [isScanning]);
 
   const onScan = async (barcode) => {
+    if (!currentUserId) {
+      Swal({
+        title: "خطا",
+        text: "لطفاً وارد حساب کاربری خود شوید",
+        icon: "error",
+        button: "باشد",
+      });
+      router.push(`/login?returnUrl=/scan-session`);
+      return;
+    }
+
     const now = Date.now();
     if (
       lastScanRef.current.value === barcode &&
@@ -113,19 +168,36 @@ export default function ScanSessionPage() {
     lastScanRef.current = { value: barcode, at: now };
 
     try {
-      const res = await fetchWithRefresh("/api/sessions/scan", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ barcode }),
-      });
+      const res = await fetchWithRefresh(
+        state === "active" && (player1 === currentUserId || player2 === currentUserId)
+          ? "/api/sessions/end-scan"
+          : "/api/sessions/scan",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ barcode, userId: currentUserId }),
+          credentials: "include",
+        }
+      );
 
       if (!res || !res.ok) {
         if (res?.status === 401) {
+          Swal({
+            title: "خطا",
+            text: "لطفاً وارد حساب کاربری خود شوید",
+            icon: "error",
+            button: "باشد",
+          });
           router.push(`/login?returnUrl=/scan-session`);
           return;
         }
         const e = await res.json().catch(() => ({}));
-        setMessage(e?.message || "خطا در اسکن");
+        Swal({
+          title: "خطا",
+          text: e?.message || "خطا در اسکن",
+          icon: "error",
+          button: "باشد",
+        });
         return;
       }
 
@@ -133,15 +205,77 @@ export default function ScanSessionPage() {
       setState(data.state);
       setRole(data.role);
       setMessage(data.message);
+      setPlayer1(data.player1 ? data.player1.toString() : null);
+      setPlayer2(data.player2 ? data.player2.toString() : null);
+
+      if (data.state === "pendingStart") {
+        Swal({
+          title: "منتظر بازیکن دوم",
+          text: data.message,
+          icon: "info",
+          button: "باشد",
+        });
+      } else if (data.state === "active") {
+        Swal({
+          title: "جلسه شروع شد",
+          text: `${data.message} - نقش شما: بازیکن ${data.role}`,
+          icon: "success",
+          button: "باشد",
+        });
+      } else if (data.state === "pendingEnd") {
+        Swal({
+          title: "منتظر پایان",
+          text: data.message,
+          icon: "info",
+          button: "باشد",
+        });
+      } else if (data.state === "ended") {
+        Swal({
+          title: "جلسه پایان یافت",
+          text: data.message,
+          icon: "success",
+          button: "باشد",
+        });
+      } else {
+        Swal({
+          title: "خطا",
+          text: data.message || "خطای ناشناخته",
+          icon: "error",
+          button: "باشد",
+        });
+      }
+
+      if (data.state !== "active") {
+        setTimer(0);
+      }
     } catch (err) {
-      setMessage("بروز خطا هنگام پردازش اسکن");
+      Swal({
+        title: "خطا",
+        text: "بروز خطا هنگام پردازش اسکن",
+        icon: "error",
+        button: "باشد",
+      });
     }
   };
 
   const onManualSubmit = async (e) => {
     e.preventDefault();
-    if (!manualBarcode) return;
+    if (!manualBarcode) {
+      Swal({
+        title: "خطا",
+        text: "لطفاً بارکد را وارد کنید",
+        icon: "error",
+        button: "باشد",
+      });
+      return;
+    }
     await onScan(manualBarcode);
+  };
+
+  const formatTimer = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -198,15 +332,10 @@ export default function ScanSessionPage() {
               </button>
             </form>
 
-            {message && (
-              <div className="mt-5 w-full max-w-md rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-3 text-center">
-                {message}
-              </div>
-            )}
-
-            {state === "active" && (
+            {state === "active" && currentUserId && (player1 === currentUserId || player2 === currentUserId) && (
               <div className="mt-4 w-full max-w-md rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 p-3 text-center">
                 جلسه فعال است {role && <span> - نقش شما: بازیکن {role}</span>}
+                <div className="mt-2 font-semibold">مدت زمان: {formatTimer(timer)}</div>
               </div>
             )}
           </div>
@@ -216,21 +345,10 @@ export default function ScanSessionPage() {
               نکات و مقررات
             </h2>
             <ul className="mt-3 list-disc pr-6 text-gray-700 dark:text-gray-300 space-y-2">
-              <li>
-                برای شروع، ابتدا کاربر اول اسکن کند؛ سپس کاربر دوم. برای پایان،
-                دوباره به همین ترتیب.
-              </li>
-              <li>
-                در طول جلسه این کنسول برای دیگران قفل است تا پایان کامل جلسه.
-              </li>
-              <li>
-                برای اسکن موفق، بارکد را در کادر مشخص ثابت نگه دارید و از نور
-                کافی استفاده کنید.
-              </li>
-              <li>
-                اگر دوربین در دسترس نبود، می‌توانید بارکد را به صورت دستی وارد
-                کنید.
-              </li>
+              <li>برای شروع، ابتدا کاربر اول اسکن کند؛ سپس کاربر دوم. برای پایان، دوباره به همین ترتیب.</li>
+              <li>در طول جلسه این کنسول برای دیگران قفل است تا پایان کامل جلسه.</li>
+              <li>برای اسکن موفق، بارکد را در کادر مشخص ثابت نگه دارید و از نور کافی استفاده کنید.</li>
+              <li>اگر دوربین در دسترس نبود، می‌توانید بارکد را به صورت دستی وارد کنید.</li>
             </ul>
           </div>
         </div>
@@ -243,8 +361,7 @@ export default function ScanSessionPage() {
               اجازه دسترسی به دوربین
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-5">
-              برای اسکن بارکد کنسول، اجازه دسترسی به دوربین لازم است. آیا اجازه
-              می‌دهید؟
+              برای اسکن بارکد کنسول، اجازه دسترسی به دوربین لازم است. آیا اجازه می‌دهید؟
             </p>
             <div className="flex items-center justify-end gap-3">
               <button
