@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import connectToDb from "../../../../configs/db";
-import Users from "../../../../models/Users";
-import Console from "../../../../models/Console";
-import GameSession from "../../../../models/GameSession";
+import connectToDb from "../../../../../configs/db";
+import Users from "../../../../../models/Users";
+import Console from "../../../../../models/Console";
+import GameSession from "../../../../../models/GameSession";
 import mongoose from "mongoose";
-import { cleanupPendingSessions } from "../../../../lib/utils";
+import { cleanupPendingSessions } from "../../../../utils/cleanUpPendingSession";
 
 export async function POST(req) {
   try {
