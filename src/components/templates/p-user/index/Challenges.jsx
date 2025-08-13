@@ -1,8 +1,15 @@
 import Link from "next/link";
 import React from "react";
 import Challenge from "./Challenge";
+import ChallengeModel from "../../../../../models/Challenge";
+async function Challenges() {
+  const challengesDone = await ChallengeModel.find({ status: "accepted" })
+  .populate("inviter invited location")
+  .sort({ fightTime: -1 })
+  .lean()
+  .limit(5)
 
-function Challenges() {
+const serializedChallengesDone = JSON.parse(JSON.stringify(challengesDone));
   return (
     <>
       <div className="w-full">
@@ -25,11 +32,20 @@ function Challenges() {
           </Link>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-1">
-          <Challenge/>
-          <Challenge/>
-          <Challenge/>
-          <Challenge/>
-          <Challenge/>
+        {serializedChallengesDone.length > 0 ? (
+            serializedChallengesDone.map((challenge, index) => (  
+              <Challenge
+                key={challenge._id || index}
+                challenge={challenge}
+                className="w-full sm:w-[300px] md:w-[350px] lg:w-[400px]"
+              />
+            ))
+          ) : (
+            <div className="bg-white dark:bg-black p-2 rounded-lg font-bold text
+              gray-800 dark:text-gray-400 text-center text-2xl">
+                رقابتی برای نمایش وجود ندارد.
+            </div>
+          )}
           
         </div>
         <Link

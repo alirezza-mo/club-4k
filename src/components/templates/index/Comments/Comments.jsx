@@ -38,6 +38,11 @@ async function Comments() {
               message={comment.message}
             />
           ))}
+          {comments.length === 0 && (
+            <p className="text-gray-500 dark:text-gray-400">
+              هیچ نظری برای نمایش وجود ندارد.
+            </p>
+          )}
         </div>
       </section>
     </>

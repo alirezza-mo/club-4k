@@ -58,13 +58,7 @@ export function verifyRefreshToken(token) {
   return verify(token, process.env.REFRESH_SECRET);
 }
 
-export function verifyAdminAccessToken(token) {
-  return verify(token, process.env.ACCESS_SECRET);
-}
 
-export function verifyAdminRefreshToken(token) {
-  return verify(token, process.env.REFRESH_SECRET);
-}
 
 
 export const validatePhone = (phone) => {

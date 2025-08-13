@@ -11,8 +11,10 @@ const schema = mongoose.Schema(
       enum: ["pending", "accepted", "rejected"],
       default: "pending",
     },
-    result: { type: String },
-    session: { type: mongoose.Types.ObjectId, ref: "Session" },
+    // result: { type: String },
+    // session: { type: mongoose.Types.ObjectId, ref: "Session" },
+    game: { type: String , required: true },
+    message: { type: String , default: "" },
   },
   { timestamps: true }
 );

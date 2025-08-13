@@ -23,7 +23,10 @@ async function News() {
 
 
   const token = (await cookies()).get("accessToken")?.value
-  const payload = await verifyAccessToken(token);
+  let payload;
+  if(token){
+   payload = await verifyAccessToken(token);
+  }
 
   const role =
     (await AdminModel.findById(payload?.id)) ||
@@ -64,6 +67,11 @@ async function News() {
                     );
                   }
                 })}
+                {news.length === 0 && (
+                  <p className="text-gray-500 dark:text-gray-400">
+                    هیچ خبری برای نمایش وجود ندارد.
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -84,6 +92,11 @@ async function News() {
                   />
                 );
               })}
+              {allNews.length === 0 && (
+                <p className="text-gray-500 dark:text-gray-400">
+                  هیچ خبری برای نمایش وجود ندارد.
+                </p>
+              )}
             </div>
           </div>
         </div>

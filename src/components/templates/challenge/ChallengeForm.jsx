@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import swal from "sweetalert";
 import { FaPaperPlane } from "react-icons/fa";
-// import LoadingSpinner from "./LoadingSpinner";
 
 export default function ChallengeForm({
   onChallengeCreated,
-  users,
-  locations,
   inviterId,
 }) {
   const [invited, setInvited] = useState("");
@@ -20,21 +20,57 @@ export default function ChallengeForm({
   const [status, setStatus] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [locationSearch, setLocationSearch] = useState("");
+  const [gameNet, setGameNet] = useState([]);
+  const [user, setUser] = useState([]);
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const fetchGameNet = async () => {
+      try {
+        const res = await fetch("/api/gameNet");
+        const data = await res.json();
+        setGameNet(data);
+      } catch (err) {
+        console.error("Error fetching game nets:", err);
+      }
+    };
+    fetchGameNet();
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/users");
+        const data = await res.json();
+        setUser(data);
+      } catch (err) {
+        console.error("Error fetching users:", err);
+      }
+    };
+    fetchUser();
+  }, []);
   const filteredLocations =
-    locations?.filter((loc) =>
-      loc.name.toLowerCase().includes(locationSearch.toLowerCase())
+    gameNet?.filter((loc) =>
+      loc.gameNet.toLowerCase().includes(locationSearch.toLowerCase())
     ) || [];
+  const filteredUsers = user.filter((user) =>
+    user.userName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const validateForm = () => {
-    if (!invited) return "حریف را انتخاب کنید.";
-    if (!location) return "گیم‌نت را انتخاب کنید.";
-    if (!game) return "بازی را انتخاب کنید.";
-    if (!fightTime) return "تاریخ و زمان را وارد کنید.";
-    return null;
+  if (!invited) return "حریف را انتخاب کنید.";
+  if (!location) return "گیم‌نت را انتخاب کنید.";
+  if (!game) return "بازی را انتخاب کنید.";
+  if (!fightTime) return "تاریخ و زمان را وارد کنید.";
+
+  if (invited === inviterId) return "نمی‌توانید خودتان را به چالش دعوت کنید.";
+
+  const selectedDate = fightTime ? fightTime.toDate() : null;
+  const now = new Date();
+  if (selectedDate && selectedDate < now) return "تاریخ انتخابی باید در آینده باشد.";
+
+  if (message && message.length < 3) return "پیام دعوت خیلی کوتاه است.";
+
+  const allowedGames = ["FIFA 23", "eFootball 21"];
+  if (!allowedGames.includes(game)) return "بازی انتخابی معتبر نیست.";
+
+  return null;
   };
 
   const handleSubmit = async (e) => {
@@ -42,9 +78,25 @@ export default function ChallengeForm({
     const error = validateForm();
     if (error) {
       setStatus({ type: "error", message: error });
+      swal({
+        title: "اخطار",
+        text: error,
+        icon: "error",
+        button: "باشه",
+      });
       return;
     }
     setStatus({ type: "loading", message: "در حال ارسال دعوت..." });
+    const selectedDate = fightTime.toDate();
+    const now = new Date();
+    if (selectedDate < now) {
+      return swal({
+        title: "اخطار",
+        text: " زمان انتخابی صحیح نمی باشد چون در گذشته است. ",
+        icon: "error",
+        button: "باشد",
+      });
+    }
     try {
       const res = await fetch("/api/challenge", {
         method: "POST",
@@ -105,8 +157,8 @@ export default function ChallengeForm({
           </option>
           {filteredUsers.length > 0 ? (
             filteredUsers.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.name}
+              <option key={user._id} value={user.userName}  > 
+                {user.userName} {user.gameNet ? ` - ${user.gameNet}` : ""}
               </option>
             ))
           ) : (
@@ -141,8 +193,8 @@ export default function ChallengeForm({
           </option>
           {filteredLocations.length > 0 ? (
             filteredLocations.map((loc) => (
-              <option key={loc.id} value={loc.id}>
-                {loc.name}
+              <option key={loc._id} value={loc.gameNet}>
+                {loc.gameNet}
               </option>
             ))
           ) : (
@@ -177,14 +229,18 @@ export default function ChallengeForm({
           تاریخ و زمان (شمسی)
         </label>
         <DatePicker
+          className="purple"
           value={fightTime}
           onChange={setFightTime}
           format="YYYY/MM/DD HH:mm"
-          calendar="persian"
-          locale="fa"
-          plugins={[<TimePicker position="bottom" />]}
-          inputClass="w-full ..."
-          placeholder="انتخاب تاریخ و زمان"
+          calendar={persian}
+          locale={persian_fa}
+          calendarPosition="bottom-right"
+          plugins={[<TimePicker />]}
+          hideOnScroll
+          placeholder="جهت وارد کردن تاریخ و زمان رقابت کلیک کنید."
+          inputClass="w-full bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-orange-600 dark:border-yellow-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 dark:focus:ring-yellow-400 shadow-yellow-glow transition duration-300"
+
         />
       </div>
       <div className="mb-4">

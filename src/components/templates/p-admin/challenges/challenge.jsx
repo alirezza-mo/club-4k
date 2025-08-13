@@ -1,40 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const mockChallenges = [
-  {
-    id: 1,
-    player1: "Ali",
-    player2: "Reza",
-    game: "FIFA 23",
-    date: "2025-06-10T15:00:00",
-    status: "pending", // waiting | active | finished
-    result: null,
-  },
-  {
-    id: 2,
-    player1: "asal",
-    player2: "ana",
-    game: "PES 24",
-    date: "2025-06-11T17:00:00",
-    status: "finished",
-    result: "ana",
-  },
-];
-
-const ChallengeAdminPage = () => {
+const ChallengeAdminPage = ({ challenges = [] }) => {
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
-  const [challenges, setChallenges] = useState(mockChallenges);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const filtered = challenges.filter((item) => {
     const matchesSearch =
-      item.player1.toLowerCase().includes(search.toLowerCase()) ||
-      item.player2.toLowerCase().includes(search.toLowerCase()) ||
-      item.game.toLowerCase().includes(search.toLowerCase());
+      (item.inviter?.userName || item.inviter?.userName || "").toLowerCase().includes(search.toLowerCase()) ||
+      (item.invited?.userName || item.invited?.userName || "").toLowerCase().includes(search.toLowerCase()) ||
+      (item.game || "").toLowerCase().includes(search.toLowerCase());
 
     const matchesStatus =
       filterStatus === "all" || item.status === filterStatus;
@@ -45,6 +23,32 @@ const ChallengeAdminPage = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const getStatusText = (status) => {
+    switch (status) {
+      case "pending":
+        return "در انتظار";
+      case "accepted":
+        return "پذیرفته شده";
+      case "rejected":
+        return "رد شده";
+      default:
+        return status;
+    }
+  };
+
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "pending":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100";
+      case "accepted":
+        return "bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100";
+      case "rejected":
+        return "bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100";
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100";
+    }
+  };
 
   return (
     <div className="p-6 font-vazir w-full">
@@ -67,86 +71,92 @@ const ChallengeAdminPage = () => {
         >
           <option value="all">همه وضعیت‌ها</option>
           <option value="pending">در انتظار</option>
-          <option value="active">در حال اجرا</option>
-          <option value="finished">تمام شده</option>
+          <option value="accepted">پذیرفته شده</option>
+          <option value="rejected">رد شده</option>
         </select>
       </div>
 
-      <table className="min-w-full text-sm md:text-base border-separate border-spacing-y-2 overflow-scroll ">
-        <thead>
-          <tr className="bg-orange-600 dark:bg-yellow-500 text-white dark:text-black rounded">
-            <th className="p-3 rounded-s-md">#</th>
-            <th>کاربر اول</th>
-            <th>کاربر دوم</th>
-            <th>بازی</th>
-            <th>تاریخ شروع</th>
-            <th>وضعیت</th>
-            <th className="rounded-e-md">نتیجه</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginated.map((item, index) => (
-            <tr
-              key={item.id}
-              className="bg-white dark:bg-gray-900 hover:bg-orange-100 dark:hover:bg-yellow-800 text-center shadow rounded"
-            >
-              <td className="p-3 font-bold text-gray-800 dark:text-yellow-300">
-                {(currentPage - 1) * itemsPerPage + index + 1}
-              </td>
-              <td className="text-gray-700 dark:text-yellow-200">
-                {item.player1}
-              </td>
-              <td className="text-gray-700 dark:text-yellow-200">
-                {item.player2}
-              </td>
-              <td className="text-gray-700 dark:text-yellow-200">
-                {item.game}
-              </td>
-              <td className="text-gray-600 dark:text-yellow-300">
-                {new Date(item.date).toLocaleString("fa-IR")}
-              </td>
-              <td>
-                <span
-                  className={`text-xs md:text-sm px-3 py-1 rounded-full font-semibold ${
-                    item.status === "pending"
-                      ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100"
-                      : item.status === "active"
-                      ? "bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-blue-100"
-                      : "bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100"
-                  }`}
+      {challenges.length === 0 ? (
+        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          هیچ چلنجی یافت نشد
+        </div>
+      ) : (
+        <>
+          <table className="min-w-full text-sm md:text-base border-separate border-spacing-y-2 overflow-scroll ">
+            <thead>
+              <tr className="bg-orange-600 dark:bg-yellow-500 text-white dark:text-black rounded">
+                <th className="p-3 rounded-s-md">#</th>
+                <th>کاربر اول</th>
+                <th>کاربر دوم</th>
+                <th>بازی</th>
+                <th>مکان</th>
+                <th>تاریخ شروع</th>
+                <th>وضعیت</th>
+                <th className="rounded-e-md">پیام</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginated.map((item, index) => (
+                <tr
+                  key={item._id}
+                  className="bg-white dark:bg-gray-900 hover:bg-orange-100 dark:hover:bg-yellow-800 text-center shadow rounded"
                 >
-                  {item.status === "pending" && "در انتظار"}
-                  {item.status === "active" && "در حال اجرا"}
-                  {item.status === "finished" && "تمام شده"}
-                </span>
-              </td>
-              <td className="text-gray-800 dark:text-yellow-300">
-                {item.result ? item.result : "-"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  <td className="p-3 font-bold text-gray-800 dark:text-yellow-300">
+                    {(currentPage - 1) * itemsPerPage + index + 1}
+                  </td>
+                  <td className="text-gray-700 dark:text-yellow-200">
+                    {item.inviter?.userName || item.inviter?.name || "نامشخص"}
+                  </td>
+                  <td className="text-gray-700 dark:text-yellow-200">
+                    {item.invited?.userName || item.invited?.name || "نامشخص"}
+                  </td>
+                  <td className="text-gray-700 dark:text-yellow-200">
+                    {item.game || "نامشخص"}
+                  </td>
+                  <td className="text-gray-700 dark:text-yellow-200">
+                    {item.location?.name || item.location?.gameNet || "نامشخص"}
+                  </td>
+                  <td className="text-gray-600 dark:text-yellow-300">
+                    {item.fightTime ? new Date(item.fightTime).toLocaleString("fa-IR") : "نامشخص"}
+                  </td>
+                  <td>
+                    <span
+                      className={`text-xs md:text-sm px-3 py-1 rounded-full font-semibold ${getStatusClass(item.status)}`}
+                    >
+                      {getStatusText(item.status)}
+                    </span>
+                  </td>
+                  <td className="text-gray-800 dark:text-yellow-300 max-w-xs overflow-x-auto">
+                    {item.message || "-"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      {/* Pagination */}
-      <div className="mt-6 flex justify-center gap-2">
-        {Array.from(
-          { length: Math.ceil(filtered.length / itemsPerPage) },
-          (_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-4 py-2 rounded ${
-                currentPage === i + 1
-                  ? "bg-orange-600 text-white dark:bg-yellow-500 dark:text-black"
-                  : "bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-white"
-              }`}
-            >
-              {i + 1}
-            </button>
-          )
-        )}
-      </div>
+          {/* Pagination */}
+          {filtered.length > itemsPerPage && (
+            <div className="mt-6 flex justify-center gap-2">
+              {Array.from(
+                { length: Math.ceil(filtered.length / itemsPerPage) },
+                (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={`px-4 py-2 rounded ${
+                      currentPage === i + 1
+                        ? "bg-orange-600 text-white dark:bg-yellow-500 dark:text-black"
+                        : "bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-white"
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                )
+              )}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

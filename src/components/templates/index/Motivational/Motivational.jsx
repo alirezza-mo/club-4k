@@ -32,6 +32,13 @@ async function Motivational() {
           {echos.map((echo) => (
             <MotivationBox key={echo._id} message ={echo.message} userName = {echo.user?.userName} />
           ))}
+          {
+            echos.length === 0 && (
+              <p className="text-gray-500 dark:text-gray-400">
+                هیچ جمله‌ای برای نمایش وجود ندارد.
+              </p>
+            )
+          }
         </div>
       </section>
     </>

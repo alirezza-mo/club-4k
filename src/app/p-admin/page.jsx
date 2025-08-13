@@ -7,8 +7,13 @@ import Chart from "@/components/templates/p-admin/index/Chart";
 import UserGrowthChart from "@/components/templates/p-admin/index/Chart";
 import ChallengePieChart from "@/components/templates/p-admin/index/ChallengeChart";
 import GameSessionPolarChart from "@/components/templates/p-admin/index/GameCoursesChart";
+import connectToDb from "../../../configs/db";
+import ChallengeModel from "../../../models/Challenge";
 
-function page() {
+async function page() {
+  await connectToDb();
+  const challenges = await ChallengeModel.find({})
+  
   return (
     <>
       <Layout>
@@ -16,7 +21,7 @@ function page() {
           <h1 className="text-2xl font-bold text-orange-600 dark:text-gold mb-6 ">
             داشبورد ادمین
           </h1>
-          <DataCart />
+          <DataCart challenges={challenges} />
           <UserGrowthChart />
           <Tickets />
           <GameSessionPolarChart

@@ -39,9 +39,9 @@ function Chat() {
             value={gameNetName}
             className={`px-8 py-2 rounded-2xl cursor-pointer ${
               gameNet === gameNetName
-                ? "bg-orange-600 text-white"
-                : "bg-gray-300 text-orange-600"
-            } hover:bg-orange-600 hover:text-white transition-all`}
+                ? "bg-orange-600 text-white dark:bg-gold dark:text-black"
+                : "bg-gray-300 text-orange-600 dark:text-gold dark:bg-black"
+            } hover:bg-orange-600 hover:text-white transition-all dark:hover:bg-gold dark:hover:text-black`}
           >
             {gameNetName}
           </button>
@@ -51,9 +51,9 @@ function Chat() {
           value="global"
           className={`px-8 py-2 rounded-2xl cursor-pointer ${
             gameNet === "global"
-              ? "bg-orange-600 text-white"
-              : "bg-gray-300 text-orange-600"
-          } hover:bg-orange-600 hover:text-white transition-all`}
+              ? "bg-orange-600 text-white dark:bg-gold dark:text-black"
+              : "bg-gray-300 text-orange-600 dark:text-gold dark:bg-black"
+          } hover:bg-orange-600 hover:text-white transition-all dark:hover:bg-gold dark:hover:text-black`}
         >
           گلوبال
         </button>

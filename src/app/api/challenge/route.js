@@ -1,46 +1,103 @@
+
+import { cookies } from "next/headers";
 import Challenge from "../../../../models/Challenge";
 import { NextResponse } from "next/server";
+import { verifyAccessToken } from "@/utils/auth";
+import UsersModel from "../../../../models/Users";
+import connectToDb from "../../../../configs/db";
+import AdminModel from "../../../../models/Admin";
+import { checkAndExpireChallenges } from "@/utils/challengeExpiration";
 
-// ایجاد چالش جدید
 export async function POST(req) {
-	try {
+  try {
+		await connectToDb();
 		const body = await req.json();
-		// اعتبارسنجی ورودی
-		if (!body.inviter || !body.invited || !body.location || !body.fightTime) {
+		const { invited, location, fightTime, game, message } = body
+		
+
+		if (!invited || !location || !fightTime || !game) {
 			return NextResponse.json({ error: "اطلاعات ناقص" }, { status: 400 });
 		}
-		// جلوگیری از چالش تکراری
+
+		const token = await cookies().get("accessToken")?.value;
+		if (!token) {
+			return NextResponse.json({ error: "توکن ارسال نشده" }, { status: 401 });
+		}
+		let payload;
+		try {
+			payload =await verifyAccessToken(token);
+		} catch {
+			return NextResponse.json({ error: "توکن نامعتبر" }, { status: 401 });
+		}
+		const inviter = await UsersModel.findById(payload.id);
+		if (!inviter) {
+			return NextResponse.json({ error: "کاربر دعوت‌کننده یافت نشد" }, { status: 404 });
+		}
+console.log(inviter);
+
+		const invitedUser = await UsersModel.findOne({ userName : invited });
+		if (!invitedUser) {
+			return NextResponse.json({ error: "کاربر دعوت‌شده یافت نشد" }, { status: 404 });
+		}
+		const gameNetLocation = await AdminModel.findOne({ gameNet: location });
+		if (!gameNetLocation) {
+			return NextResponse.json({ error: "محل برگزاری معتبر نیست" }, { status: 404 });
+		}
+
+		const fightDate = new Date(fightTime);
+		if (isNaN(fightDate.getTime()) || fightDate < new Date()) {
+			return NextResponse.json({ error: "تاریخ رقابت معتبر نیست" }, { status: 400 });
+		}
+
 		const exists = await Challenge.findOne({
-			inviter: body.inviter,
-			invited: body.invited,
-			fightTime: body.fightTime,
+			inviter: inviter._id,
+			invited: invitedUser._id,
+			location: gameNetLocation._id,
+			fightTime: fightDate,
 		});
 		if (exists) {
 			return NextResponse.json({ error: "چالش تکراری" }, { status: 409 });
 		}
-		const challenge = await Challenge.create(body);
+
+		const challenge = await Challenge.create({
+			inviter: inviter._id,
+			invited: invitedUser._id,
+			location: gameNetLocation._id,
+			game,
+			message,
+			fightTime: fightDate,
+		});
+		
 		return NextResponse.json(challenge, { status: 201 });
-	} catch (err) {
-		return NextResponse.json({ error: err.message }, { status: 500 });
-	}
+  } catch (err) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
 }
 
-// دریافت لیست چالش‌ها
 export async function GET(req) {
 	try {
-		const { searchParams } = new URL(req.url);
-		const filter = {};
-		if (searchParams.get("inviter")) filter.inviter = searchParams.get("inviter");
-		if (searchParams.get("invited")) filter.invited = searchParams.get("invited");
-		if (searchParams.get("status")) filter.status = searchParams.get("status");
-		const challenges = await Challenge.find(filter).populate("inviter invited location session");
-		return NextResponse.json(challenges);
+		await connectToDb();
+		
+		await checkAndExpireChallenges();
+		
+		const token = await cookies().get("accessToken")?.value;
+		const payload = await verifyAccessToken(token);
+		const user = await UsersModel.findById(payload.id);
+		if (!user) {
+			return NextResponse.json({ error: "کاربر یافت نشد" }, { status: 404 });
+		}
+		const challengeInviter = await Challenge.find({ inviter: user._id }).populate("inviter invited location")
+		const challengeInvited = await Challenge.find({ invited: user._id }).populate("invited inviter location")
+		const challenges = [...challengeInviter, ...challengeInvited].sort((a, b) => new Date(b.fightTime) - new Date(a.fightTime));
+
+		return NextResponse.json(challenges)
+		
+		
 	} catch (err) {
 		return NextResponse.json({ error: err.message }, { status: 500 });
 	}
 }
 
-// پذیرش یا رد چالش
 export async function PATCH(req) {
 	try {
 		const body = await req.json();
@@ -61,7 +118,6 @@ export async function PATCH(req) {
 	}
 }
 
-// ثبت نتیجه و جزئیات بازی
 export async function PUT(req) {
 	try {
 		const body = await req.json();

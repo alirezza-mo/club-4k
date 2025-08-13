@@ -1,9 +1,9 @@
 import React from 'react'
 
-function DataCart() {
+function DataCart({challenges , tickets , users , comments}) {
     const stats = [
     { title: 'کاربران', value: '۱,۲۰۳', icon: '👥', color: 'bg-blue-600' },
-    { title: 'چلنج‌ها', value: '۵۶۷', icon: '🎮', color: 'bg-yellow-500' },
+    { title: 'چلنج‌ها', value: challenges.length , icon: '🎮', color: 'bg-yellow-500' },
     { title: 'تیکت‌ها', value: '۸۹', icon: '🎫', color: 'bg-red-600' },
     { title: 'کامنت‌ها', value: '۲,۳۴۵', icon: '💬', color: 'bg-green-600' },
   ];
