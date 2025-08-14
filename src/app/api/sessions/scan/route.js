@@ -4,7 +4,7 @@ import Users from "../../../../../models/Users";
 import GameSession from "../../../../../models/GameSession";
 import Console from "../../../../../models/Console";
 import mongoose from "mongoose";
-import { cleanupPendingSessions } from "../../../../utils/cleanUpPendingSession";
+import { cleanupPendingSessions } from "@/utils/cleanUpPendingSession";
 
 export async function POST(req) {
   try {

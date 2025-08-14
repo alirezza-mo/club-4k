@@ -1,6 +1,12 @@
-export async function fetchWithRefresh(input) {
-  let res = await fetch(input, { credentials: "include" });
-  console.log(res);
+export async function fetchWithRefresh(input, options = {}) {
+  const defaultOptions = {
+    method: "GET", 
+    headers: { "Content-Type": "application/json" },
+    ...options, 
+  };
+
+  let res = await fetch(input, { ...defaultOptions, credentials: "include" });
+  console.log("Fetch response:", res);
 
   if (res.status === 401) {
     const refreshRes = await fetch("/api/auth/refresh-token", {
@@ -9,7 +15,7 @@ export async function fetchWithRefresh(input) {
     });
 
     if (refreshRes.ok) {
-      res = await fetch(input, { credentials: "include" });
+      res = await fetch(input, { ...defaultOptions, credentials: "include" });
       return res;
     }
   }

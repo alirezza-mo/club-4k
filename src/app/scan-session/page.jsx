@@ -39,7 +39,7 @@ export default function ScanSessionPage() {
           title: "خطا",
           text: "لطفاً وارد حساب کاربری خود شوید",
           icon: "error",
-          button: "باشد",
+          button: "باشه",
         });
         router.push(`/login?returnUrl=/scan-session`);
       }
@@ -58,7 +58,7 @@ export default function ScanSessionPage() {
           title: "خطا",
           text: "عنصر اسکنر پیدا نشد",
           icon: "error",
-          button: "باشد",
+          button: "باشه",
         });
         return;
       }
@@ -99,7 +99,7 @@ export default function ScanSessionPage() {
         title: "خطا",
         text: "دسترسی به دوربین یا شروع اسکن ممکن نشد",
         icon: "error",
-        button: "باشد",
+        button: "باشه",
       });
       setIsScanning(false);
       isRunningRef.current = false;
@@ -153,12 +153,13 @@ export default function ScanSessionPage() {
         title: "خطا",
         text: "لطفاً وارد حساب کاربری خود شوید",
         icon: "error",
-        button: "باشد",
+        button: "باشه",
       });
       router.push(`/login?returnUrl=/scan-session`);
       return;
     }
 
+    console.log("Sending barcode to API:", barcode);
     const now = Date.now();
     if (
       lastScanRef.current.value === barcode &&
@@ -180,28 +181,40 @@ export default function ScanSessionPage() {
         }
       );
 
+      console.log("API response status:", res.status);
       if (!res || !res.ok) {
         if (res?.status === 401) {
           Swal({
             title: "خطا",
             text: "لطفاً وارد حساب کاربری خود شوید",
             icon: "error",
-            button: "باشد",
+            button: "باشه",
           });
           router.push(`/login?returnUrl=/scan-session`);
           return;
         }
         const e = await res.json().catch(() => ({}));
-        Swal({
-          title: "خطا",
-          text: e?.message || "خطا در اسکن",
-          icon: "error",
-          button: "باشد",
-        });
+        console.log("API error details:", e.message || e);
+        if (e.message === "شما قبلاً به عنوان بازیکن اول اسکن کرده‌اید") {
+          Swal({
+            title: "هشدار",
+            text: e.message,
+            icon: "warning",
+            button: "باشه",
+          });
+        } else {
+          Swal({
+            title: "خطا",
+            text: e?.message || "خطا در اسکن",
+            icon: "error",
+            button: "باشه",
+          });
+        }
         return;
       }
 
       const data = await res.json();
+      console.log("API response data:", data);
       setState(data.state);
       setRole(data.role);
       setMessage(data.message);
@@ -213,35 +226,36 @@ export default function ScanSessionPage() {
           title: "منتظر بازیکن دوم",
           text: data.message,
           icon: "info",
-          button: "باشد",
+          button: "باشه",
         });
       } else if (data.state === "active") {
         Swal({
           title: "جلسه شروع شد",
           text: `${data.message} - نقش شما: بازیکن ${data.role}`,
           icon: "success",
-          button: "باشد",
+          button: "باشه",
         });
       } else if (data.state === "pendingEnd") {
         Swal({
           title: "منتظر پایان",
           text: data.message,
           icon: "info",
-          button: "باشد",
+          button: "باشه",
         });
       } else if (data.state === "ended") {
         Swal({
           title: "جلسه پایان یافت",
           text: data.message,
           icon: "success",
-          button: "باشد",
+          button: "باشه",
         });
       } else {
+        console.warn("Unexpected state received:", data.state);
         Swal({
           title: "خطا",
           text: data.message || "خطای ناشناخته",
           icon: "error",
-          button: "باشد",
+          button: "باشه",
         });
       }
 
@@ -249,11 +263,12 @@ export default function ScanSessionPage() {
         setTimer(0);
       }
     } catch (err) {
+      console.error("Fetch error:", err);
       Swal({
         title: "خطا",
         text: "بروز خطا هنگام پردازش اسکن",
         icon: "error",
-        button: "باشد",
+        button: "باشه",
       });
     }
   };
@@ -265,7 +280,7 @@ export default function ScanSessionPage() {
         title: "خطا",
         text: "لطفاً بارکد را وارد کنید",
         icon: "error",
-        button: "باشد",
+        button: "باشه",
       });
       return;
     }
