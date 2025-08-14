@@ -27,7 +27,7 @@ function ChallengeReq({challenge}) {
   return (
     <div className='rounded-lg p-5 bg-white dark:bg-gray-800 flex flex-col items-center justify-center gap-6 border dark:border-gold border-orange-400'>
         <p className='text-2xl font-bold dark:text-white'> {challenge?.invited.userName} </p>
-        <p className=' dark:text-white'> {challenge?.game} - {challenge?.location.gameNet} </p>
+        <p className=' dark:text-white'> {challenge?.game} - {challenge?.location?.gameNet} </p>
         <p className=' wrap-break-word dark:text-white'> {challenge?.message} </p>
         <p className='dark:text-gray-400 text-gray-600 text-xs '> {new Date(challenge?.fightTime).toLocaleString('fa-IR')} </p>
         <div className='flex items-center justify-center gap-2'>

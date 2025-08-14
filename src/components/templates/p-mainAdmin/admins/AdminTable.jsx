@@ -44,7 +44,7 @@ export default function GameNetAdminsPage() {
     const matchesGameNet =
       !selectedGameNet || selectedGameNet.value === "all"
         ? true
-        : admin.gameNet === selectedGameNet.value;
+        : admin?.gameNet === selectedGameNet.value;
 
     return matchesSearch && matchesGameNet;
   });
@@ -108,7 +108,7 @@ export default function GameNetAdminsPage() {
               >
                 <td className="py-2 px-4">{admin.fullName}</td>
                 <td className="py-2 px-4">{admin.phone}</td>
-                <td className="py-2 px-4">{admin.gameNet}</td>
+                <td className="py-2 px-4">{admin?.gameNet}</td>
                 <td className="py-2 px-4">{admin.users}</td>
                 <td className="py-2 px-4">{admin.sessions}</td>
                 <td className="py-2 px-4 flex gap-3">

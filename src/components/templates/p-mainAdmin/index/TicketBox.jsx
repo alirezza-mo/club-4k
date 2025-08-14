@@ -74,7 +74,7 @@ export default function LatestTickets() {
                   {ticket.title}
                 </span>
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  از: {ticket.gameNetName}
+                  از: {ticket?.gameNetName}
                 </span>
               </div>
               <div className="flex flex-col sm:items-end items-start">

@@ -75,18 +75,18 @@ function Messages({ gameNetName, gameNet, userName, role }) {
         if (message?.senderModel === "Users" && message?.sender.userName === userName) {
           isSelf = true;
         }
-        if (message?.senderModel === "Admin" && role === "Admin" && message?.sender.gameNet === gameNetName) {
+        if (message?.senderModel === "Admin" && role === "Admin" && message?.sender?.gameNet === gameNetName) {
           isSelf = true;
         }
 
         let senderInfo = "";
         if (message?.senderModel === "Users") {
           senderInfo = message.sender?.userName
-            ? `${message.sender.userName}${message.sender.gameNet ? ` - ${message.sender.gameNet}` : ""}`
+            ? `${message.sender.userName}${message.sender?.gameNet ? ` - ${message.sender?.gameNet}` : ""}`
             : "کاربر ناشناس";
         } else if (message.senderModel === "Admin") {
           senderInfo = message.sender?.gameNet
-            ? `ادمین ${message.sender.gameNet}`
+            ? `ادمین ${message.sender?.gameNet}`
             : "ادمین ناشناس";
         }
         let dateInfo = "";

@@ -14,7 +14,7 @@ function ChallengeDoneBox({challenge}) {
         <span className="font-bold">بازی:</span> {challenge?.game}
       </p>
       <p className="font-vazir text-gray-700 dark:text-gray-200">
-        <span className="font-bold">محل انجام بازی</span> {challenge?.location.gameNet}
+        <span className="font-bold">محل انجام بازی</span> {challenge?.location?.gameNet}
       </p>
       <p className="font-vazir text-gray-700 dark:text-gray-200">
         <span className="font-bold">وضعیت:</span>{" "}

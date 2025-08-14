@@ -71,7 +71,7 @@ export default function AddAdminForm() {
             inputId="add-admin-input"
             options={gameNetOptions}
             placeholder="گیم‌نت مورد نظر را انتخاب کنید"
-            value={formData.gameNet}
+            value={formData?.gameNet}
             onChange={(value) => setFormData({ ...formData, gameNet: value })}
             className="dark:text-black"
           />

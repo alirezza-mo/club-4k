@@ -26,7 +26,7 @@ export function generateRefreshToken(user) {
 }
 export const generateAdminToken = async (admin) => {
   const token = sign(
-    { id: admin._id, gameNet: admin.gameNet },
+    { id: admin._id, gameNet: admin?.gameNet },
     process.env.ACCESS_SECRET,
     {
       expiresIn: "15m",
@@ -37,7 +37,7 @@ export const generateAdminToken = async (admin) => {
 
 export function generateRefreshAdminToken(admin) {
   return sign(
-    { id: admin._id, gameNet: admin.gameNet},
+    { id: admin._id, gameNet: admin?.gameNet},
     process.env.REFRESH_SECRET,
     { expiresIn: "15d" }
   );

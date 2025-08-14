@@ -41,7 +41,7 @@ export default function ChallengeCard({
        }
       </h3>
       <p className="font-inter text-gray-700 dark:text-gray-200">
-        لوکیشن: <span className="font-bold">{challenge.location.gameNet}</span>
+        لوکیشن: <span className="font-bold">{challenge.location?.gameNet}</span>
       </p>
       <p className="font-inter text-gray-700 dark:text-gray-200">
         بازی: <span className="font-bold">{challenge.game}</span>

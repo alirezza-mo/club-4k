@@ -26,7 +26,7 @@ async function page() {
   .limit(5)
   const serializedChallenges = JSON.parse(JSON.stringify(challenges));
   const challengesByGameNet = serializedChallenges.filter(challenge => {
-    return challenge?.location.gameNet === gameNet.gameNet
+    return challenge?.location?.gameNet === gameNet?.gameNet
   });
 
   return (

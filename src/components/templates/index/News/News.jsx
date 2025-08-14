@@ -52,7 +52,7 @@ async function News() {
           {role && (
             <div className="flex flex-col items-center gap-10">
               <h3 className="text-xl text-gray-600 dark:text-gray-400">
-                اخبار {role.gameNet}{" "}
+                اخبار {role?.gameNet}{" "}
               </h3>
               <div className="flex flex-col justify-center items-center gap-2">
                 {news.map((nw) => {

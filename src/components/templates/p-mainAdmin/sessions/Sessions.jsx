@@ -122,7 +122,7 @@ const GameNetSessionPage = () => {
                 <td className="p-2">
                   {session.user1} vs {session.user2}
                 </td>
-                <td className="p-2">{session.gameNet}</td>
+                <td className="p-2">{session?.gameNet}</td>
                 <td className="p-2">
                   {typeof window !== "undefined"
                     ? format(

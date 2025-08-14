@@ -96,7 +96,7 @@ function Navbar() {
                 href={`${user.userName ? `/p-user` : `/p-admin` }`}
                 className="px-2 py-2 dark:bg-gold bg-orange-600 text-gray-100 transition-all cursor-pointer dark:hover:bg-amber-300 hover:bg-red-600 hover:text-white rounded-lg"
               >
-                {user.userName || user.gameNet}
+                {user.userName || user?.gameNet}
               </Link>
             ) : (
               <Link
@@ -192,7 +192,7 @@ function Navbar() {
                 href={`${user.userName ? `/p-user` : `/p-admin`}`}
                 className="border dark:text-white dark:border-gold border-orange-600 p-1 rounded-lg cursor-pointer transition-all  active:bg-orange-700 active:text-white dark:active:bg-gold dark:active:text-black "
               >
-                {user.userName || user.gameNet}
+                {user.userName || user?.gameNet}
               </Link>
             ) : (
               <Link

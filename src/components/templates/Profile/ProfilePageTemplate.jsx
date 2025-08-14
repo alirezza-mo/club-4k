@@ -303,8 +303,8 @@ export default function ProfilePageTemplate({ userId }) {
                       انتخاب گیم‌نت
                     </option>
                     {gameNetList.map((loc) => (
-                      <option key={loc._id} value={loc.gameNet}>
-                        {loc.gameNet}
+                      <option key={loc._id} value={loc?.gameNet}>
+                        {loc?.gameNet}
                       </option>
                     ))}
                   </select>

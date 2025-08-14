@@ -158,7 +158,7 @@ export default function ChallengeForm({
           {filteredUsers.length > 0 ? (
             filteredUsers.map((user) => (
               <option key={user._id} value={user.userName}  > 
-                {user.userName} {user.gameNet ? ` - ${user.gameNet}` : ""}
+                {user.userName} {user?.gameNet ? ` - ${user?.gameNet}` : ""}
               </option>
             ))
           ) : (
@@ -193,8 +193,8 @@ export default function ChallengeForm({
           </option>
           {filteredLocations.length > 0 ? (
             filteredLocations.map((loc) => (
-              <option key={loc._id} value={loc.gameNet}>
-                {loc.gameNet}
+              <option key={loc?._id} value={loc?.gameNet}>
+                {loc?.gameNet}
               </option>
             ))
           ) : (

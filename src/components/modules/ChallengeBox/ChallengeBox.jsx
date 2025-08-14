@@ -26,9 +26,9 @@ function ChallengeBox({challenge}) {
           )}
           
           <div className='flex items-center justify-center gap-2 sm:gap-5 w-full font-bold'>
-            <h4 className='text-xl sm:text-2xl'> { challenge.inviter.userName }  </h4>
+            <h4 className='text-xl sm:text-2xl'> { challenge.inviter?.userName }  </h4>
                 <GiCrossedSwords className='text-3xl sm:text-6xl p-2 rounded-full dark:bg-black dark:text-yellow-600 bg-white text-orange-800'/>
-            <h4 className='text-xl sm:text-2xl'> { challenge.invited.userName }  </h4>
+            <h4 className='text-xl sm:text-2xl'> { challenge.invited?.userName }  </h4>
           </div>
           <div className='text-xs text-gray-300'>
             {` ${new Date(challenge?.fightTime).toLocaleDateString("fa-IR")} - ${new Date(challenge?.fightTime).toLocaleTimeString("fa-IR")} (${challenge.location?.gameNet})`}

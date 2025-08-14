@@ -48,7 +48,7 @@ export default function UsersPage() {
     (user) =>
       user.fullName.includes(search) ||
       user.username.includes(search) ||
-      user.gamenet.includes(search)
+      user?.gamenet.includes(search)
   );
 
   const indexOfLastUser = currentPage * usersPerPage;
@@ -123,7 +123,7 @@ export default function UsersPage() {
                 <td className="p-2">{user.username}</td>
                 <td className="p-2">{user.age}</td>
                 <td className="p-2">{user.phone}</td>
-                <td className="p-2">{user.gamenet}</td>
+                <td className="p-2">{user?.gamenet}</td>
                 <td className="p-2">{user.comments}</td>
                 <td className="p-2">{user.tickets}</td>
                 <td className="p-2">{user.challenges}</td>

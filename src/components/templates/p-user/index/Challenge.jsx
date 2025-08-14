@@ -39,7 +39,7 @@ function Challenge({ challenge }) {
       </p>
       <p className="font-vazir text-gray-700 dark:text-gray-200">
         <span className="font-bold text-orange-600 dark:text-gold">لوکیشن</span>{" "}
-        {challenge?.location.gameNet}
+        {challenge?.location?.gameNet}
       </p>
       <p className="font-vazir text-gray-700 dark:text-gray-200">
         <span className="font-bold text-orange-600 dark:text-gold">وضعیت</span>{" "}
