@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import { useRouter } from "next/navigation";
-import { fetchWithRefresh } from "@/utils/getAccessToken";
+import { fetchWithRefresh, getCurrentUserId } from "@/utils/getAccessToken";
 import Swal from "sweetalert";
-import { getCurrentUserId } from "@/utils/getAccessToken";
 
 export default function ScanSessionPage() {
   const router = useRouter();
@@ -170,7 +169,7 @@ export default function ScanSessionPage() {
 
     try {
       const res = await fetchWithRefresh(
-        state === "active" && (player1 === currentUserId || player2 === currentUserId)
+        state === "active" || state === "pendingEnd" // تغییر برای پایان جلسه
           ? "/api/sessions/end-scan"
           : "/api/sessions/scan",
         {
@@ -194,8 +193,16 @@ export default function ScanSessionPage() {
           return;
         }
         const e = await res.json().catch(() => ({}));
-        console.log("API error details:", e.message || e);
+        console.log("Full error object:", e);
+        console.error("API error details:", e.message || e);
         if (e.message === "شما قبلاً به عنوان بازیکن اول اسکن کرده‌اید") {
+          Swal({
+            title: "هشدار",
+            text: e.message,
+            icon: "warning",
+            button: "باشه",
+          });
+        } else if (e.message === "جلسه در وضعیت نامعتبر است یا پایان یافته") {
           Swal({
             title: "هشدار",
             text: e.message,
@@ -288,9 +295,10 @@ export default function ScanSessionPage() {
   };
 
   const formatTimer = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -347,9 +355,11 @@ export default function ScanSessionPage() {
               </button>
             </form>
 
-            {state === "active" && currentUserId && (player1 === currentUserId || player2 === currentUserId) && (
+            {(state === "active" || state === "pendingEnd") && currentUserId && (player1 === currentUserId || player2 === currentUserId) && (
               <div className="mt-4 w-full max-w-md rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 p-3 text-center">
-                جلسه فعال است {role && <span> - نقش شما: بازیکن {role}</span>}
+                {state === "active" && "جلسه فعال است"}
+                {state === "pendingEnd" && "منتظر پایان جلسه"}
+                {role && <span> - نقش شما: بازیکن {role}</span>}
                 <div className="mt-2 font-semibold">مدت زمان: {formatTimer(timer)}</div>
               </div>
             )}

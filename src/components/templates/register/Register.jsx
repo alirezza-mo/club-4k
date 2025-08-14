@@ -271,10 +271,10 @@ export default function Register() {
                         {errors.username}
                       </p>
                     )}
-                    <p className="block my-1 text-gray-400 mb-1 text-xs">
+                    {/* <p className="block my-1 text-gray-400 mb-1 text-xs">
                       {" "}
                       بیشتر از 5 حرف و یک حروف بزرگ و عدد و نماد باشد.{" "}
-                    </p>
+                    </p> */}
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-gray-300 mb-1">
