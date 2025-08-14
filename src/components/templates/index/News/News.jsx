@@ -56,7 +56,7 @@ async function News() {
               </h3>
               <div className="flex flex-col justify-center items-center gap-2">
                 {news.map((nw) => {
-                  if (nw.admin.gameNet === role.gameNet) {
+                  if (nw.admin?.gameNet === role?.gameNet) {
                     return (
                       <NewsBox
                         key={nw._id}

@@ -9,23 +9,30 @@ function Chat() {
   const [gameNetName, setGameNetName] = useState("");
   const [userName, setUserName] = useState("");
   const [role, setRole] = useState(""); // "Admin" یا "Users"
+  const [isLoading, setIsLoading] = useState(true); // حالت لودینگ اضافه شد
 
   useEffect(() => {
     fetchWithRefresh("/api/auth/me")
       .then((res) => res.json())
       .then((data) => {
-        setGameNetName(data.gameNet || "");
-        setUserName(data.userName || "");
-        setRole(data.role || "Users"); // فرض می‌کنیم سرور role میده
+        setGameNetName(data?.gameNet || "");
+        setUserName(data?.userName || "");
+        setRole(data?.role || "Users"); // فرض می‌کنیم سرور role میده
         // اگر ادمین هست، حالت گلوبال انتخاب بشه
-        if (data.role === "Admin") {
+        if (data?.role === "Admin") {
           setGameNet("global");
         } else {
-          setGameNet(data.gameNet || "global");
+          setGameNet(data?.gameNet || "global");
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setIsLoading(false)); // لودینگ بعد از اتمام غیرفعال بشه
   }, []);
+
+  // فقط وقتی داده‌ها آماده باشن رندر کن
+  if (isLoading) {
+    return <div className="text-center text-gray-600">در حال بارگذاری...</div>;
+  }
 
   return (
     <section className="w-full flex flex-col items-center mt-20">

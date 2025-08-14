@@ -31,7 +31,7 @@ function ChallengeBox({challenge}) {
             <h4 className='text-xl sm:text-2xl'> { challenge.invited.userName }  </h4>
           </div>
           <div className='text-xs text-gray-300'>
-            {` ${new Date(challenge.fightTime).toLocaleDateString("fa-IR")} - ${new Date(challenge.fightTime).toLocaleTimeString("fa-IR")} (${challenge.location.gameNet})`}
+            {` ${new Date(challenge?.fightTime).toLocaleDateString("fa-IR")} - ${new Date(challenge?.fightTime).toLocaleTimeString("fa-IR")} (${challenge.location?.gameNet})`}
           </div>
           
           {expirationInfo && expirationInfo.expired && (

@@ -53,6 +53,7 @@ function Messages({ gameNetName, gameNet, userName, role }) {
   };
 
   const filteredMessages = messages.filter((msg) => {
+    if (!gameNetName && gameNet === "global") return true; // مدیریت gameNetName خالی
     if (gameNet === "global") return true;
     if (msg.senderModel === "Admin" && msg.sender?.gameNet === gameNetName) return true;
 
@@ -70,17 +71,16 @@ function Messages({ gameNetName, gameNet, userName, role }) {
       )}
 
       {filteredMessages.map((message, index) => {
-        // پیام خود فرد (کاربر یا ادمین) باید همیشه استایل خاص داشته باشد
         let isSelf = false;
-        if (message.senderModel === "Users" && message.sender?.userName === userName) {
+        if (message?.senderModel === "Users" && message?.sender.userName === userName) {
           isSelf = true;
         }
-        if (message.senderModel === "Admin" && role === "Admin" && message.sender?.gameNet === gameNetName) {
+        if (message?.senderModel === "Admin" && role === "Admin" && message?.sender.gameNet === gameNetName) {
           isSelf = true;
         }
 
         let senderInfo = "";
-        if (message.senderModel === "Users") {
+        if (message?.senderModel === "Users") {
           senderInfo = message.sender?.userName
             ? `${message.sender.userName}${message.sender.gameNet ? ` - ${message.sender.gameNet}` : ""}`
             : "کاربر ناشناس";
