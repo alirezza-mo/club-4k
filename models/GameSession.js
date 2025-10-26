@@ -44,6 +44,22 @@ const schema = new mongoose.Schema(
       type: Number,
       required: false,
     },
+    // pending result proposed by one player and waiting confirmation from opponent
+    pendingResult: {
+      proposer: { type: mongoose.Types.ObjectId, ref: "Users", required: false },
+      proposerGoals: { type: Number, required: false },
+      opponentGoals: { type: Number, required: false },
+      confirmedBy: { type: mongoose.Types.ObjectId, ref: "Users", required: false },
+      createdAt: { type: Date, required: false },
+    },
+    // historical results array (optional)
+    results: [
+      {
+        player1Goals: { type: Number },
+        player2Goals: { type: Number },
+        recordedAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true }
 );

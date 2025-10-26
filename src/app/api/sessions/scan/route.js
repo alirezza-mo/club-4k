@@ -34,6 +34,11 @@ export async function POST(req) {
       return NextResponse.json({ message: "کنسول یافت نشد" }, { status: 404 });
     }
 
+    // اطمینان از اینکه کاربر و کنسول متعلق به یک گیم‌نت هستند
+    if (user.gameNet && consoleDevice.location && user.gameNet.toString() !== consoleDevice.location.toString()) {
+      return NextResponse.json({ message: "کاربر و کنسول در یک گیم‌نت نیستند" }, { status: 403 });
+    }
+
     if (consoleDevice.status === "busy" && consoleDevice.currentSession) {
       const session = await GameSession.findById(consoleDevice.currentSession);
       if (session && session.status === "active") {

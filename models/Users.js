@@ -34,7 +34,12 @@ const schema = mongoose.Schema(
       type: String,
     },
     xp: {
-      type: String,
+      type: Number,
+      default: 0,
+    },
+    lastResultAt: {
+      type: Date,
+      required: false,
     },
     age : {
       type: String,

@@ -57,8 +57,14 @@ export async function POST(req) {
       message,
     });
 
+    // populate the sender fields so client receives ready-to-render message
+    const populated = await ChatModel.findById(newMessage._id).populate(
+      "sender",
+      "userName gameNet role"
+    );
+
     return NextResponse.json(
-      { message: "پیام با موفقیت ارسال شد", data: newMessage },
+      { message: "پیام با موفقیت ارسال شد", data: populated },
       { status: 201 }
     );
   } catch (err) {

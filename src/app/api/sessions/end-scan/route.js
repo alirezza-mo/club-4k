@@ -37,6 +37,11 @@ export async function POST(req) {
       );
     }
 
+    // اطمینان از اینکه کاربر و کنسول متعلق به یک گیم‌نت هستند
+    if (user.gameNet && consoleDevice.location && user.gameNet.toString() !== consoleDevice.location.toString()) {
+      return NextResponse.json({ message: "کاربر و کنسول در یک گیم‌نت نیستند" }, { status: 403 });
+    }
+
     const session = await mongoose.startSession();
     try {
       await session.startTransaction();
