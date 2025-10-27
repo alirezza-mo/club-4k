@@ -54,30 +54,46 @@ export default function ScanSessionPage() {
       // dynamic import so build doesn't fail when socket.io-client not installed
       (async () => {
         try {
-          const { io } = await import('socket.io-client');
-          socket = io(process.env.NEXT_PUBLIC_SOCKET_SERVER || "http://localhost:4001", { transports: ["websocket"] });
+          const { io } = await import("socket.io-client");
+          socket = io(
+            process.env.NEXT_PUBLIC_SOCKET_SERVER || "http://localhost:4001",
+            { transports: ["websocket"] }
+          );
 
-          socket.on('connect', () => {
+          socket.on("connect", () => {
             if (currentUserId && !registered) {
-              socket.emit('register', currentUserId);
+              socket.emit("register", currentUserId);
               registered = true;
             }
           });
 
-          socket.on('notification', (payload) => {
+          socket.on("notification", (payload) => {
             try {
               const { type, data } = payload || {};
-              if (type === 'pending-result') {
-                Swal({ title: 'درخواست تایید نتیجه', text: 'رقیب شما یک نتیجه ثبت کرده است. برای تائید وارد صفحه اسکن شوید.', icon: 'info', button: 'باشه' });
-              } else if (type === 'result-confirmed') {
-                Swal({ title: 'نتیجه تایید شد', text: 'نتیجه بازی شما تایید و امتیازات اعمال شد.', icon: 'success', button: 'باشه' });
+              if (type === "pending-result") {
+                Swal({
+                  title: "درخواست تایید نتیجه",
+                  text: "رقیب شما یک نتیجه ثبت کرده است. برای تائید وارد صفحه اسکن شوید.",
+                  icon: "info",
+                  button: "باشه",
+                });
+              } else if (type === "result-confirmed") {
+                Swal({
+                  title: "نتیجه تایید شد",
+                  text: "نتیجه بازی شما تایید و امتیازات اعمال شد.",
+                  icon: "success",
+                  button: "باشه",
+                });
               }
             } catch (err) {
-              console.error('socket notification error', err);
+              console.error("socket notification error", err);
             }
           });
         } catch (err) {
-          console.warn('socket.io-client not available, skipping realtime notifications', err?.message || err);
+          console.warn(
+            "socket.io-client not available, skipping realtime notifications",
+            err?.message || err
+          );
         }
       })();
     };
@@ -92,7 +108,9 @@ export default function ScanSessionPage() {
 
     return () => {
       clearInterval(socketInterval);
-      try { socket && socket.close(); } catch (e) {}
+      try {
+        socket && socket.close();
+      } catch (e) {}
     };
   }, [router]);
 
@@ -177,7 +195,11 @@ export default function ScanSessionPage() {
   // Real-time timer for active session
   useEffect(() => {
     let interval;
-    if (state === "active" && currentUserId && (player1 === currentUserId || player2 === currentUserId)) {
+    if (
+      state === "active" &&
+      currentUserId &&
+      (player1 === currentUserId || player2 === currentUserId)
+    ) {
       interval = setInterval(() => {
         setTimer((prev) => prev + 1);
       }, 1000);
@@ -244,7 +266,7 @@ export default function ScanSessionPage() {
         }
         const e = await res.json().catch(() => ({}));
         console.log("Full error object:", e);
-        console.error("API error details:", e.message || e);
+        console.log("API error details:", e.message || e);
         if (e.message === "شما قبلاً به عنوان بازیکن اول اسکن کرده‌اید") {
           Swal({
             title: "هشدار",
@@ -275,10 +297,14 @@ export default function ScanSessionPage() {
       setState(data.state);
       setRole(data.role);
       setMessage(data.message);
-  setPlayer1(data.player1 ? data.player1.toString() : null);
-  setPlayer2(data.player2 ? data.player2.toString() : null);
-  setPendingResult(data.session && data.session.pendingResult ? data.session.pendingResult : null);
-  setLastSession(data.session ? data.session : null);
+      setPlayer1(data.player1 ? data.player1.toString() : null);
+      setPlayer2(data.player2 ? data.player2.toString() : null);
+      setPendingResult(
+        data.session && data.session.pendingResult
+          ? data.session.pendingResult
+          : null
+      );
+      setLastSession(data.session ? data.session : null);
 
       if (data.state === "pendingStart") {
         Swal({
@@ -335,7 +361,12 @@ export default function ScanSessionPage() {
     e.preventDefault();
     if (!currentUserId) return;
     if (!lastSession || !lastSession._id) {
-      Swal({ title: "خطا", text: "اطلاعات جلسه موجود نیست، لطفاً کنسول را مجدداً اسکن کنید", icon: "error", button: "باشه" });
+      Swal({
+        title: "خطا",
+        text: "اطلاعات جلسه موجود نیست، لطفاً کنسول را مجدداً اسکن کنید",
+        icon: "error",
+        button: "باشه",
+      });
       return;
     }
 
@@ -358,16 +389,31 @@ export default function ScanSessionPage() {
 
       if (!res || !res.ok) {
         const e = await res.json().catch(() => ({}));
-        Swal({ title: "خطا", text: e.message || "خطا در ثبت نتیجه", icon: "error", button: "باشه" });
+        Swal({
+          title: "خطا",
+          text: e.message || "خطا در ثبت نتیجه",
+          icon: "error",
+          button: "باشه",
+        });
         return;
       }
 
       const data = await res.json();
       setPendingResult(data.pendingResult || null);
-      Swal({ title: "ثبت شد", text: data.message || "نتیجه ثبت شد و منتظر تایید رقیب است", icon: "success", button: "باشه" });
+      Swal({
+        title: "ثبت شد",
+        text: data.message || "نتیجه ثبت شد و منتظر تایید رقیب است",
+        icon: "success",
+        button: "باشه",
+      });
     } catch (err) {
       console.error(err);
-      Swal({ title: "خطا", text: "خطا در ثبت نتیجه", icon: "error", button: "باشه" });
+      Swal({
+        title: "خطا",
+        text: "خطا در ثبت نتیجه",
+        icon: "error",
+        button: "باشه",
+      });
     }
   };
 
@@ -377,22 +423,40 @@ export default function ScanSessionPage() {
       const res = await fetchWithRefresh("/api/sessions/confirm-result", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId: lastSession._id, userId: currentUserId }),
+        body: JSON.stringify({
+          sessionId: lastSession._id,
+          userId: currentUserId,
+        }),
         credentials: "include",
       });
 
       if (!res || !res.ok) {
         const e = await res.json().catch(() => ({}));
-        Swal({ title: "خطا", text: e.message || "خطا در تایید نتیجه", icon: "error", button: "باشه" });
+        Swal({
+          title: "خطا",
+          text: e.message || "خطا در تایید نتیجه",
+          icon: "error",
+          button: "باشه",
+        });
         return;
       }
 
       const data = await res.json();
       setPendingResult(null);
-      Swal({ title: "تایید شد", text: data.message || "نتیجه تایید و امتیازات اعمال شد", icon: "success", button: "باشه" });
+      Swal({
+        title: "تایید شد",
+        text: data.message || "نتیجه تایید و امتیازات اعمال شد",
+        icon: "success",
+        button: "باشه",
+      });
     } catch (err) {
       console.error(err);
-      Swal({ title: "خطا", text: "خطای داخلی هنگام تایید نتیجه", icon: "error", button: "باشه" });
+      Swal({
+        title: "خطا",
+        text: "خطای داخلی هنگام تایید نتیجه",
+        icon: "error",
+        button: "باشه",
+      });
     }
   };
 
@@ -414,7 +478,9 @@ export default function ScanSessionPage() {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -471,54 +537,119 @@ export default function ScanSessionPage() {
               </button>
             </form>
 
-            {(state === "active" || state === "pendingEnd") && currentUserId && (player1 === currentUserId || player2 === currentUserId) && (
-              <div className="mt-4 w-full max-w-md rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 p-3 text-center">
-                {state === "active" && "جلسه فعال است"}
-                {state === "pendingEnd" && "منتظر پایان جلسه"}
-                {role && <span> - نقش شما: بازیکن {role}</span>}
-                <div className="mt-2 font-semibold">مدت زمان: {formatTimer(timer)}</div>
-              </div>
-            )}
-
-            {state === "ended" && currentUserId && (player1 === currentUserId || player2 === currentUserId) && (
-              <div className="mt-4 w-full max-w-md rounded-xl bg-slate-50 dark:bg-slate-900/30 text-slate-900 dark:text-slate-100 p-4">
-                <h3 className="font-bold mb-2">ثبت نتیجه بازی</h3>
-
-                {pendingResult ? (
-                  <div>
-                    <p className="mb-2">نتیجه پیشنهادی توسط بازیکن دیگر:</p>
-                    <div className="flex items-center gap-4 mb-3">
-                      <div className="px-3 py-2 bg-white rounded shadow">گل بازیکن اول: {pendingResult.proposer && (pendingResult.proposer.toString() === player1 ? pendingResult.proposerGoals : pendingResult.opponentGoals)}</div>
-                      <div className="px-3 py-2 bg-white rounded shadow">گل بازیکن دوم: {pendingResult.proposer && (pendingResult.proposer.toString() === player2 ? pendingResult.proposerGoals : pendingResult.opponentGoals)}</div>
-                    </div>
-
-                    {/* if current user is opponent and can confirm */}
-                    {pendingResult.proposer && pendingResult.proposer.toString() !== currentUserId && (
-                      <div className="flex gap-2">
-                        <button onClick={confirmPendingResult} className="px-4 py-2 bg-emerald-600 text-white rounded">تایید نتیجه</button>
-                        <button onClick={() => Swal({ title: "اخطار", text: "در نسخه فعلی امکان رد نتیجه از طریق اپ وجود ندارد. در صورت اختلاف به مسئول گیم‌نت مراجعه کنید.", icon: "warning", button: "باشه" })} className="px-4 py-2 bg-rose-500 text-white rounded">رد نتیجه</button>
-                      </div>
-                    )}
-
-                    {/* if current user is proposer, show waiting message */}
-                    {pendingResult.proposer && pendingResult.proposer.toString() === currentUserId && (
-                      <div className="mt-2 text-sm text-gray-600">شما نتیجه را ثبت کرده‌اید و اکنون منتظر تایید رقیب هستید.</div>
-                    )}
+            {(state === "active" || state === "pendingEnd") &&
+              currentUserId &&
+              (player1 === currentUserId || player2 === currentUserId) && (
+                <div className="mt-4 w-full max-w-md rounded-xl bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 p-3 text-center">
+                  {state === "active" && "جلسه فعال است"}
+                  {state === "pendingEnd" && "منتظر پایان جلسه"}
+                  {role && <span> - نقش شما: بازیکن {role}</span>}
+                  <div className="mt-2 font-semibold">
+                    مدت زمان: {formatTimer(timer)}
                   </div>
-                ) : (
-                  <form onSubmit={submitResult} className="flex flex-col gap-2">
-                    <div className="flex gap-2">
-                      <input type="number" min={0} value={p1GoalsInput} onChange={(e) => setP1GoalsInput(e.target.value)} className="flex-1 px-3 py-2 rounded border" placeholder="گل بازیکن اول" />
-                      <input type="number" min={0} value={p2GoalsInput} onChange={(e) => setP2GoalsInput(e.target.value)} className="flex-1 px-3 py-2 rounded border" placeholder="گل بازیکن دوم" />
+                </div>
+              )}
+
+            {state === "ended" &&
+              currentUserId &&
+              (player1 === currentUserId || player2 === currentUserId) && (
+                <div className="mt-4 w-full max-w-md rounded-xl bg-slate-50 dark:bg-slate-900/30 text-slate-900 dark:text-slate-100 p-4">
+                  <h3 className="font-bold mb-2">ثبت نتیجه بازی</h3>
+
+                  {pendingResult ? (
+                    <div>
+                      <p className="mb-2">نتیجه پیشنهادی توسط بازیکن دیگر:</p>
+                      <div className="flex items-center gap-4 mb-3">
+                        <div className="px-3 py-2 bg-white rounded shadow">
+                          گل بازیکن اول:{" "}
+                          {pendingResult.proposer &&
+                            (pendingResult.proposer.toString() === player1
+                              ? pendingResult.proposerGoals
+                              : pendingResult.opponentGoals)}
+                        </div>
+                        <div className="px-3 py-2 bg-white rounded shadow">
+                          گل بازیکن دوم:{" "}
+                          {pendingResult.proposer &&
+                            (pendingResult.proposer.toString() === player2
+                              ? pendingResult.proposerGoals
+                              : pendingResult.opponentGoals)}
+                        </div>
+                      </div>
+
+                      {/* if current user is opponent and can confirm */}
+                      {pendingResult.proposer &&
+                        pendingResult.proposer.toString() !== currentUserId && (
+                          <div className="flex gap-2">
+                            <button
+                              onClick={confirmPendingResult}
+                              className="px-4 py-2 bg-emerald-600 text-white rounded"
+                            >
+                              تایید نتیجه
+                            </button>
+                            <button
+                              onClick={() =>
+                                Swal({
+                                  title: "اخطار",
+                                  text: "در نسخه فعلی امکان رد نتیجه از طریق اپ وجود ندارد. در صورت اختلاف به مسئول گیم‌نت مراجعه کنید.",
+                                  icon: "warning",
+                                  button: "باشه",
+                                })
+                              }
+                              className="px-4 py-2 bg-rose-500 text-white rounded"
+                            >
+                              رد نتیجه
+                            </button>
+                          </div>
+                        )}
+
+                      {/* if current user is proposer, show waiting message */}
+                      {pendingResult.proposer &&
+                        pendingResult.proposer.toString() === currentUserId && (
+                          <div className="mt-2 text-sm text-gray-600">
+                            شما نتیجه را ثبت کرده‌اید و اکنون منتظر تایید رقیب
+                            هستید.
+                          </div>
+                        )}
                     </div>
-                    <div className="flex gap-2 justify-end">
-                      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">ثبت و ارسال برای تایید</button>
-                    </div>
-                    <div className="mt-2 text-xs text-gray-500">پس از تایید، امتیازات به صورت خودکار محاسبه می‌شوند. ثبت نتیجه بعدی حداقل {10} دقیقه طول خواهد کشید.</div>
-                  </form>
-                )}
-              </div>
-            )}
+                  ) : (
+                    <form
+                      onSubmit={submitResult}
+                      className="flex flex-col gap-2"
+                    >
+                      <div className="flex gap-2">
+                        <input
+                          type="number"
+                          min={0}
+                          value={p1GoalsInput}
+                          onChange={(e) => setP1GoalsInput(e.target.value)}
+                          className="flex-1 px-3 py-2 rounded border"
+                          placeholder="گل بازیکن اول"
+                        />
+                        <input
+                          type="number"
+                          min={0}
+                          value={p2GoalsInput}
+                          onChange={(e) => setP2GoalsInput(e.target.value)}
+                          className="flex-1 px-3 py-2 rounded border"
+                          placeholder="گل بازیکن دوم"
+                        />
+                      </div>
+                      <div className="flex gap-2 justify-end">
+                        <button
+                          type="submit"
+                          className="px-4 py-2 bg-blue-600 text-white rounded"
+                        >
+                          ثبت و ارسال برای تایید
+                        </button>
+                      </div>
+                      <div className="mt-2 text-xs text-gray-500">
+                        پس از تایید، امتیازات به صورت خودکار محاسبه می‌شوند. ثبت
+                        نتیجه بعدی حداقل {10} دقیقه طول خواهد کشید.
+                      </div>
+                    </form>
+                  )}
+                </div>
+              )}
           </div>
 
           <div className="mt-8">
@@ -526,10 +657,21 @@ export default function ScanSessionPage() {
               نکات و مقررات
             </h2>
             <ul className="mt-3 list-disc pr-6 text-gray-700 dark:text-gray-300 space-y-2">
-              <li>برای شروع، ابتدا کاربر اول اسکن کند؛ سپس کاربر دوم. برای پایان، دوباره به همین ترتیب.</li>
-              <li>در طول جلسه این کنسول برای دیگران قفل است تا پایان کامل جلسه.</li>
-              <li>برای اسکن موفق، بارکد را در کادر مشخص ثابت نگه دارید و از نور کافی استفاده کنید.</li>
-              <li>اگر دوربین در دسترس نبود، می‌توانید بارکد را به صورت دستی وارد کنید.</li>
+              <li>
+                برای شروع، ابتدا کاربر اول اسکن کند؛ سپس کاربر دوم. برای پایان،
+                دوباره به همین ترتیب.
+              </li>
+              <li>
+                در طول جلسه این کنسول برای دیگران قفل است تا پایان کامل جلسه.
+              </li>
+              <li>
+                برای اسکن موفق، بارکد را در کادر مشخص ثابت نگه دارید و از نور
+                کافی استفاده کنید.
+              </li>
+              <li>
+                اگر دوربین در دسترس نبود، می‌توانید بارکد را به صورت دستی وارد
+                کنید.
+              </li>
             </ul>
           </div>
         </div>
@@ -542,7 +684,8 @@ export default function ScanSessionPage() {
               اجازه دسترسی به دوربین
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-5">
-              برای اسکن بارکد کنسول، اجازه دسترسی به دوربین لازم است. آیا اجازه می‌دهید؟
+              برای اسکن بارکد کنسول، اجازه دسترسی به دوربین لازم است. آیا اجازه
+              می‌دهید؟
             </p>
             <div className="flex items-center justify-end gap-3">
               <button

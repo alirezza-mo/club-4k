@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "socket-start": "node server/socketServer.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -17,6 +18,8 @@
     "chart.js": "^4.4.9",
     "cookie": "^1.0.2",
     "date-fns-jalali": "^4.1.0-0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "formidable": "^3.5.4",
     "html5-qrcode": "^2.3.8",
     "jalali-moment": "^3.3.11",
