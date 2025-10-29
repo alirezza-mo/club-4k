@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import SendMessage from "./SendMessage";
 import Messages from "./Messages";
 import { fetchWithRefresh } from "@/utils/getAccessToken";
-import { initSocket, getSocket } from "@/utils/socket";
+// realtime handled inside Messages via Pusher
 
 function Chat() {
   const [gameNet, setGameNet] = useState("global"); // پیش‌فرض global باشه
@@ -24,20 +24,7 @@ function Chat() {
         } else {
           setGameNet(data?.gameNet || "global");
         }
-        
-        // Initialize socket connection with user ID
-        if (data?._id) {
-          console.log('Initializing socket with user ID:', data._id);
-          const socket = initSocket(data._id);
-          if (socket) {
-            socket.on('connect', () => {
-              console.log('Socket connected successfully');
-            });
-            socket.on('error', (error) => {
-              console.error('Socket connection error:', error);
-            });
-          }
-        }
+        // realtime is managed in Messages component via Pusher subscription
       })
       .catch((err) => console.error(err))
       .finally(() => setIsLoading(false));

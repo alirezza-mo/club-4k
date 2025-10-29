@@ -12,7 +12,12 @@ export async function POST(req) {
     await cleanupPendingSessions(); // چک جلسات منقضی‌شده
 
     const body = await req.json();
-    const { barcode, userId } = body || {};
+    let { barcode, userId } = body || {};
+
+    // Clean and normalize barcode
+    if (barcode) {
+      barcode = barcode.trim();
+    }
 
     if (!barcode || !userId) {
       return NextResponse.json(
@@ -29,7 +34,15 @@ export async function POST(req) {
       );
     }
 
-    const consoleDevice = await Console.findOne({ barcode });
+    // Try exact match first
+    let consoleDevice = await Console.findOne({ barcode });
+    
+    // If not found, try case-insensitive search
+    if (!consoleDevice) {
+      consoleDevice = await Console.findOne({ 
+        $expr: { $eq: [{ $trim: { input: "$barcode" } }, barcode] } 
+      });
+    }
     if (!consoleDevice || !consoleDevice.currentSession) {
       return NextResponse.json(
         { message: "جلسه فعالی برای این کنسول یافت نشد" },

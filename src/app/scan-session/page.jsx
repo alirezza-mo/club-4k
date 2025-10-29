@@ -30,7 +30,7 @@ export default function ScanSessionPage() {
 
   const lastScanRef = useRef({ value: null, at: 0 });
 
-  // گرفتن userId کاربر فعلی
+  // گرفتن userId کاربر فعلی و تنظیم Pusher برای اعلان‌ها
   useEffect(() => {
     const fetchUserId = async () => {
       try {
@@ -48,76 +48,61 @@ export default function ScanSessionPage() {
       }
     };
     fetchUserId();
-    let socket;
-    let registered = false;
-    const setupSocket = () => {
-      // dynamic import so build doesn't fail when socket.io-client not installed
-      (async () => {
-        try {
-          const { io } = await import("socket.io-client");
-          socket = io(
-            process.env.NEXT_PUBLIC_SOCKET_SERVER || "http://localhost:4001",
-            { transports: ["websocket"] }
-          );
-
-          socket.on("connect", () => {
-            if (currentUserId && !registered) {
-              socket.emit("register", currentUserId);
-              registered = true;
-            }
+    
+    let unsubscribe1 = null;
+    let unsubscribe2 = null;
+    
+    const setupRealtime = async () => {
+      if (!currentUserId) return;
+      try {
+        const { subscribe } = await import("@/utils/pusherClient");
+        unsubscribe1 = subscribe(`user-${currentUserId}`, 'pending-result', () => {
+          Swal({
+            title: "درخواست تایید نتیجه",
+            text: "رقیب شما یک نتیجه ثبت کرده است. برای تائید وارد صفحه اسکن شوید.",
+            icon: "info",
+            button: "باشه",
           });
-
-          socket.on("notification", (payload) => {
-            try {
-              const { type, data } = payload || {};
-              if (type === "pending-result") {
-                Swal({
-                  title: "درخواست تایید نتیجه",
-                  text: "رقیب شما یک نتیجه ثبت کرده است. برای تائید وارد صفحه اسکن شوید.",
-                  icon: "info",
-                  button: "باشه",
-                });
-              } else if (type === "result-confirmed") {
-                Swal({
-                  title: "نتیجه تایید شد",
-                  text: "نتیجه بازی شما تایید و امتیازات اعمال شد.",
-                  icon: "success",
-                  button: "باشه",
-                });
-              }
-            } catch (err) {
-              console.error("socket notification error", err);
-            }
+        });
+        unsubscribe2 = subscribe(`user-${currentUserId}`, 'result-confirmed', () => {
+          Swal({
+            title: "نتیجه تایید شد",
+            text: "نتیجه بازی شما تایید و امتیازات اعمال شد.",
+            icon: "success",
+            button: "باشه",
           });
-        } catch (err) {
-          console.warn(
-            "socket.io-client not available, skipping realtime notifications",
-            err?.message || err
-          );
-        }
-      })();
+        });
+      } catch (err) {
+        console.warn("Pusher client not available", err?.message || err);
+      }
     };
 
-    // setup socket after attempt to get user id
-    const socketInterval = setInterval(() => {
+    // Setup Pusher when userId is available
+    const pusherInterval = setInterval(() => {
       if (currentUserId) {
-        setupSocket();
-        clearInterval(socketInterval);
+        setupRealtime();
+        clearInterval(pusherInterval);
       }
     }, 300);
 
     return () => {
-      clearInterval(socketInterval);
+      clearInterval(pusherInterval);
       try {
-        socket && socket.close();
+        unsubscribe1 && unsubscribe1();
+      } catch (e) {}
+      try {
+        unsubscribe2 && unsubscribe2();
       } catch (e) {}
     };
-  }, [router]);
+  }, [router, currentUserId]);
 
   // Start scanner
   const startScanner = async () => {
     try {
-      if (isRunningRef.current) return;
+      // Don't start if already running
+      if (isRunningRef.current) {
+        return;
+      }
 
       const readerEl = document.getElementById("reader");
       if (!readerEl) {
@@ -130,33 +115,44 @@ export default function ScanSessionPage() {
         return;
       }
 
-      if (!isMountedRef.current) {
-        isMountedRef.current = true;
-      } else {
-        return;
-      }
-
+      // Create new scanner instance if needed
       if (!qrInstanceRef.current) {
         qrInstanceRef.current = new Html5Qrcode("reader", { verbose: false });
+      }
+
+      // Check if already scanning
+      try {
+        const isScanning = qrInstanceRef.current.isScanning && qrInstanceRef.current.isScanning();
+        if (isScanning) {
+          console.log("Scanner already running");
+          setIsScanning(true);
+          return;
+        }
+      } catch (e) {
+        // Continue if can't check
       }
 
       await qrInstanceRef.current.start(
         { facingMode: "environment" },
         {
           fps: 10,
-          qrbox: 280,
-          disableFlip: true,
-          disableBeep: true,
+          qrbox: { width: 280, height: 280 },
+          disableFlip: false,
+          videoConstraints: {
+            facingMode: "environment"
+          }
         },
         async (decodedText) => {
+          console.log("Scanned:", decodedText);
           await onScan(decodedText);
         },
         (err) => {
-          console.debug("Scan error:", err);
+          // Only log if not a regular "not found" error
+          if (!err.includes("Not Found")) {
+            console.debug("Scan error:", err);
+          }
         }
       );
-
-      await new Promise((res) => setTimeout(res, 300));
 
       isRunningRef.current = true;
       setIsScanning(true);
@@ -170,26 +166,37 @@ export default function ScanSessionPage() {
       });
       setIsScanning(false);
       isRunningRef.current = false;
+      isMountedRef.current = false;
+      qrInstanceRef.current = null;
     }
   };
 
   // Stop scanner
   const stopScanner = async () => {
-    try {
-      if (qrInstanceRef.current && isRunningRef.current) {
-        await new Promise((res) => setTimeout(res, 100));
-        try {
-          await qrInstanceRef.current.stop();
-        } catch (e) {}
-        try {
-          await qrInstanceRef.current.clear();
-        } catch (e) {}
-      }
-    } finally {
+    if (!qrInstanceRef.current || !isRunningRef.current) {
       setIsScanning(false);
       isRunningRef.current = false;
-      setTimer(0);
+      return;
     }
+
+    try {
+      // Html5Qrcode stop() returns a Promise that resolves when camera is released
+      await qrInstanceRef.current.stop();
+    } catch (e) {
+      console.error("Error stopping scanner:", e);
+    }
+
+    try {
+      // Don't call clear if stop was successful
+      // clear() should only be called if we want to completely reset the instance
+      // which we don't need to do here
+    } catch (e) {
+      // Ignore
+    }
+
+    // Reset state
+    isRunningRef.current = false;
+    setIsScanning(false);
   };
 
   // Real-time timer for active session
@@ -208,15 +215,13 @@ export default function ScanSessionPage() {
   }, [state, currentUserId, player1, player2]);
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (isScanning) stopScanner();
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    // Cleanup on unmount
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      if (qrInstanceRef.current && isRunningRef.current) {
+        stopScanner();
+      }
     };
-  }, [isScanning]);
+  }, []);
 
   const onScan = async (barcode) => {
     if (!currentUserId) {
@@ -231,13 +236,27 @@ export default function ScanSessionPage() {
     }
 
     console.log("Sending barcode to API:", barcode);
+    
+    // Parse barcode if it's a JSON object string
+    let actualBarcode = barcode;
+    try {
+      const parsed = JSON.parse(barcode);
+      if (parsed && parsed.barcode) {
+        actualBarcode = parsed.barcode;
+        console.log("Extracted barcode from JSON:", actualBarcode);
+      }
+    } catch (e) {
+      // Not JSON, use as is
+      console.log("Barcode is not JSON, using as is:", actualBarcode);
+    }
+    
     const now = Date.now();
     if (
-      lastScanRef.current.value === barcode &&
+      lastScanRef.current.value === actualBarcode &&
       now - lastScanRef.current.at < 2000
     )
       return;
-    lastScanRef.current = { value: barcode, at: now };
+    lastScanRef.current = { value: actualBarcode, at: now };
 
     try {
       const res = await fetchWithRefresh(
@@ -247,7 +266,7 @@ export default function ScanSessionPage() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ barcode, userId: currentUserId }),
+          body: JSON.stringify({ barcode: actualBarcode, userId: currentUserId }),
           credentials: "include",
         }
       );
@@ -347,6 +366,8 @@ export default function ScanSessionPage() {
       if (data.state !== "active") {
         setTimer(0);
       }
+
+      // Don't stop scanner here - let user manually stop or scan again
     } catch (err) {
       console.error("Fetch error:", err);
       Swal({

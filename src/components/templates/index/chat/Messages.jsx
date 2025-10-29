@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
-import { initSocket, onMessage, getConnectionState } from "@/utils/socket";
+import { subscribe } from "@/utils/pusherClient";
 
 // تابع debounce برای بهینه‌سازی اسکرول
 function debounce(func, wait) {
@@ -27,7 +27,7 @@ function Messages({ gameNetName, gameNet, userName, role }) {
   const [skip, setSkip] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const containerRef = useRef(null);
   const initialLoadDone = useRef(false);
@@ -181,26 +181,19 @@ function Messages({ gameNetName, gameNet, userName, role }) {
   useEffect(() => {
     fetchMessages(false);
 
-    // تنظیم اتصال برای پیام‌های جدید
-    const source = initSocket(userName);
-    
-    // اضافه کردن event listener برای پیام‌های جدید
-    const cleanup = onMessage((data) => {
-      if (data.type === 'new-message') {
-        console.log('Received new message:', data.message);
-        handleNewMessage(data.message);
-      }
-    });
-
-    // چک کردن وضعیت اتصال
-    const connectionCheck = setInterval(() => {
-      const state = getConnectionState();
-      setIsConnected(state === 'connected');
-    }, 3000);
+    // Pusher subscription for new chat messages
+    let unsub = null;
+    try {
+      unsub = subscribe("chat-global", "new-message", (msg) => {
+        handleNewMessage(msg);
+      });
+      setIsConnected(true);
+    } catch (e) {
+      setIsConnected(false);
+    }
 
     return () => {
-      cleanup();
-      clearInterval(connectionCheck);
+      try { unsub && unsub(); } catch {}
     };
   }, [userName]);
 

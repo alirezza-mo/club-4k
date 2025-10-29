@@ -5,8 +5,7 @@ import GameSession from "../../../../../models/GameSession";
 import Console from "../../../../../models/Console";
 import mongoose from "mongoose";
 import { cleanupPendingSessions } from "@/utils/cleanUpPendingSession";
-
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL || "http://localhost:4001";
+import { triggerEvent } from "@/utils/pusherServer";
 
 const COOLDOWN_MINUTES = 10;
 
@@ -73,21 +72,19 @@ export async function POST(req) {
 
     await sessionDoc.save();
 
-    // Notify opponent in real-time (via socket server)
+    // Notify opponent in real-time (via Pusher)
     try {
       const opponentId = sessionDoc.player1 && sessionDoc.player1.toString() === user._id.toString() ? sessionDoc.player2 : sessionDoc.player1;
       if (opponentId) {
-        try {
-          const { io: ClientIo } = await import('socket.io-client');
-          const socket = ClientIo(SOCKET_SERVER_URL, { transports: ["websocket"], forceNew: true });
-          socket.emit('notify', { toUserId: opponentId.toString(), type: 'pending-result', data: { sessionId: sessionDoc._id, from: user._id, proposerGoals: sessionDoc.pendingResult.proposerGoals, opponentGoals: sessionDoc.pendingResult.opponentGoals } });
-          socket.close();
-        } catch (err2) {
-          console.error('Socket notify import/send error:', err2?.message || err2);
-        }
+        await triggerEvent(`user-${opponentId.toString()}`, 'pending-result', {
+          sessionId: sessionDoc._id,
+          from: user._id,
+          proposerGoals: sessionDoc.pendingResult.proposerGoals,
+          opponentGoals: sessionDoc.pendingResult.opponentGoals,
+        });
       }
     } catch (err) {
-      console.error('Socket notify error:', err.message || err);
+      console.error('Pusher notify error:', err?.message || err);
     }
 
     return NextResponse.json({ message: "نتیجه ثبت شد و منتظر تایید رقیب است", pendingResult: sessionDoc.pendingResult }, { status: 200 });

@@ -34,3 +34,29 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Realtime (Pusher) setup
+
+This project uses Pusher Channels for realtime notifications and chat to work seamlessly on Vercel (no custom WebSocket server).
+
+Environment variables required:
+
+```
+PUSHER_APP_ID=your-app-id
+PUSHER_KEY=your-key
+PUSHER_SECRET=your-secret
+PUSHER_CLUSTER=eu
+NEXT_PUBLIC_PUSHER_KEY=your-key
+NEXT_PUBLIC_PUSHER_CLUSTER=eu
+```
+
+- Server triggers live events using `src/utils/pusherServer.js`.
+- Client subscribes using `src/utils/pusherClient.js`.
+- Per-user notifications use channel `user-{userId}` with events:
+  - `pending-result`
+  - `result-confirmed`
+- Global chat uses channel `chat-global` with event `new-message`.
+
+Notes:
+- All socket.io and custom Express server code were removed.
+- Vercel rewrites for `/socket.io` are no longer needed.

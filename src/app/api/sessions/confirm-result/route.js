@@ -4,8 +4,7 @@ import Users from "../../../../../models/Users";
 import GameSession from "../../../../../models/GameSession";
 import mongoose from "mongoose";
 import { cleanupPendingSessions } from "@/utils/cleanUpPendingSession";
-
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL || "http://localhost:4001";
+import { triggerEvent } from "@/utils/pusherServer";
 
 export async function POST(req) {
   try {
@@ -101,20 +100,13 @@ export async function POST(req) {
 
       await session.commitTransaction();
 
-      // notify both players about the confirmed result (use dynamic import)
+      // notify both players about the confirmed result via Pusher
       try {
-        try {
-          const { io: ClientIo } = await import('socket.io-client');
-          const socket = ClientIo(SOCKET_SERVER_URL, { transports: ["websocket"], forceNew: true });
-          const payload = { sessionId: sessionDoc._id, player1Goals, player2Goals };
-          if (player1._id) socket.emit('notify', { toUserId: player1._id.toString(), type: 'result-confirmed', data: payload });
-          if (player2._id) socket.emit('notify', { toUserId: player2._id.toString(), type: 'result-confirmed', data: payload });
-          socket.close();
-        } catch (err2) {
-          console.error('Socket notify import/send error:', err2?.message || err2);
-        }
+        const payload = { sessionId: sessionDoc._id, player1Goals, player2Goals };
+        if (player1._id) await triggerEvent(`user-${player1._id.toString()}`, 'result-confirmed', payload);
+        if (player2._id) await triggerEvent(`user-${player2._id.toString()}`, 'result-confirmed', payload);
       } catch (err) {
-        console.error('Socket notify error:', err.message || err);
+        console.error('Pusher notify error:', err?.message || err);
       }
 
       return NextResponse.json({ message: "نتیجه تایید شد و امتیازات محاسبه شد", results: sessionDoc.results }, { status: 200 });

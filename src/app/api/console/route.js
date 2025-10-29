@@ -19,7 +19,13 @@ export async function POST(req) {
   try {
     await connectToDb();
     const body = await req.json();
-    const { name, barcode, location } = body || {};
+    let { name, barcode, location } = body || {};
+
+    // Normalize barcode on creation
+    if (barcode) {
+      barcode = barcode.trim();
+      barcode = barcode.replace(/[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]/g, '');
+    }
 
     if (!name || !barcode) {
       return NextResponse.json(

@@ -12,7 +12,40 @@ export async function POST(req) {
     await cleanupPendingSessions(); // چک جلسات منقضی‌شده
 
     const body = await req.json();
-    const { barcode, userId } = body || {};
+    let { barcode, userId } = body || {};
+
+    console.log("Raw body received:", JSON.stringify(body));
+    console.log("Raw barcode from body:", barcode);
+
+    // Parse barcode if it's a JSON string
+    if (typeof barcode === 'string') {
+      try {
+        const parsed = JSON.parse(barcode);
+        if (parsed && parsed.barcode) {
+          barcode = parsed.barcode;
+          console.log("Parsed barcode from JSON string:", barcode);
+        } else if (parsed) {
+          barcode = parsed;
+          console.log("Using entire parsed object as barcode:", barcode);
+        }
+      } catch (e) {
+        // Not JSON, use as is
+        barcode = barcode.trim();
+      }
+    } else if (typeof barcode === 'object' && barcode !== null) {
+      // If barcode is an object with a barcode property
+      if (barcode.barcode) {
+        barcode = barcode.barcode;
+        console.log("Extracted barcode from object:", barcode);
+      }
+    }
+
+    // Clean and normalize barcode
+    if (typeof barcode === 'string') {
+      barcode = barcode.trim();
+    }
+
+    console.log("Final barcode after processing:", barcode);
 
     if (!barcode || !userId) {
       return NextResponse.json(
@@ -29,9 +62,47 @@ export async function POST(req) {
       );
     }
 
-    const consoleDevice = await Console.findOne({ barcode });
+    // Try multiple search methods
+    let consoleDevice = null;
+    
+    // Method 1: Exact match
+    consoleDevice = await Console.findOne({ barcode });
+    console.log("Method 1 - Exact match result:", consoleDevice ? "Found" : "Not found");
+    
+    // Method 2: Trim whitespace from both sides
     if (!consoleDevice) {
-      return NextResponse.json({ message: "کنسول یافت نشد" }, { status: 404 });
+      const trimmedBarcode = barcode.trim();
+      consoleDevice = await Console.findOne({ barcode: trimmedBarcode });
+      console.log("Method 2 - Trimmed search result:", consoleDevice ? "Found" : "Not found");
+    }
+    
+    // Method 3: Partial match (in case of encoding issues)
+    if (!consoleDevice) {
+      const regexPattern = new RegExp(barcode.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      consoleDevice = await Console.findOne({ barcode: { $regex: regexPattern } });
+      console.log("Method 3 - Regex search result:", consoleDevice ? "Found" : "Not found");
+    }
+
+    if (!consoleDevice) {
+      // Debug logging
+      const allConsoles = await Console.find({}).select("barcode name").lean();
+      console.log("=".repeat(50));
+      console.log("SEARCH FAILED");
+      console.log("Received barcode:", JSON.stringify(barcode));
+      console.log("Barcode length:", barcode.length);
+      console.log("Barcode char codes:", [...barcode].map(c => c.charCodeAt(0)).join(','));
+      console.log("Total consoles in DB:", allConsoles.length);
+      console.log("Available consoles:", allConsoles);
+      console.log("=".repeat(50));
+      
+      return NextResponse.json({ 
+        message: "کنسول یافت نشد", 
+        debug: {
+          receivedBarcode: barcode,
+          totalConsoles: allConsoles.length,
+          availableConsoles: allConsoles
+        }
+      }, { status: 404 });
     }
 
     // اطمینان از اینکه کاربر و کنسول متعلق به یک گیم‌نت هستند
