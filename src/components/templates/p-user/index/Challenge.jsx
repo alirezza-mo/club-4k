@@ -24,7 +24,7 @@ function Challenge({ challenge }) {
       <div className=" rounded-lg " />
       <div className="flex justify-between items-center">
         <p className="font-bold text-lg text-gray-700 dark:text-gray-200">
-          {challenge?.inviter.userName} {challenge?.invited.userName}{" "}
+          {challenge?.inviter?.userName} {challenge?.invited.userName}{" "}
           <span className="text-orange-600 dark:text-gold"> VS </span>
         </p>
         <p className="font-vazir text-sm text-gray-500 dark:text-gray-400"></p>

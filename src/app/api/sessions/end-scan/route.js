@@ -5,6 +5,7 @@ import Console from "../../../../../models/Console";
 import GameSession from "../../../../../models/GameSession";
 import mongoose from "mongoose";
 import { cleanupPendingSessions } from "../../../../utils/cleanUpPendingSession";
+import { triggerEvent } from "@/utils/pusherServer";
 
 export async function POST(req) {
   try {
@@ -101,6 +102,23 @@ export async function POST(req) {
         await gameSession.save({ session });
 
         await session.commitTransaction();
+        try {
+          const opponentId = gameSession.player1.toString() === user._id.toString() 
+            ? gameSession.player2 
+            : gameSession.player1;
+          
+          if (opponentId) {
+            await triggerEvent(`user-${opponentId.toString()}`, 'session-updated', {
+              message: `منتظر اسکن بازیکن دوم برای پایان جلسه`,
+              session: gameSession,
+              state: "pendingEnd",
+              player1: gameSession.player1,
+              player2: gameSession.player2,
+            });
+          }
+        } catch (err) {
+          console.error('Pusher notify error (pending-end):', err?.message || err);
+        }
         return NextResponse.json(
           {
             message: `منتظر اسکن بازیکن دوم برای پایان جلسه در کنسول ${consoleDevice.name}`,
@@ -158,6 +176,21 @@ export async function POST(req) {
         await consoleDevice.save({ session });
 
         await session.commitTransaction();
+        try {
+          const opponentId = gameSession.pendingByUser.toString(); // این همون کاربر اوله
+          
+          if (opponentId) {
+            await triggerEvent(`user-${opponentId}`, 'session-updated', {
+              message: `جلسه در کنسول ${consoleDevice.name} پایان یافت`,
+              session: gameSession,
+              state: "ended",
+              player1: gameSession.player1,
+              player2: gameSession.player2,
+            });
+          }
+        } catch (err) {
+          console.error('Pusher notify error (session-ended):', err?.message || err);
+        }
         return NextResponse.json(
           {
             message: `جلسه در کنسول ${consoleDevice.name} پایان یافت و کنسول آزاد شد`,

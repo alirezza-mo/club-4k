@@ -1,0 +1,119 @@
+"filename", "language", "JavaScript", "Markdown", "JSON", "JavaScript JSX", "XML", "JSON with Comments", "PostCSS", "comment", "blank", "total"
+"a:\projects\club-4k\README.md", "Markdown", 0, 43, 0, 0, 0, 0, 0, 0, 20, 63
+"a:\projects\club-4k\configs\db.js", "JavaScript", 24, 0, 0, 0, 0, 0, 0, 0, 4, 28
+"a:\projects\club-4k\jsconfig.json", "JSON with Comments", 0, 0, 0, 0, 0, 7, 0, 0, 1, 8
+"a:\projects\club-4k\liara.json", "JSON", 0, 0, 8, 0, 0, 0, 0, 0, 0, 8
+"a:\projects\club-4k\models\Admin.js", "JavaScript", 21, 0, 0, 0, 0, 0, 0, 0, 2, 23
+"a:\projects\club-4k\models\Challenge.js", "JavaScript", 19, 0, 0, 0, 0, 0, 0, 2, 3, 24
+"a:\projects\club-4k\models\Chat.js", "JavaScript", 26, 0, 0, 0, 0, 0, 0, 0, 3, 29
+"a:\projects\club-4k\models\Comment.js", "JavaScript", 24, 0, 0, 0, 0, 0, 0, 0, 3, 27
+"a:\projects\club-4k\models\Console.js", "JavaScript", 32, 0, 0, 0, 0, 0, 0, 0, 5, 37
+"a:\projects\club-4k\models\Echo.js", "JavaScript", 21, 0, 0, 0, 0, 0, 0, 0, 3, 24
+"a:\projects\club-4k\models\GameSession.js", "JavaScript", 63, 0, 0, 0, 0, 0, 0, 2, 6, 71
+"a:\projects\club-4k\models\News.js", "JavaScript", 23, 0, 0, 0, 0, 0, 0, 0, 3, 26
+"a:\projects\club-4k\models\Otp.js", "JavaScript", 11, 0, 0, 0, 0, 0, 0, 0, 4, 15
+"a:\projects\club-4k\models\Ticket.js", "JavaScript", 46, 0, 0, 0, 0, 0, 0, 0, 4, 50
+"a:\projects\club-4k\models\Users.js", "JavaScript", 58, 0, 0, 0, 0, 0, 0, 2, 3, 63
+"a:\projects\club-4k\next.config.mjs", "JavaScript", 9, 0, 0, 0, 0, 0, 0, 1, 2, 12
+"a:\projects\club-4k\package-lock.json", "JSON", 0, 0, 5688, 0, 0, 0, 0, 0, 1, 5689
+"a:\projects\club-4k\package.json", "JSON", 0, 0, 45, 0, 0, 0, 0, 0, 1, 46
+"a:\projects\club-4k\postcss.config.mjs", "JavaScript", 4, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"a:\projects\club-4k\public\file.svg", "XML", 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"a:\projects\club-4k\public\globe.svg", "XML", 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"a:\projects\club-4k\public\next.svg", "XML", 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"a:\projects\club-4k\public\vercel.svg", "XML", 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"a:\projects\club-4k\public\window.svg", "XML", 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
+"a:\projects\club-4k\src\app\api\auth\forgotPassword\resetPassword\route.js", "JavaScript", 51, 0, 0, 0, 0, 0, 0, 0, 8, 59
+"a:\projects\club-4k\src\app\api\auth\forgotPassword\send\route.js", "JavaScript", 59, 0, 0, 0, 0, 0, 0, 0, 6, 65
+"a:\projects\club-4k\src\app\api\auth\forgotPassword\verify\route.js", "JavaScript", 36, 0, 0, 0, 0, 0, 0, 0, 4, 40
+"a:\projects\club-4k\src\app\api\auth\loginAdmin\route.js", "JavaScript", -1, 0, 0, 0, 0, 0, 0, 0, 0, -1
+"a:\projects\club-4k\src\app\api\auth\loginUser\route.js", "JavaScript", 76, 0, 0, 0, 0, 0, 0, 0, 10, 86
+"a:\projects\club-4k\src\app\api\auth\registerAdmin\route.js", "JavaScript", 8, 0, 0, 0, 0, 0, 0, 0, 0, 8
+"a:\projects\club-4k\src\app\api\auth\signOutAdmin\route.js", "JavaScript", 45, 0, 0, 0, 0, 0, 0, 0, 10, 55
+"a:\projects\club-4k\src\app\api\auth\signin\route.js", "JavaScript", 14, 0, 0, 0, 0, 0, 0, -6, 0, 8
+"a:\projects\club-4k\src\app\api\auth\sms\send\route.js", "JavaScript", 7, 0, 0, 0, 0, 0, 0, -1, -1, 5
+"a:\projects\club-4k\src\app\api\challenge\[id]\route.js", "JavaScript", 86, 0, 0, 0, 0, 0, 0, 0, 4, 90
+"a:\projects\club-4k\src\app\api\challenge\route.js", "JavaScript", 118, 0, 0, 0, 0, 0, 0, 2, 19, 139
+"a:\projects\club-4k\src\app\api\chat\route.js", "JavaScript", 86, 0, 0, 0, 0, 0, 0, 2, 14, 102
+"a:\projects\club-4k\src\app\api\comment\route.js", "JavaScript", 45, 0, 0, 0, 0, 0, 0, 0, 13, 58
+"a:\projects\club-4k\src\app\api\console\[barcode]\route.js", "JavaScript", 39, 0, 0, 0, 0, 0, 0, 3, 8, 50
+"a:\projects\club-4k\src\app\api\console\route.js", "JavaScript", 46, 0, 0, 0, 0, 0, 0, 1, 9, 56
+"a:\projects\club-4k\src\app\api\echo\route.js", "JavaScript", 49, 0, 0, 0, 0, 0, 0, 0, 12, 61
+"a:\projects\club-4k\src\app\api\gameNet\route.js", "JavaScript", 8, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"a:\projects\club-4k\src\app\api\locations\route.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"a:\projects\club-4k\src\app\api\news\route.js", "JavaScript", 59, 0, 0, 0, 0, 0, 0, 0, 6, 65
+"a:\projects\club-4k\src\app\api\profile\edit\route.js", "JavaScript", 67, 0, 0, 0, 0, 0, 0, 0, 16, 83
+"a:\projects\club-4k\src\app\api\sessions\confirm-result\route.js", "JavaScript", 95, 0, 0, 0, 0, 0, 0, 8, 20, 123
+"a:\projects\club-4k\src\app\api\sessions\current-status\route.js", "JavaScript", 33, 0, 0, 0, 0, 0, 0, 4, 8, 45
+"a:\projects\club-4k\src\app\api\sessions\end-scan\route.js", "JavaScript", 199, 0, 0, 0, 0, 0, 0, 4, 17, 220
+"a:\projects\club-4k\src\app\api\sessions\scan\route.js", "JavaScript", 269, 0, 0, 0, 0, 0, 0, 10, 28, 307
+"a:\projects\club-4k\src\app\api\sessions\submit-result\route.js", "JavaScript", 72, 0, 0, 0, 0, 0, 0, 7, 16, 95
+"a:\projects\club-4k\src\app\api\ticket\answer\route.js", "JavaScript", 46, 0, 0, 0, 0, 0, 0, 0, 6, 52
+"a:\projects\club-4k\src\app\api\ticket\route.js", "JavaScript", 34, 0, 0, 0, 0, 0, 0, 1, 10, 45
+"a:\projects\club-4k\src\app\api\users\[userId]\route.js", "JavaScript", 16, 0, 0, 0, 0, 0, 0, 0, 2, 18
+"a:\projects\club-4k\src\app\api\users\route.js", "JavaScript", 8, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"a:\projects\club-4k\src\app\challenge\page.jsx", "JavaScript JSX", 0, 0, 0, -91, 0, 0, 0, -6, -14, -111
+"a:\projects\club-4k\src\app\comment\page.jsx", "JavaScript JSX", 0, 0, 0, 18, 0, 0, 0, 0, 2, 20
+"a:\projects\club-4k\src\app\forget-password\page.jsx", "JavaScript JSX", 0, 0, 0, -73, 0, 0, 0, 0, -6, -79
+"a:\projects\club-4k\src\app\globals.css", "PostCSS", 0, 0, 0, 0, 0, 0, 5, 0, 1, 6
+"a:\projects\club-4k\src\app\layout.js", "JavaScript", -6, 0, 0, 0, 0, 0, 0, 0, 1, -5
+"a:\projects\club-4k\src\app\p-admin\challenges\page.jsx", "JavaScript JSX", 0, 0, 0, 25, 0, 0, 0, 0, 1, 26
+"a:\projects\club-4k\src\app\p-admin\news\page.jsx", "JavaScript JSX", 0, 0, 0, 50, 0, 0, 0, 0, 6, 56
+"a:\projects\club-4k\src\app\p-admin\page.jsx", "JavaScript JSX", 0, 0, 0, 4, 0, 0, 0, 0, 3, 7
+"a:\projects\club-4k\src\app\p-user\challenge\page.jsx", "JavaScript JSX", 0, 0, 0, 46, 0, 0, 0, 0, 9, 55
+"a:\projects\club-4k\src\app\p-user\editprofile\page.jsx", "JavaScript JSX", 0, 0, 0, -42, 0, 0, 0, 0, -9, -51
+"a:\projects\club-4k\src\app\p-user\tickets\[id]\page.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"a:\projects\club-4k\src\app\page.js", "JavaScript", 2, 0, 0, 0, 0, 0, 0, 0, 1, 3
+"a:\projects\club-4k\src\app\profile\[userId]\page.jsx", "JavaScript JSX", 0, 0, 0, 5, 0, 0, 0, 0, 2, 7
+"a:\projects\club-4k\src\app\profile\page.jsx", "JavaScript JSX", 0, 0, 0, -102, 0, 0, 0, -2, -4, -108
+"a:\projects\club-4k\src\app\randomsentence\page.jsx", "JavaScript JSX", 0, 0, 0, -46, 0, 0, 0, 0, -4, -50
+"a:\projects\club-4k\src\app\resetPassword\[url]\page.jsx", "JavaScript JSX", 0, 0, 0, 10, 0, 0, 0, 0, 2, 12
+"a:\projects\club-4k\src\app\scan-session\page.jsx", "JavaScript JSX", 0, 0, 0, 820, 0, 0, 0, 30, 63, 913
+"a:\projects\club-4k\src\components\layouts\UserPanelLayout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"a:\projects\club-4k\src\components\modules\ChallengeBox\ChallengeBox.jsx", "JavaScript JSX", 0, 0, 0, 22, 0, 0, 0, 0, 4, 26
+"a:\projects\club-4k\src\components\modules\Comment\Comment.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 3, 3
+"a:\projects\club-4k\src\components\modules\MotivationBox\MotivationBox.jsx", "JavaScript JSX", 0, 0, 0, -4, 0, 0, 0, 0, 0, -4
+"a:\projects\club-4k\src\components\modules\Navbar\Navbar.jsx", "JavaScript JSX", 0, 0, 0, 1, 0, 0, 0, 0, 2, 3
+"a:\projects\club-4k\src\components\modules\NewsBox\NewsBox.jsx", "JavaScript JSX", 0, 0, 0, -4, 0, 0, 0, 5, 3, 4
+"a:\projects\club-4k\src\components\modules\P-admin\NewsBoxAdminPanel.jsx", "JavaScript JSX", 0, 0, 0, 27, 0, 0, 0, 0, 3, 30
+"a:\projects\club-4k\src\components\modules\P-admin\SideBar.jsx", "JavaScript JSX", 0, 0, 0, 25, 0, 0, 0, 0, 3, 28
+"a:\projects\club-4k\src\components\templates\Profile\ChallengeArticle.jsx", "JavaScript JSX", 0, 0, 0, 64, 0, 0, 0, 2, 2, 68
+"a:\projects\club-4k\src\components\templates\Profile\ProfilePageTemplate.jsx", "JavaScript JSX", 0, 0, 0, 431, 0, 0, 0, 1, 14, 446
+"a:\projects\club-4k\src\components\templates\challenge\ChallengeCard.jsx", "JavaScript JSX", 0, 0, 0, 43, 0, 0, 0, 1, 3, 47
+"a:\projects\club-4k\src\components\templates\challenge\ChallengeForm.jsx", "JavaScript JSX", 0, 0, 0, 103, 0, 0, 0, -2, 4, 105
+"a:\projects\club-4k\src\components\templates\challenge\ChallengeSection.jsx", "JavaScript JSX", 0, 0, 0, 172, 0, 0, 0, 5, 22, 199
+"a:\projects\club-4k\src\components\templates\comment\Comment.jsx", "JavaScript JSX", 0, 0, 0, 81, 0, 0, 0, 0, 11, 92
+"a:\projects\club-4k\src\components\templates\echo\Echo.jsx", "JavaScript JSX", 0, 0, 0, 87, 0, 0, 0, 0, 15, 102
+"a:\projects\club-4k\src\components\templates\forgotPassword\ForgotPassword.jsx", "JavaScript JSX", 0, 0, 0, 251, 0, 0, 0, 0, 10, 261
+"a:\projects\club-4k\src\components\templates\index\Challenge\Challenge.jsx", "JavaScript JSX", 0, 0, 0, 17, 0, 0, 0, 1, 6, 24
+"a:\projects\club-4k\src\components\templates\index\Comments\Comments.jsx", "JavaScript JSX", 0, 0, 0, 14, 0, 0, 0, 0, 1, 15
+"a:\projects\club-4k\src\components\templates\index\Leaderboard\Leaderboard.jsx", "JavaScript JSX", 0, 0, 0, 6, 0, 0, 0, 0, 0, 6
+"a:\projects\club-4k\src\components\templates\index\Motivational\Motivational.jsx", "JavaScript JSX", 0, 0, 0, 14, 0, 0, 0, 0, 0, 14
+"a:\projects\club-4k\src\components\templates\index\News\News.jsx", "JavaScript JSX", 0, 0, 0, 55, 0, 0, 0, 0, 3, 58
+"a:\projects\club-4k\src\components\templates\index\chat\Chat.jsx", "JavaScript JSX", 0, 0, 0, 74, 0, 0, 0, 3, 5, 82
+"a:\projects\club-4k\src\components\templates\index\chat\MainChat.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"a:\projects\club-4k\src\components\templates\index\chat\Messages.jsx", "JavaScript JSX", 0, 0, 0, 302, 0, 0, 0, 27, 49, 378
+"a:\projects\club-4k\src\components\templates\index\chat\SendMessage.jsx", "JavaScript JSX", 0, 0, 0, 87, 0, 0, 0, 4, 11, 102
+"a:\projects\club-4k\src\components\templates\login\Login.jsx", "JavaScript JSX", 0, 0, 0, 104, 0, 0, 0, -4, 4, 104
+"a:\projects\club-4k\src\components\templates\p-admin\challenges\challenge.jsx", "JavaScript JSX", 0, 0, 0, 9, 0, 0, 0, 0, 1, 10
+"a:\projects\club-4k\src\components\templates\p-admin\news\NewsSection.jsx", "JavaScript JSX", 0, 0, 0, 135, 0, 0, 0, 0, 15, 150
+"a:\projects\club-4k\src\components\templates\p-user\EditProfile\EditProfile.jsx", "JavaScript JSX", 0, 0, 0, 26, 0, 0, 0, -3, 15, 38
+"a:\projects\club-4k\src\components\templates\p-user\challenge\ChallengeDoneBox.jsx", "JavaScript JSX", 0, 0, 0, 5, 0, 0, 0, 0, 0, 5
+"a:\projects\club-4k\src\components\templates\p-user\challenge\ChallengeReq.jsx", "JavaScript JSX", 0, 0, 0, 31, 0, 0, 0, 0, 3, 34
+"a:\projects\club-4k\src\components\templates\p-user\challenge\ChallengesDone.jsx", "JavaScript JSX", 0, 0, 0, 7, 0, 0, 0, -2, 6, 11
+"a:\projects\club-4k\src\components\templates\p-user\challenge\Requests.jsx", "JavaScript JSX", 0, 0, 0, 12, 0, 0, 0, -1, 0, 11
+"a:\projects\club-4k\src\components\templates\p-user\index\Challenge.jsx", "JavaScript JSX", 0, 0, 0, 36, 0, 0, 0, 0, 3, 39
+"a:\projects\club-4k\src\components\templates\p-user\index\Challenges.jsx", "JavaScript JSX", 0, 0, 0, 16, 0, 0, 0, 0, 0, 16
+"a:\projects\club-4k\src\components\templates\p-user\tickets\SendTicket\SendTicket.jsx", "JavaScript JSX", 0, 0, 0, 20, 0, 0, 0, 0, 5, 25
+"a:\projects\club-4k\src\components\templates\register-admin\registerAdmin.jsx", "JavaScript JSX", 0, 0, 0, 7, 0, 0, 0, 0, 1, 8
+"a:\projects\club-4k\src\components\templates\register\Register.jsx", "JavaScript JSX", 0, 0, 0, 15, 0, 0, 0, 4, 0, 19
+"a:\projects\club-4k\src\components\templates\resetPassword\ResetPassword.jsx", "JavaScript JSX", 0, 0, 0, 55, 0, 0, 0, 0, 8, 63
+"a:\projects\club-4k\src\hooks\useUser.js", "JavaScript", -1, 0, 0, 0, 0, 0, 0, 0, -4, -5
+"a:\projects\club-4k\src\utils\auth.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 3, 3
+"a:\projects\club-4k\src\utils\challengeExpiration.js", "JavaScript", 51, 0, 0, 0, 0, 0, 0, 13, 15, 79
+"a:\projects\club-4k\src\utils\cleanUpPendingSession.js", "JavaScript", 39, 0, 0, 0, 0, 0, 0, 0, 8, 47
+"a:\projects\club-4k\src\utils\getAccessToken.js", "JavaScript", 23, 0, 0, 0, 0, 0, 0, 0, 2, 25
+"a:\projects\club-4k\src\utils\pusherClient.js", "JavaScript", 49, 0, 0, 0, 0, 0, 0, 2, 10, 61
+"a:\projects\club-4k\src\utils\pusherServer.js", "JavaScript", 35, 0, 0, 0, 0, 0, 0, 2, 9, 46
+"a:\projects\club-4k\src\utils\s3.js", "JavaScript", 29, 0, 0, 0, 0, 0, 0, 0, 7, 36
+"Total", "-", 2272, 43, 5741, 2970, 5, 7, 5, 122, 662, 11827

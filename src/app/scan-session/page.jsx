@@ -27,7 +27,9 @@ export default function ScanSessionPage() {
   const [p2GoalsInput, setP2GoalsInput] = useState(0);
   const [lastSession, setLastSession] = useState(null);
   const [currentUserId, setCurrentUserId] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [cooldownMessage, setCooldownMessage] = useState("");
+  const [isSubmissionDisabled, setIsSubmissionDisabled] = useState(false);
   const lastScanRef = useRef({ value: null, at: 0 });
 
   // گرفتن userId کاربر فعلی و تنظیم Pusher برای اعلان‌ها
@@ -48,30 +50,64 @@ export default function ScanSessionPage() {
       }
     };
     fetchUserId();
-    
+
     let unsubscribe1 = null;
     let unsubscribe2 = null;
-    
+    let unsubscribe3 = null;
+
     const setupRealtime = async () => {
       if (!currentUserId) return;
       try {
         const { subscribe } = await import("@/utils/pusherClient");
-        unsubscribe1 = subscribe(`user-${currentUserId}`, 'pending-result', () => {
-          Swal({
-            title: "درخواست تایید نتیجه",
-            text: "رقیب شما یک نتیجه ثبت کرده است. برای تائید وارد صفحه اسکن شوید.",
-            icon: "info",
-            button: "باشه",
-          });
-        });
-        unsubscribe2 = subscribe(`user-${currentUserId}`, 'result-confirmed', () => {
-          Swal({
-            title: "نتیجه تایید شد",
-            text: "نتیجه بازی شما تایید و امتیازات اعمال شد.",
-            icon: "success",
-            button: "باشه",
-          });
-        });
+        unsubscribe1 = subscribe(
+          `user-${currentUserId}`,
+          "pending-result",
+          () => {
+            Swal({
+              title: "درخواست تایید نتیجه",
+              text: "رقیب شما یک نتیجه ثبت کرده است. برای تائید وارد صفحه اسکن شوید.",
+              icon: "info",
+              button: "باشه",
+            });
+          }
+        );
+        unsubscribe2 = subscribe(
+          `user-${currentUserId}`,
+          "result-confirmed",
+          () => {
+            Swal({
+              title: "نتیجه تایید شد",
+              text: "نتیجه بازی شما تایید و امتیازات اعمال شد.",
+              icon: "success",
+              button: "باشه",
+            });
+          }
+        );
+        unsubscribe3 = subscribe(
+          `user-${currentUserId}`,
+          "session-updated",
+          (data) => {
+            console.log("Pusher received session-updated:", data);
+            Swal({
+              title: "وضعیت جلسه به‌روز شد",
+              text: data.message || "وضعیت جلسه شما تغییر کرد.",
+              icon: "info",
+              button: "باشه",
+            }); // آپدیت کردن state های محلی بر اساس دیتای Pusher
+            setState(data.state);
+            setPlayer1(data.player1 ? data.player1.toString() : null);
+            setPlayer2(data.player2 ? data.player2.toString() : null);
+            setLastSession(data.session); // محاسبه و تنظیم تایمر بر اساس زمان شروع از سرور // توجه: API شما از 'startedAt' استفاده می‌کند، نه 'startTime'
+            if (data.state === "active" && data.session.startedAt) {
+              const startTime = new Date(data.session.startedAt).getTime();
+              const now = Date.now();
+              const secondsElapsed = Math.floor((now - startTime) / 1000);
+              setTimer(secondsElapsed);
+            } else if (data.state !== "active") {
+              setTimer(0); // ریست کردن تایمر اگر جلسه تمام شد
+            }
+          }
+        );
       } catch (err) {
         console.warn("Pusher client not available", err?.message || err);
       }
@@ -93,8 +129,114 @@ export default function ScanSessionPage() {
       try {
         unsubscribe2 && unsubscribe2();
       } catch (e) {}
+      try {
+        unsubscribe3 && unsubscribe3();
+      } catch (e) {}
     };
   }, [router, currentUserId]);
+  useEffect(() => {
+    if (!currentUserId) return; // منتظر بمان تا userId از افکت دیگر لود شود
+
+    const fetchCurrentSession = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetchWithRefresh("/api/sessions/current-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: currentUserId }),
+          credentials: "include",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.session) {
+            const session = data.session; // پر کردن State های محلی با دیتای سرور
+            setState(session.status); // <--- مهمترین بخش
+            setPlayer1(session.player1 ? session.player1.toString() : null);
+            setPlayer2(session.player2 ? session.player2.toString() : null);
+            setLastSession(session);
+            setPendingResult(session.pendingResult || null); // تنظیم نقش (role)
+            if (
+              session.player1 &&
+              session.player1.toString() === currentUserId
+            ) {
+              setRole(1);
+            } else if (
+              session.player2 &&
+              session.player2.toString() === currentUserId
+            ) {
+              setRole(2);
+            } // محاسبه و تنظیم تایمر
+
+            if (session.status === "active" && session.startedAt) {
+              const startTime = new Date(session.startedAt).getTime();
+              const now = Date.now();
+              const secondsElapsed = Math.floor((now - startTime) / 1000);
+              setTimer(secondsElapsed);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching current status:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCurrentSession();
+  }, [currentUserId]);
+  // [!!! افکت جدید برای مدیریت Cooldown دکمه ثبت نتیجه !!!]
+  useEffect(() => {
+    // این افکت هر ثانیه (بخاطر آپدیت timer) یا با تغییر lastSession اجرا می‌شود
+    // و دکمه و پیام cooldown را به‌روز می‌کند
+    if (state !== "active") {
+      setIsSubmissionDisabled(true);
+      setCooldownMessage("");
+      return;
+    }
+
+    const now = Date.now(); // آخرین نتیجه تایید شده
+
+    const lastResult =
+      lastSession?.results && lastSession.results.length > 0
+        ? lastSession.results[lastSession.results.length - 1]
+        : null;
+
+    const cooldownSeconds = 600; // 10 دقیقه
+
+    if (lastResult) {
+      // این نتیجه اول نیست.
+      const lastResultTime = new Date(lastResult.recordedAt).getTime();
+      const diffSeconds = (now - lastResultTime) / 1000;
+
+      if (diffSeconds < cooldownSeconds) {
+        setIsSubmissionDisabled(true);
+        const minutesLeft = Math.ceil((cooldownSeconds - diffSeconds) / 60);
+        setCooldownMessage(
+          `نتیجه قبلی تازه ثبت شد. ${minutesLeft} دقیقه تا ثبت بعدی مانده.`
+        );
+      } else {
+        setIsSubmissionDisabled(false);
+        setCooldownMessage("");
+      }
+    } else {
+      const startTime = lastSession?.startedAt
+        ? new Date(lastSession.startedAt).getTime()
+        : now;
+      const diffSeconds = (now - startTime) / 1000;
+
+      if (diffSeconds < cooldownSeconds) {
+        setIsSubmissionDisabled(true);
+        const minutesLeft = Math.ceil((cooldownSeconds - diffSeconds) / 60);
+        setCooldownMessage(
+          `امکان ثبت اولین نتیجه تا ${minutesLeft} دقیقه دیگر وجود ندارد.`
+        );
+      } else {
+        setIsSubmissionDisabled(false);
+        setCooldownMessage("");
+      }
+    }
+  }, [timer, lastSession, state]);
 
   // Start scanner
   const startScanner = async () => {
@@ -122,7 +264,9 @@ export default function ScanSessionPage() {
 
       // Check if already scanning
       try {
-        const isScanning = qrInstanceRef.current.isScanning && qrInstanceRef.current.isScanning();
+        const isScanning =
+          qrInstanceRef.current.isScanning &&
+          qrInstanceRef.current.isScanning();
         if (isScanning) {
           console.log("Scanner already running");
           setIsScanning(true);
@@ -139,8 +283,8 @@ export default function ScanSessionPage() {
           qrbox: { width: 280, height: 280 },
           disableFlip: false,
           videoConstraints: {
-            facingMode: "environment"
-          }
+            facingMode: "environment",
+          },
         },
         async (decodedText) => {
           console.log("Scanned:", decodedText);
@@ -236,7 +380,7 @@ export default function ScanSessionPage() {
     }
 
     console.log("Sending barcode to API:", barcode);
-    
+
     // Parse barcode if it's a JSON object string
     let actualBarcode = barcode;
     try {
@@ -249,7 +393,7 @@ export default function ScanSessionPage() {
       // Not JSON, use as is
       console.log("Barcode is not JSON, using as is:", actualBarcode);
     }
-    
+
     const now = Date.now();
     if (
       lastScanRef.current.value === actualBarcode &&
@@ -266,7 +410,10 @@ export default function ScanSessionPage() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ barcode: actualBarcode, userId: currentUserId }),
+          body: JSON.stringify({
+            barcode: actualBarcode,
+            userId: currentUserId,
+          }),
           credentials: "include",
         }
       );
@@ -504,6 +651,18 @@ export default function ScanSessionPage() {
       .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-gray-900">
+               {" "}
+        <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                    در حال بارگذاری اطلاعات جلسه...        {" "}
+        </div>
+             {" "}
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-gray-900 py-8 px-4">
       <div className="max-w-3xl mx-auto">
@@ -565,13 +724,24 @@ export default function ScanSessionPage() {
                   {state === "active" && "جلسه فعال است"}
                   {state === "pendingEnd" && "منتظر پایان جلسه"}
                   {role && <span> - نقش شما: بازیکن {role}</span>}
+                  {lastSession &&
+                    lastSession.startedAt && ( // [!!!
+                      <div className="mt-1 text-sm">
+                                              شروع:                      {" "}
+                        {new Date(lastSession.startedAt).toLocaleTimeString(
+                          // [!!! `startTime` به `startedAt` تغییر کرد
+                          "fa-IR"
+                        )}
+                                           {" "}
+                      </div>
+                    )}
                   <div className="mt-2 font-semibold">
                     مدت زمان: {formatTimer(timer)}
                   </div>
                 </div>
               )}
 
-            {state === "ended" &&
+            {(state === "active" || state === "pendingEnd") &&
               currentUserId &&
               (player1 === currentUserId || player2 === currentUserId) && (
                 <div className="mt-4 w-full max-w-md rounded-xl bg-slate-50 dark:bg-slate-900/30 text-slate-900 dark:text-slate-100 p-4">
@@ -633,41 +803,40 @@ export default function ScanSessionPage() {
                         )}
                     </div>
                   ) : (
+                    // ...
                     <form
                       onSubmit={submitResult}
                       className="flex flex-col gap-2"
                     >
-                      <div className="flex gap-2">
-                        <input
-                          type="number"
-                          min={0}
-                          value={p1GoalsInput}
-                          onChange={(e) => setP1GoalsInput(e.target.value)}
-                          className="flex-1 px-3 py-2 rounded border"
-                          placeholder="گل بازیکن اول"
-                        />
-                        <input
-                          type="number"
-                          min={0}
-                          value={p2GoalsInput}
-                          onChange={(e) => setP2GoalsInput(e.target.value)}
-                          className="flex-1 px-3 py-2 rounded border"
-                          placeholder="گل بازیکن دوم"
-                        />
-                      </div>
                       <div className="flex gap-2 justify-end">
                         <button
                           type="submit"
-                          className="px-4 py-2 bg-blue-600 text-white rounded"
+                          disabled={isSubmissionDisabled || !!pendingResult} // [!!! ویرایش شده !!!]
+                          className="px-4 py-2 bg-blue-600 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
                         >
-                          ثبت و ارسال برای تایید
+                                                    ثبت و ارسال برای تایید      
+                                           {" "}
                         </button>
+                                             {" "}
                       </div>
+                                           {" "}
+                      {isSubmissionDisabled &&
+                        cooldownMessage && ( // [!!! ویرایش شده !!!]
+                          <div className="mt-2 text-xs text-amber-600 dark:text-amber-400">
+                                                      {cooldownMessage}         
+                                         {" "}
+                          </div>
+                        )}
+                                           {" "}
                       <div className="mt-2 text-xs text-gray-500">
-                        پس از تایید، امتیازات به صورت خودکار محاسبه می‌شوند. ثبت
-                        نتیجه بعدی حداقل {10} دقیقه طول خواهد کشید.
+                                                پس از تایید، امتیازات به صورت
+                        خودکار محاسبه می‌شوند. ثبت                         نتیجه
+                        بعدی حداقل {10} دقیقه طول خواهد کشید.                  
+                           {" "}
                       </div>
+                                         {" "}
                     </form>
+                    // ...
                   )}
                 </div>
               )}

@@ -5,6 +5,7 @@ import GameSession from "../../../../../models/GameSession";
 import Console from "../../../../../models/Console";
 import mongoose from "mongoose";
 import { cleanupPendingSessions } from "@/utils/cleanUpPendingSession";
+import { triggerEvent } from "@/utils/pusherServer";
 
 export async function POST(req) {
   try {
@@ -18,7 +19,7 @@ export async function POST(req) {
     console.log("Raw barcode from body:", barcode);
 
     // Parse barcode if it's a JSON string
-    if (typeof barcode === 'string') {
+    if (typeof barcode === "string") {
       try {
         const parsed = JSON.parse(barcode);
         if (parsed && parsed.barcode) {
@@ -32,7 +33,7 @@ export async function POST(req) {
         // Not JSON, use as is
         barcode = barcode.trim();
       }
-    } else if (typeof barcode === 'object' && barcode !== null) {
+    } else if (typeof barcode === "object" && barcode !== null) {
       // If barcode is an object with a barcode property
       if (barcode.barcode) {
         barcode = barcode.barcode;
@@ -41,7 +42,7 @@ export async function POST(req) {
     }
 
     // Clean and normalize barcode
-    if (typeof barcode === 'string') {
+    if (typeof barcode === "string") {
       barcode = barcode.trim();
     }
 
@@ -64,23 +65,37 @@ export async function POST(req) {
 
     // Try multiple search methods
     let consoleDevice = null;
-    
+
     // Method 1: Exact match
     consoleDevice = await Console.findOne({ barcode });
-    console.log("Method 1 - Exact match result:", consoleDevice ? "Found" : "Not found");
-    
+    console.log(
+      "Method 1 - Exact match result:",
+      consoleDevice ? "Found" : "Not found"
+    );
+
     // Method 2: Trim whitespace from both sides
     if (!consoleDevice) {
       const trimmedBarcode = barcode.trim();
       consoleDevice = await Console.findOne({ barcode: trimmedBarcode });
-      console.log("Method 2 - Trimmed search result:", consoleDevice ? "Found" : "Not found");
+      console.log(
+        "Method 2 - Trimmed search result:",
+        consoleDevice ? "Found" : "Not found"
+      );
     }
-    
+
     // Method 3: Partial match (in case of encoding issues)
     if (!consoleDevice) {
-      const regexPattern = new RegExp(barcode.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-      consoleDevice = await Console.findOne({ barcode: { $regex: regexPattern } });
-      console.log("Method 3 - Regex search result:", consoleDevice ? "Found" : "Not found");
+      const regexPattern = new RegExp(
+        barcode.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+        "i"
+      );
+      consoleDevice = await Console.findOne({
+        barcode: { $regex: regexPattern },
+      });
+      console.log(
+        "Method 3 - Regex search result:",
+        consoleDevice ? "Found" : "Not found"
+      );
     }
 
     if (!consoleDevice) {
@@ -90,24 +105,37 @@ export async function POST(req) {
       console.log("SEARCH FAILED");
       console.log("Received barcode:", JSON.stringify(barcode));
       console.log("Barcode length:", barcode.length);
-      console.log("Barcode char codes:", [...barcode].map(c => c.charCodeAt(0)).join(','));
+      console.log(
+        "Barcode char codes:",
+        [...barcode].map((c) => c.charCodeAt(0)).join(",")
+      );
       console.log("Total consoles in DB:", allConsoles.length);
       console.log("Available consoles:", allConsoles);
       console.log("=".repeat(50));
-      
-      return NextResponse.json({ 
-        message: "کنسول یافت نشد", 
-        debug: {
-          receivedBarcode: barcode,
-          totalConsoles: allConsoles.length,
-          availableConsoles: allConsoles
-        }
-      }, { status: 404 });
+
+      return NextResponse.json(
+        {
+          message: "کنسول یافت نشد",
+          debug: {
+            receivedBarcode: barcode,
+            totalConsoles: allConsoles.length,
+            availableConsoles: allConsoles,
+          },
+        },
+        { status: 404 }
+      );
     }
 
     // اطمینان از اینکه کاربر و کنسول متعلق به یک گیم‌نت هستند
-    if (user.gameNet && consoleDevice.location && user.gameNet.toString() !== consoleDevice.location.toString()) {
-      return NextResponse.json({ message: "کاربر و کنسول در یک گیم‌نت نیستند" }, { status: 403 });
+    if (
+      user.gameNet &&
+      consoleDevice.location &&
+      user.gameNet.toString() !== consoleDevice.location.toString()
+    ) {
+      return NextResponse.json(
+        { message: "کاربر و کنسول در یک گیم‌نت نیستند" },
+        { status: 403 }
+      );
     }
 
     if (consoleDevice.status === "busy" && consoleDevice.currentSession) {
@@ -130,7 +158,9 @@ export async function POST(req) {
     try {
       await session.startTransaction();
 
-      const consoleDeviceLocked = await Console.findOne({ barcode }).session(session);
+      const consoleDeviceLocked = await Console.findOne({ barcode }).session(
+        session
+      );
       if (!consoleDeviceLocked) {
         throw new Error("کنسول یافت نشد");
       }
@@ -166,7 +196,9 @@ export async function POST(req) {
           { status: 200 }
         );
       } else {
-        gameSession = await GameSession.findById(consoleDeviceLocked.currentSession).session(session);
+        gameSession = await GameSession.findById(
+          consoleDeviceLocked.currentSession
+        ).session(session);
 
         if (!gameSession) {
           consoleDeviceLocked.currentSession = null;
@@ -201,6 +233,27 @@ export async function POST(req) {
           await gameSession.save({ session });
 
           await session.commitTransaction();
+
+          try {
+            const payload = {
+              message: `جلسه بازی در کنسول ${consoleDeviceLocked.name} شروع شد`,
+              session: gameSession,
+              state: "active",
+              player1: gameSession.player1,
+              player2: gameSession.player2,
+            }; // ارسال ایونت فقط برای بازیکن اول (player1)
+            await triggerEvent(
+              `user-${gameSession.player1.toString()}`,
+              "session-updated",
+              payload
+            );
+          } catch (err) {
+            console.error(
+              "Pusher notify error (session-start):",
+              err?.message || err
+            );
+          }
+
           return NextResponse.json(
             {
               message: `جلسه بازی در کنسول ${consoleDeviceLocked.name} شروع شد`,

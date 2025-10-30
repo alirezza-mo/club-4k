@@ -1,0 +1,425 @@
+Date : 2025-10-30 11:59:51
+Directory : a:\projects\club-4k
+Total : 219 files,  20526 codes, 282 comments, 1583 blanks, all 22391 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JavaScript JSX     |        151 |     11,824 |        209 |      1,067 |     13,100 |
+| JSON               |          3 |      5,741 |          0 |          2 |      5,743 |
+| JavaScript         |         57 |      2,837 |         67 |        475 |      3,379 |
+| PostCSS            |          1 |         69 |          6 |         18 |         93 |
+| Markdown           |          1 |         43 |          0 |         20 |         63 |
+| JSON with Comments |          1 |          7 |          0 |          1 |          8 |
+| XML                |          5 |          5 |          0 |          0 |          5 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                        | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                           |        219 |     20,526 |        282 |      1,583 |     22,391 |
+| . (Files)                                                                                   |          7 |      5,804 |          1 |         27 |      5,832 |
+| configs                                                                                     |          1 |         24 |          0 |          4 |         28 |
+| models                                                                                      |         11 |        344 |          6 |         39 |        389 |
+| public                                                                                      |          5 |          5 |          0 |          0 |          5 |
+| src                                                                                         |        195 |     14,349 |        275 |      1,513 |     16,137 |
+| src\app                                                                                     |         83 |      4,284 |         82 |        581 |      4,947 |
+| src\app (Files)                                                                             |          4 |        156 |          6 |         36 |        198 |
+| src\app\about-us                                                                            |          1 |        121 |          2 |          7 |        130 |
+| src\app\api                                                                                 |         33 |      2,076 |         43 |        339 |      2,458 |
+| src\app\api\auth                                                                            |         13 |        701 |          1 |        126 |        828 |
+| src\app\api\auth\forgotPassword                                                             |          3 |        146 |          0 |         18 |        164 |
+| src\app\api\auth\forgotPassword\resetPassword                                               |          1 |         51 |          0 |          8 |         59 |
+| src\app\api\auth\forgotPassword\send                                                        |          1 |         59 |          0 |          6 |         65 |
+| src\app\api\auth\forgotPassword\verify                                                      |          1 |         36 |          0 |          4 |         40 |
+| src\app\api\auth\loginAdmin                                                                 |          1 |         59 |          0 |          8 |         67 |
+| src\app\api\auth\loginUser                                                                  |          1 |         76 |          0 |         10 |         86 |
+| src\app\api\auth\me                                                                         |          1 |         26 |          1 |          7 |         34 |
+| src\app\api\auth\protected                                                                  |          1 |         21 |          0 |          5 |         26 |
+| src\app\api\auth\refresh-token                                                              |          1 |         46 |          0 |         11 |         57 |
+| src\app\api\auth\registerAdmin                                                              |          1 |         91 |          0 |         24 |        115 |
+| src\app\api\auth\signOut                                                                    |          1 |         19 |          0 |          7 |         26 |
+| src\app\api\auth\signOutAdmin                                                               |          1 |         45 |          0 |         10 |         55 |
+| src\app\api\auth\signin                                                                     |          1 |        113 |          0 |         18 |        131 |
+| src\app\api\auth\sms                                                                        |          1 |         59 |          0 |          8 |         67 |
+| src\app\api\auth\sms\send                                                                   |          1 |         59 |          0 |          8 |         67 |
+| src\app\api\challenge                                                                       |          2 |        204 |          2 |         23 |        229 |
+| src\app\api\challenge (Files)                                                               |          1 |        118 |          2 |         19 |        139 |
+| src\app\api\challenge\[id]                                                                  |          1 |         86 |          0 |          4 |         90 |
+| src\app\api\chat                                                                            |          1 |         86 |          2 |         14 |        102 |
+| src\app\api\comment                                                                         |          1 |         45 |          0 |         13 |         58 |
+| src\app\api\console                                                                         |          2 |         85 |          4 |         17 |        106 |
+| src\app\api\console (Files)                                                                 |          1 |         46 |          1 |          9 |         56 |
+| src\app\api\console\[barcode]                                                               |          1 |         39 |          3 |          8 |         50 |
+| src\app\api\echo                                                                            |          1 |         49 |          0 |         12 |         61 |
+| src\app\api\gameNet                                                                         |          1 |          8 |          0 |          2 |         10 |
+| src\app\api\locations                                                                       |          1 |          0 |          0 |          1 |          1 |
+| src\app\api\news                                                                            |          1 |         59 |          0 |          6 |         65 |
+| src\app\api\profile                                                                         |          1 |         67 |          0 |         16 |         83 |
+| src\app\api\profile\edit                                                                    |          1 |         67 |          0 |         16 |         83 |
+| src\app\api\sessions                                                                        |          5 |        668 |         33 |         89 |        790 |
+| src\app\api\sessions\confirm-result                                                         |          1 |         95 |          8 |         20 |        123 |
+| src\app\api\sessions\current-status                                                         |          1 |         33 |          4 |          8 |         45 |
+| src\app\api\sessions\end-scan                                                               |          1 |        199 |          4 |         17 |        220 |
+| src\app\api\sessions\scan                                                                   |          1 |        269 |         10 |         28 |        307 |
+| src\app\api\sessions\submit-result                                                          |          1 |         72 |          7 |         16 |         95 |
+| src\app\api\ticket                                                                          |          2 |         80 |          1 |         16 |         97 |
+| src\app\api\ticket (Files)                                                                  |          1 |         34 |          1 |         10 |         45 |
+| src\app\api\ticket\answer                                                                   |          1 |         46 |          0 |          6 |         52 |
+| src\app\api\users                                                                           |          2 |         24 |          0 |          4 |         28 |
+| src\app\api\users (Files)                                                                   |          1 |          8 |          0 |          2 |         10 |
+| src\app\api\users\[userId]                                                                  |          1 |         16 |          0 |          2 |         18 |
+| src\app\challenge                                                                           |          1 |         15 |          0 |          4 |         19 |
+| src\app\comment                                                                             |          1 |         18 |          0 |          2 |         20 |
+| src\app\contact-us                                                                          |          1 |         82 |          0 |          6 |         88 |
+| src\app\forget-password                                                                     |          1 |         10 |          0 |          2 |         12 |
+| src\app\gallery                                                                             |          1 |         43 |          0 |          5 |         48 |
+| src\app\login                                                                               |          1 |         10 |          0 |          3 |         13 |
+| src\app\login-admin                                                                         |          1 |         12 |          0 |          2 |         14 |
+| src\app\main-admin                                                                          |         13 |        217 |          0 |         33 |        250 |
+| src\app\main-admin (Files)                                                                  |          1 |         39 |          0 |          3 |         42 |
+| src\app\main-admin\admins                                                                   |          3 |         41 |          0 |          6 |         47 |
+| src\app\main-admin\admins (Files)                                                           |          1 |         15 |          0 |          2 |         17 |
+| src\app\main-admin\admins\addAdmin                                                          |          1 |         13 |          0 |          2 |         15 |
+| src\app\main-admin\admins\editProfile                                                       |          1 |         13 |          0 |          2 |         15 |
+| src\app\main-admin\challenge                                                                |          1 |         15 |          0 |          2 |         17 |
+| src\app\main-admin\chatRoom                                                                 |          1 |         15 |          0 |          2 |         17 |
+| src\app\main-admin\comments                                                                 |          1 |         15 |          0 |          2 |         17 |
+| src\app\main-admin\game-net                                                                 |          3 |         52 |          0 |         10 |         62 |
+| src\app\main-admin\game-net (Files)                                                         |          1 |         13 |          0 |          2 |         15 |
+| src\app\main-admin\game-net\gameNetDetails                                                  |          1 |         23 |          0 |          3 |         26 |
+| src\app\main-admin\game-net\gamenetEditPage                                                 |          1 |         16 |          0 |          5 |         21 |
+| src\app\main-admin\sessions                                                                 |          1 |         14 |          0 |          3 |         17 |
+| src\app\main-admin\tickets                                                                  |          1 |         13 |          0 |          2 |         15 |
+| src\app\main-admin\users                                                                    |          1 |         13 |          0 |          3 |         16 |
+| src\app\news                                                                                |          1 |         81 |          0 |          6 |         87 |
+| src\app\p-admin                                                                             |          9 |        240 |          0 |         30 |        270 |
+| src\app\p-admin (Files)                                                                     |          1 |         43 |          0 |          6 |         49 |
+| src\app\p-admin\challenges                                                                  |          1 |         40 |          0 |          3 |         43 |
+| src\app\p-admin\comments                                                                    |          1 |         15 |          0 |          2 |         17 |
+| src\app\p-admin\editProfile                                                                 |          1 |         13 |          0 |          3 |         16 |
+| src\app\p-admin\game-courses                                                                |          1 |         33 |          0 |          3 |         36 |
+| src\app\p-admin\news                                                                        |          1 |         50 |          0 |          6 |         56 |
+| src\app\p-admin\tickets                                                                     |          2 |         28 |          0 |          4 |         32 |
+| src\app\p-admin\tickets (Files)                                                             |          1 |         13 |          0 |          2 |         15 |
+| src\app\p-admin\tickets\[id]                                                                |          1 |         15 |          0 |          2 |         17 |
+| src\app\p-admin\users                                                                       |          1 |         18 |          0 |          3 |         21 |
+| src\app\p-user                                                                              |          8 |        254 |          1 |         28 |        283 |
+| src\app\p-user (Files)                                                                      |          1 |         42 |          0 |          3 |         45 |
+| src\app\p-user\challenge                                                                    |          1 |         67 |          1 |         11 |         79 |
+| src\app\p-user\comments                                                                     |          1 |         17 |          0 |          2 |         19 |
+| src\app\p-user\editprofile                                                                  |          1 |         15 |          0 |          4 |         19 |
+| src\app\p-user\my-statistics                                                                |          1 |         51 |          0 |          2 |         53 |
+| src\app\p-user\tickets                                                                      |          3 |         62 |          0 |          6 |         68 |
+| src\app\p-user\tickets (Files)                                                              |          1 |         47 |          0 |          3 |         50 |
+| src\app\p-user\tickets\[id]                                                                 |          1 |          0 |          0 |          1 |          1 |
+| src\app\p-user\tickets\sendTicket                                                           |          1 |         15 |          0 |          2 |         17 |
+| src\app\profile                                                                             |          1 |          5 |          0 |          2 |          7 |
+| src\app\profile\[userId]                                                                    |          1 |          5 |          0 |          2 |          7 |
+| src\app\randomsentence                                                                      |          1 |         18 |          0 |          2 |         20 |
+| src\app\ranking                                                                             |          1 |         76 |          0 |          5 |         81 |
+| src\app\register                                                                            |          1 |         10 |          0 |          2 |         12 |
+| src\app\register-admin                                                                      |          1 |         10 |          0 |          2 |         12 |
+| src\app\resetPassword                                                                       |          1 |         10 |          0 |          2 |         12 |
+| src\app\resetPassword\[url]                                                                 |          1 |         10 |          0 |          2 |         12 |
+| src\app\scan-session                                                                        |          1 |        820 |         30 |         63 |        913 |
+| src\components                                                                              |        104 |      9,743 |        176 |        853 |     10,772 |
+| src\components\layouts                                                                      |          3 |         86 |          0 |         12 |         98 |
+| src\components\modules                                                                      |         17 |      1,657 |         23 |        107 |      1,787 |
+| src\components\modules\ChallengeBox                                                         |          1 |         41 |          0 |          6 |         47 |
+| src\components\modules\Comment                                                              |          1 |         17 |          0 |          5 |         22 |
+| src\components\modules\Footer                                                               |          1 |        113 |          1 |          6 |        120 |
+| src\components\modules\GalleryBox                                                           |          1 |         11 |          0 |          3 |         14 |
+| src\components\modules\MainAdmin                                                            |          2 |        384 |          8 |         16 |        408 |
+| src\components\modules\MotivationBox                                                        |          1 |         18 |          0 |          3 |         21 |
+| src\components\modules\Navbar                                                               |          1 |        219 |          0 |         14 |        233 |
+| src\components\modules\NewsBox                                                              |          1 |         36 |          5 |          6 |         47 |
+| src\components\modules\P-admin                                                              |          3 |        408 |          8 |         28 |        444 |
+| src\components\modules\Product                                                              |          1 |         22 |          0 |          2 |         24 |
+| src\components\modules\RankingChart                                                         |          1 |         85 |          1 |          6 |         92 |
+| src\components\modules\p-user                                                               |          3 |        303 |          0 |         12 |        315 |
+| src\components\templates                                                                    |         84 |      8,000 |        153 |        734 |      8,887 |
+| src\components\templates\Profile                                                            |          2 |        520 |          3 |         19 |        542 |
+| src\components\templates\challenge                                                          |          4 |        581 |          6 |         44 |        631 |
+| src\components\templates\comment                                                            |          1 |         81 |          0 |         11 |         92 |
+| src\components\templates\contactus                                                          |          1 |        117 |          1 |          6 |        124 |
+| src\components\templates\echo                                                               |          1 |         87 |          0 |         15 |        102 |
+| src\components\templates\forgotPassword                                                     |          1 |        251 |          0 |         10 |        261 |
+| src\components\templates\gallery                                                            |          1 |          9 |          0 |          2 |         11 |
+| src\components\templates\index                                                              |         13 |        924 |         39 |        114 |      1,077 |
+| src\components\templates\index\Challenge                                                    |          1 |         46 |          1 |          9 |         56 |
+| src\components\templates\index\Comments                                                     |          1 |         49 |          0 |          4 |         53 |
+| src\components\templates\index\Gallery                                                      |          1 |         30 |          0 |          3 |         33 |
+| src\components\templates\index\Header                                                       |          1 |         17 |          1 |          2 |         20 |
+| src\components\templates\index\Leaderboard                                                  |          1 |         23 |          2 |          3 |         28 |
+| src\components\templates\index\Motivational                                                 |          1 |         46 |          0 |          3 |         49 |
+| src\components\templates\index\News                                                         |          1 |        101 |          1 |          7 |        109 |
+| src\components\templates\index\Products                                                     |          1 |        127 |          0 |         15 |        142 |
+| src\components\templates\index\Ranking                                                      |          1 |         22 |          0 |          2 |         24 |
+| src\components\templates\index\chat                                                         |          4 |        463 |         34 |         66 |        563 |
+| src\components\templates\login                                                              |          1 |        167 |          0 |          9 |        176 |
+| src\components\templates\login-admin                                                        |          1 |        161 |          0 |          9 |        170 |
+| src\components\templates\news                                                               |          1 |         40 |          1 |          3 |         44 |
+| src\components\templates\p-admin                                                            |         17 |      1,585 |         25 |        164 |      1,774 |
+| src\components\templates\p-admin\challenges                                                 |          1 |        151 |          1 |         13 |        165 |
+| src\components\templates\p-admin\comments                                                   |          1 |        132 |          4 |         15 |        151 |
+| src\components\templates\p-admin\editProfile                                                |          1 |        114 |          1 |         13 |        128 |
+| src\components\templates\p-admin\gameCourses                                                |          1 |        106 |          4 |          9 |        119 |
+| src\components\templates\p-admin\index                                                      |          6 |        394 |          3 |         38 |        435 |
+| src\components\templates\p-admin\news                                                       |          1 |        135 |          0 |         15 |        150 |
+| src\components\templates\p-admin\tickets                                                    |          3 |        260 |          8 |         33 |        301 |
+| src\components\templates\p-admin\users                                                      |          3 |        293 |          4 |         28 |        325 |
+| src\components\templates\p-mainAdmin                                                        |         20 |      1,716 |         35 |        163 |      1,914 |
+| src\components\templates\p-mainAdmin\admins                                                 |          2 |        236 |          6 |         25 |        267 |
+| src\components\templates\p-mainAdmin\challenge                                              |          1 |         66 |          0 |          4 |         70 |
+| src\components\templates\p-mainAdmin\chatRoom                                               |          1 |         53 |          2 |          7 |         62 |
+| src\components\templates\p-mainAdmin\comments                                               |          1 |         78 |          0 |          4 |         82 |
+| src\components\templates\p-mainAdmin\editprofile                                            |          1 |        123 |         10 |         17 |        150 |
+| src\components\templates\p-mainAdmin\gameNet                                                |          4 |        305 |          4 |         36 |        345 |
+| src\components\templates\p-mainAdmin\index                                                  |          5 |        338 |          2 |         29 |        369 |
+| src\components\templates\p-mainAdmin\sessions                                               |          1 |        170 |          4 |         15 |        189 |
+| src\components\templates\p-mainAdmin\tickets                                                |          1 |         78 |          0 |          4 |         82 |
+| src\components\templates\p-mainAdmin\users                                                  |          3 |        269 |          7 |         22 |        298 |
+| src\components\templates\p-user                                                             |         14 |        839 |         37 |         96 |        972 |
+| src\components\templates\p-user\EditProfile                                                 |          1 |        247 |          7 |         33 |        287 |
+| src\components\templates\p-user\challenge                                                   |          4 |        160 |          1 |         21 |        182 |
+| src\components\templates\p-user\comments                                                    |          2 |         61 |         14 |          5 |         80 |
+| src\components\templates\p-user\index                                                       |          5 |        226 |          9 |         18 |        253 |
+| src\components\templates\p-user\tickets                                                     |          2 |        145 |          6 |         19 |        170 |
+| src\components\templates\p-user\tickets (Files)                                             |          1 |         25 |          1 |          4 |         30 |
+| src\components\templates\p-user\tickets\SendTicket                                          |          1 |        120 |          5 |         15 |        140 |
+| src\components\templates\ranking                                                            |          3 |        128 |          2 |         23 |        153 |
+| src\components\templates\register                                                           |          1 |        524 |          4 |         28 |        556 |
+| src\components\templates\register-admin                                                     |          1 |        215 |          0 |         10 |        225 |
+| src\components\templates\resetPassword                                                      |          1 |         55 |          0 |          8 |         63 |
+| src\hooks                                                                                   |          1 |         21 |          0 |          5 |         26 |
+| src\utils                                                                                   |          7 |        301 |         17 |         74 |        392 |
++---------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                    | language           | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| a:\projects\club-4k\README.md                                                               | Markdown           |         43 |          0 |         20 |         63 |
+| a:\projects\club-4k\configs\db.js                                                           | JavaScript         |         24 |          0 |          4 |         28 |
+| a:\projects\club-4k\jsconfig.json                                                           | JSON with Comments |          7 |          0 |          1 |          8 |
+| a:\projects\club-4k\liara.json                                                              | JSON               |          8 |          0 |          0 |          8 |
+| a:\projects\club-4k\models\Admin.js                                                         | JavaScript         |         21 |          0 |          2 |         23 |
+| a:\projects\club-4k\models\Challenge.js                                                     | JavaScript         |         19 |          2 |          3 |         24 |
+| a:\projects\club-4k\models\Chat.js                                                          | JavaScript         |         26 |          0 |          3 |         29 |
+| a:\projects\club-4k\models\Comment.js                                                       | JavaScript         |         24 |          0 |          3 |         27 |
+| a:\projects\club-4k\models\Console.js                                                       | JavaScript         |         32 |          0 |          5 |         37 |
+| a:\projects\club-4k\models\Echo.js                                                          | JavaScript         |         21 |          0 |          3 |         24 |
+| a:\projects\club-4k\models\GameSession.js                                                   | JavaScript         |         63 |          2 |          6 |         71 |
+| a:\projects\club-4k\models\News.js                                                          | JavaScript         |         23 |          0 |          3 |         26 |
+| a:\projects\club-4k\models\Otp.js                                                           | JavaScript         |         11 |          0 |          4 |         15 |
+| a:\projects\club-4k\models\Ticket.js                                                        | JavaScript         |         46 |          0 |          4 |         50 |
+| a:\projects\club-4k\models\Users.js                                                         | JavaScript         |         58 |          2 |          3 |         63 |
+| a:\projects\club-4k\next.config.mjs                                                         | JavaScript         |          9 |          1 |          2 |         12 |
+| a:\projects\club-4k\package-lock.json                                                       | JSON               |      5,688 |          0 |          1 |      5,689 |
+| a:\projects\club-4k\package.json                                                            | JSON               |         45 |          0 |          1 |         46 |
+| a:\projects\club-4k\postcss.config.mjs                                                      | JavaScript         |          4 |          0 |          2 |          6 |
+| a:\projects\club-4k\public\file.svg                                                         | XML                |          1 |          0 |          0 |          1 |
+| a:\projects\club-4k\public\globe.svg                                                        | XML                |          1 |          0 |          0 |          1 |
+| a:\projects\club-4k\public\next.svg                                                         | XML                |          1 |          0 |          0 |          1 |
+| a:\projects\club-4k\public\vercel.svg                                                       | XML                |          1 |          0 |          0 |          1 |
+| a:\projects\club-4k\public\window.svg                                                       | XML                |          1 |          0 |          0 |          1 |
+| a:\projects\club-4k\src\app\about-us\page.jsx                                               | JavaScript JSX     |        121 |          2 |          7 |        130 |
+| a:\projects\club-4k\src\app\api\auth\forgotPassword\resetPassword\route.js                  | JavaScript         |         51 |          0 |          8 |         59 |
+| a:\projects\club-4k\src\app\api\auth\forgotPassword\send\route.js                           | JavaScript         |         59 |          0 |          6 |         65 |
+| a:\projects\club-4k\src\app\api\auth\forgotPassword\verify\route.js                         | JavaScript         |         36 |          0 |          4 |         40 |
+| a:\projects\club-4k\src\app\api\auth\loginAdmin\route.js                                    | JavaScript         |         59 |          0 |          8 |         67 |
+| a:\projects\club-4k\src\app\api\auth\loginUser\route.js                                     | JavaScript         |         76 |          0 |         10 |         86 |
+| a:\projects\club-4k\src\app\api\auth\me\route.js                                            | JavaScript         |         26 |          1 |          7 |         34 |
+| a:\projects\club-4k\src\app\api\auth\protected\route.js                                     | JavaScript         |         21 |          0 |          5 |         26 |
+| a:\projects\club-4k\src\app\api\auth\refresh-token\route.js                                 | JavaScript         |         46 |          0 |         11 |         57 |
+| a:\projects\club-4k\src\app\api\auth\registerAdmin\route.js                                 | JavaScript         |         91 |          0 |         24 |        115 |
+| a:\projects\club-4k\src\app\api\auth\signOutAdmin\route.js                                  | JavaScript         |         45 |          0 |         10 |         55 |
+| a:\projects\club-4k\src\app\api\auth\signOut\route.js                                       | JavaScript         |         19 |          0 |          7 |         26 |
+| a:\projects\club-4k\src\app\api\auth\signin\route.js                                        | JavaScript         |        113 |          0 |         18 |        131 |
+| a:\projects\club-4k\src\app\api\auth\sms\send\route.js                                      | JavaScript         |         59 |          0 |          8 |         67 |
+| a:\projects\club-4k\src\app\api\challenge\[id]\route.js                                     | JavaScript         |         86 |          0 |          4 |         90 |
+| a:\projects\club-4k\src\app\api\challenge\route.js                                          | JavaScript         |        118 |          2 |         19 |        139 |
+| a:\projects\club-4k\src\app\api\chat\route.js                                               | JavaScript         |         86 |          2 |         14 |        102 |
+| a:\projects\club-4k\src\app\api\comment\route.js                                            | JavaScript         |         45 |          0 |         13 |         58 |
+| a:\projects\club-4k\src\app\api\console\[barcode]\route.js                                  | JavaScript         |         39 |          3 |          8 |         50 |
+| a:\projects\club-4k\src\app\api\console\route.js                                            | JavaScript         |         46 |          1 |          9 |         56 |
+| a:\projects\club-4k\src\app\api\echo\route.js                                               | JavaScript         |         49 |          0 |         12 |         61 |
+| a:\projects\club-4k\src\app\api\gameNet\route.js                                            | JavaScript         |          8 |          0 |          2 |         10 |
+| a:\projects\club-4k\src\app\api\locations\route.js                                          | JavaScript         |          0 |          0 |          1 |          1 |
+| a:\projects\club-4k\src\app\api\news\route.js                                               | JavaScript         |         59 |          0 |          6 |         65 |
+| a:\projects\club-4k\src\app\api\profile\edit\route.js                                       | JavaScript         |         67 |          0 |         16 |         83 |
+| a:\projects\club-4k\src\app\api\sessions\confirm-result\route.js                            | JavaScript         |         95 |          8 |         20 |        123 |
+| a:\projects\club-4k\src\app\api\sessions\current-status\route.js                            | JavaScript         |         33 |          4 |          8 |         45 |
+| a:\projects\club-4k\src\app\api\sessions\end-scan\route.js                                  | JavaScript         |        199 |          4 |         17 |        220 |
+| a:\projects\club-4k\src\app\api\sessions\scan\route.js                                      | JavaScript         |        269 |         10 |         28 |        307 |
+| a:\projects\club-4k\src\app\api\sessions\submit-result\route.js                             | JavaScript         |         72 |          7 |         16 |         95 |
+| a:\projects\club-4k\src\app\api\ticket\answer\route.js                                      | JavaScript         |         46 |          0 |          6 |         52 |
+| a:\projects\club-4k\src\app\api\ticket\route.js                                             | JavaScript         |         34 |          1 |         10 |         45 |
+| a:\projects\club-4k\src\app\api\users\[userId]\route.js                                     | JavaScript         |         16 |          0 |          2 |         18 |
+| a:\projects\club-4k\src\app\api\users\route.js                                              | JavaScript         |          8 |          0 |          2 |         10 |
+| a:\projects\club-4k\src\app\challenge\page.jsx                                              | JavaScript JSX     |         15 |          0 |          4 |         19 |
+| a:\projects\club-4k\src\app\comment\page.jsx                                                | JavaScript JSX     |         18 |          0 |          2 |         20 |
+| a:\projects\club-4k\src\app\contact-us\page.jsx                                             | JavaScript JSX     |         82 |          0 |          6 |         88 |
+| a:\projects\club-4k\src\app\forget-password\page.jsx                                        | JavaScript JSX     |         10 |          0 |          2 |         12 |
+| a:\projects\club-4k\src\app\gallery\page.jsx                                                | JavaScript JSX     |         43 |          0 |          5 |         48 |
+| a:\projects\club-4k\src\app\globals.css                                                     | PostCSS            |         69 |          6 |         18 |         93 |
+| a:\projects\club-4k\src\app\layout.js                                                       | JavaScript         |         24 |          0 |          6 |         30 |
+| a:\projects\club-4k\src\app\loading.jsx                                                     | JavaScript JSX     |         29 |          0 |          8 |         37 |
+| a:\projects\club-4k\src\app\login-admin\page.jsx                                            | JavaScript JSX     |         12 |          0 |          2 |         14 |
+| a:\projects\club-4k\src\app\login\page.jsx                                                  | JavaScript JSX     |         10 |          0 |          3 |         13 |
+| a:\projects\club-4k\src\app\main-admin\admins\addAdmin\page.jsx                             | JavaScript JSX     |         13 |          0 |          2 |         15 |
+| a:\projects\club-4k\src\app\main-admin\admins\editProfile\page.jsx                          | JavaScript JSX     |         13 |          0 |          2 |         15 |
+| a:\projects\club-4k\src\app\main-admin\admins\page.jsx                                      | JavaScript JSX     |         15 |          0 |          2 |         17 |
+| a:\projects\club-4k\src\app\main-admin\challenge\page.jsx                                   | JavaScript JSX     |         15 |          0 |          2 |         17 |
+| a:\projects\club-4k\src\app\main-admin\chatRoom\page.jsx                                    | JavaScript JSX     |         15 |          0 |          2 |         17 |
+| a:\projects\club-4k\src\app\main-admin\comments\page.jsx                                    | JavaScript JSX     |         15 |          0 |          2 |         17 |
+| a:\projects\club-4k\src\app\main-admin\game-net\gameNetDetails\page.jsx                     | JavaScript JSX     |         23 |          0 |          3 |         26 |
+| a:\projects\club-4k\src\app\main-admin\game-net\gamenetEditPage\page.jsx                    | JavaScript JSX     |         16 |          0 |          5 |         21 |
+| a:\projects\club-4k\src\app\main-admin\game-net\page.jsx                                    | JavaScript JSX     |         13 |          0 |          2 |         15 |
+| a:\projects\club-4k\src\app\main-admin\page.jsx                                             | JavaScript JSX     |         39 |          0 |          3 |         42 |
+| a:\projects\club-4k\src\app\main-admin\sessions\page.jsx                                    | JavaScript JSX     |         14 |          0 |          3 |         17 |
+| a:\projects\club-4k\src\app\main-admin\tickets\page.jsx                                     | JavaScript JSX     |         13 |          0 |          2 |         15 |
+| a:\projects\club-4k\src\app\main-admin\users\page.jsx                                       | JavaScript JSX     |         13 |          0 |          3 |         16 |
+| a:\projects\club-4k\src\app\news\page.jsx                                                   | JavaScript JSX     |         81 |          0 |          6 |         87 |
+| a:\projects\club-4k\src\app\p-admin\challenges\page.jsx                                     | JavaScript JSX     |         40 |          0 |          3 |         43 |
+| a:\projects\club-4k\src\app\p-admin\comments\page.jsx                                       | JavaScript JSX     |         15 |          0 |          2 |         17 |
+| a:\projects\club-4k\src\app\p-admin\editProfile\page.jsx                                    | JavaScript JSX     |         13 |          0 |          3 |         16 |
+| a:\projects\club-4k\src\app\p-admin\game-courses\page.jsx                                   | JavaScript JSX     |         33 |          0 |          3 |         36 |
+| a:\projects\club-4k\src\app\p-admin\news\page.jsx                                           | JavaScript JSX     |         50 |          0 |          6 |         56 |
+| a:\projects\club-4k\src\app\p-admin\page.jsx                                                | JavaScript JSX     |         43 |          0 |          6 |         49 |
+| a:\projects\club-4k\src\app\p-admin\tickets\[id]\page.jsx                                   | JavaScript JSX     |         15 |          0 |          2 |         17 |
+| a:\projects\club-4k\src\app\p-admin\tickets\page.jsx                                        | JavaScript JSX     |         13 |          0 |          2 |         15 |
+| a:\projects\club-4k\src\app\p-admin\users\page.jsx                                          | JavaScript JSX     |         18 |          0 |          3 |         21 |
+| a:\projects\club-4k\src\app\p-user\challenge\page.jsx                                       | JavaScript JSX     |         67 |          1 |         11 |         79 |
+| a:\projects\club-4k\src\app\p-user\comments\page.jsx                                        | JavaScript JSX     |         17 |          0 |          2 |         19 |
+| a:\projects\club-4k\src\app\p-user\editprofile\page.jsx                                     | JavaScript JSX     |         15 |          0 |          4 |         19 |
+| a:\projects\club-4k\src\app\p-user\my-statistics\page.jsx                                   | JavaScript JSX     |         51 |          0 |          2 |         53 |
+| a:\projects\club-4k\src\app\p-user\page.jsx                                                 | JavaScript JSX     |         42 |          0 |          3 |         45 |
+| a:\projects\club-4k\src\app\p-user\tickets\[id]\page.jsx                                    | JavaScript JSX     |          0 |          0 |          1 |          1 |
+| a:\projects\club-4k\src\app\p-user\tickets\page.jsx                                         | JavaScript JSX     |         47 |          0 |          3 |         50 |
+| a:\projects\club-4k\src\app\p-user\tickets\sendTicket\page.jsx                              | JavaScript JSX     |         15 |          0 |          2 |         17 |
+| a:\projects\club-4k\src\app\page.js                                                         | JavaScript         |         34 |          0 |          4 |         38 |
+| a:\projects\club-4k\src\app\profile\[userId]\page.jsx                                       | JavaScript JSX     |          5 |          0 |          2 |          7 |
+| a:\projects\club-4k\src\app\randomsentence\page.jsx                                         | JavaScript JSX     |         18 |          0 |          2 |         20 |
+| a:\projects\club-4k\src\app\ranking\page.jsx                                                | JavaScript JSX     |         76 |          0 |          5 |         81 |
+| a:\projects\club-4k\src\app\register-admin\page.jsx                                         | JavaScript JSX     |         10 |          0 |          2 |         12 |
+| a:\projects\club-4k\src\app\register\page.jsx                                               | JavaScript JSX     |         10 |          0 |          2 |         12 |
+| a:\projects\club-4k\src\app\resetPassword\[url]\page.jsx                                    | JavaScript JSX     |         10 |          0 |          2 |         12 |
+| a:\projects\club-4k\src\app\scan-session\page.jsx                                           | JavaScript JSX     |        820 |         30 |         63 |        913 |
+| a:\projects\club-4k\src\components\layouts\AdminPanelLayout.jsx                             | JavaScript JSX     |         21 |          0 |          2 |         23 |
+| a:\projects\club-4k\src\components\layouts\MainAdminLayout.jsx                              | JavaScript JSX     |         21 |          0 |          2 |         23 |
+| a:\projects\club-4k\src\components\layouts\UserPanelLayout.jsx                              | JavaScript JSX     |         44 |          0 |          8 |         52 |
+| a:\projects\club-4k\src\components\modules\ChallengeBox\ChallengeBox.jsx                    | JavaScript JSX     |         41 |          0 |          6 |         47 |
+| a:\projects\club-4k\src\components\modules\Comment\Comment.jsx                              | JavaScript JSX     |         17 |          0 |          5 |         22 |
+| a:\projects\club-4k\src\components\modules\Footer\Footer.jsx                                | JavaScript JSX     |        113 |          1 |          6 |        120 |
+| a:\projects\club-4k\src\components\modules\GalleryBox\GalleryBox.jsx                        | JavaScript JSX     |         11 |          0 |          3 |         14 |
+| a:\projects\club-4k\src\components\modules\MainAdmin\SideBar.jsx                            | JavaScript JSX     |        231 |          0 |          6 |        237 |
+| a:\projects\club-4k\src\components\modules\MainAdmin\TopBar.jsx                             | JavaScript JSX     |        153 |          8 |         10 |        171 |
+| a:\projects\club-4k\src\components\modules\MotivationBox\MotivationBox.jsx                  | JavaScript JSX     |         18 |          0 |          3 |         21 |
+| a:\projects\club-4k\src\components\modules\Navbar\Navbar.jsx                                | JavaScript JSX     |        219 |          0 |         14 |        233 |
+| a:\projects\club-4k\src\components\modules\NewsBox\NewsBox.jsx                              | JavaScript JSX     |         36 |          5 |          6 |         47 |
+| a:\projects\club-4k\src\components\modules\P-admin\NewsBoxAdminPanel.jsx                    | JavaScript JSX     |         27 |          0 |          3 |         30 |
+| a:\projects\club-4k\src\components\modules\P-admin\SideBar.jsx                              | JavaScript JSX     |        228 |          0 |         15 |        243 |
+| a:\projects\club-4k\src\components\modules\P-admin\TopBar.jsx                               | JavaScript JSX     |        153 |          8 |         10 |        171 |
+| a:\projects\club-4k\src\components\modules\Product\Product.jsx                              | JavaScript JSX     |         22 |          0 |          2 |         24 |
+| a:\projects\club-4k\src\components\modules\RankingChart\RankingChart.jsx                    | JavaScript JSX     |         85 |          1 |          6 |         92 |
+| a:\projects\club-4k\src\components\modules\p-user\SideBar.jsx                               | JavaScript JSX     |        245 |          0 |          5 |        250 |
+| a:\projects\club-4k\src\components\modules\p-user\Ticket.jsx                                | JavaScript JSX     |         17 |          0 |          2 |         19 |
+| a:\projects\club-4k\src\components\modules\p-user\TopBar.jsx                                | JavaScript JSX     |         41 |          0 |          5 |         46 |
+| a:\projects\club-4k\src\components\templates\Profile\ChallengeArticle.jsx                   | JavaScript JSX     |         89 |          2 |          5 |         96 |
+| a:\projects\club-4k\src\components\templates\Profile\ProfilePageTemplate.jsx                | JavaScript JSX     |        431 |          1 |         14 |        446 |
+| a:\projects\club-4k\src\components\templates\challenge\ChallengeCard.jsx                    | JavaScript JSX     |         97 |          1 |          5 |        103 |
+| a:\projects\club-4k\src\components\templates\challenge\ChallengeForm.jsx                    | JavaScript JSX     |        273 |          0 |         13 |        286 |
+| a:\projects\club-4k\src\components\templates\challenge\ChallengeModal.jsx                   | JavaScript JSX     |         39 |          0 |          4 |         43 |
+| a:\projects\club-4k\src\components\templates\challenge\ChallengeSection.jsx                 | JavaScript JSX     |        172 |          5 |         22 |        199 |
+| a:\projects\club-4k\src\components\templates\comment\Comment.jsx                            | JavaScript JSX     |         81 |          0 |         11 |         92 |
+| a:\projects\club-4k\src\components\templates\contactus\ContactForm.jsx                      | JavaScript JSX     |        117 |          1 |          6 |        124 |
+| a:\projects\club-4k\src\components\templates\echo\Echo.jsx                                  | JavaScript JSX     |         87 |          0 |         15 |        102 |
+| a:\projects\club-4k\src\components\templates\forgotPassword\ForgotPassword.jsx              | JavaScript JSX     |        251 |          0 |         10 |        261 |
+| a:\projects\club-4k\src\components\templates\gallery\GalleryImages.jsx                      | JavaScript JSX     |          9 |          0 |          2 |         11 |
+| a:\projects\club-4k\src\components\templates\index\Challenge\Challenge.jsx                  | JavaScript JSX     |         46 |          1 |          9 |         56 |
+| a:\projects\club-4k\src\components\templates\index\Comments\Comments.jsx                    | JavaScript JSX     |         49 |          0 |          4 |         53 |
+| a:\projects\club-4k\src\components\templates\index\Gallery\Gallery.jsx                      | JavaScript JSX     |         30 |          0 |          3 |         33 |
+| a:\projects\club-4k\src\components\templates\index\Header\Header.jsx                        | JavaScript JSX     |         17 |          1 |          2 |         20 |
+| a:\projects\club-4k\src\components\templates\index\Leaderboard\Leaderboard.jsx              | JavaScript JSX     |         23 |          2 |          3 |         28 |
+| a:\projects\club-4k\src\components\templates\index\Motivational\Motivational.jsx            | JavaScript JSX     |         46 |          0 |          3 |         49 |
+| a:\projects\club-4k\src\components\templates\index\News\News.jsx                            | JavaScript JSX     |        101 |          1 |          7 |        109 |
+| a:\projects\club-4k\src\components\templates\index\Products\Products.jsx                    | JavaScript JSX     |        127 |          0 |         15 |        142 |
+| a:\projects\club-4k\src\components\templates\index\Ranking\Ranking.jsx                      | JavaScript JSX     |         22 |          0 |          2 |         24 |
+| a:\projects\club-4k\src\components\templates\index\chat\Chat.jsx                            | JavaScript JSX     |         74 |          3 |          5 |         82 |
+| a:\projects\club-4k\src\components\templates\index\chat\MainChat.jsx                        | JavaScript JSX     |          0 |          0 |          1 |          1 |
+| a:\projects\club-4k\src\components\templates\index\chat\Messages.jsx                        | JavaScript JSX     |        302 |         27 |         49 |        378 |
+| a:\projects\club-4k\src\components\templates\index\chat\SendMessage.jsx                     | JavaScript JSX     |         87 |          4 |         11 |        102 |
+| a:\projects\club-4k\src\components\templates\login-admin\LoginAdmin.jsx                     | JavaScript JSX     |        161 |          0 |          9 |        170 |
+| a:\projects\club-4k\src\components\templates\login\Login.jsx                                | JavaScript JSX     |        167 |          0 |          9 |        176 |
+| a:\projects\club-4k\src\components\templates\news\NewsSection.jsx                           | JavaScript JSX     |         40 |          1 |          3 |         44 |
+| a:\projects\club-4k\src\components\templates\p-admin\challenges\challenge.jsx               | JavaScript JSX     |        151 |          1 |         13 |        165 |
+| a:\projects\club-4k\src\components\templates\p-admin\comments\Comment.jsx                   | JavaScript JSX     |        132 |          4 |         15 |        151 |
+| a:\projects\club-4k\src\components\templates\p-admin\editProfile\EditProfile.jsx            | JavaScript JSX     |        114 |          1 |         13 |        128 |
+| a:\projects\club-4k\src\components\templates\p-admin\gameCourses\GameCourses.jsx            | JavaScript JSX     |        106 |          4 |          9 |        119 |
+| a:\projects\club-4k\src\components\templates\p-admin\index\ChallengeChart.jsx               | JavaScript JSX     |         57 |          0 |          8 |         65 |
+| a:\projects\club-4k\src\components\templates\p-admin\index\Chart.jsx                        | JavaScript JSX     |         86 |          3 |         10 |         99 |
+| a:\projects\club-4k\src\components\templates\p-admin\index\DataCart.jsx                     | JavaScript JSX     |         29 |          0 |          3 |         32 |
+| a:\projects\club-4k\src\components\templates\p-admin\index\GameCoursesChart.jsx             | JavaScript JSX     |         98 |          0 |          8 |        106 |
+| a:\projects\club-4k\src\components\templates\p-admin\index\Notifications.jsx                | JavaScript JSX     |         41 |          0 |          4 |         45 |
+| a:\projects\club-4k\src\components\templates\p-admin\index\Tickets.jsx                      | JavaScript JSX     |         83 |          0 |          5 |         88 |
+| a:\projects\club-4k\src\components\templates\p-admin\news\NewsSection.jsx                   | JavaScript JSX     |        135 |          0 |         15 |        150 |
+| a:\projects\club-4k\src\components\templates\p-admin\tickets\AdminTicketsTable.jsx          | JavaScript JSX     |        123 |          4 |         15 |        142 |
+| a:\projects\club-4k\src\components\templates\p-admin\tickets\AnswerTicket.jsx               | JavaScript JSX     |         85 |          2 |          9 |         96 |
+| a:\projects\club-4k\src\components\templates\p-admin\tickets\TicketModal.jsx                | JavaScript JSX     |         52 |          2 |          9 |         63 |
+| a:\projects\club-4k\src\components\templates\p-admin\users\DeleteUserModal.jsx              | JavaScript JSX     |         36 |          0 |          4 |         40 |
+| a:\projects\club-4k\src\components\templates\p-admin\users\ModalUser.jsx                    | JavaScript JSX     |         84 |          0 |         10 |         94 |
+| a:\projects\club-4k\src\components\templates\p-admin\users\Users.jsx                        | JavaScript JSX     |        173 |          4 |         14 |        191 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\admins\AddAdminForm.jsx            | JavaScript JSX     |        102 |          2 |         13 |        117 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\admins\AdminTable.jsx              | JavaScript JSX     |        134 |          4 |         12 |        150 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\challenge\ChallengeSection.jsx     | JavaScript JSX     |         66 |          0 |          4 |         70 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\chatRoom\ChatRoomSection.jsx       | JavaScript JSX     |         53 |          2 |          7 |         62 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\comments\CommentsSection.jsx       | JavaScript JSX     |         78 |          0 |          4 |         82 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\editprofile\EditSuperAdminForm.jsx | JavaScript JSX     |        123 |         10 |         17 |        150 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\gameNet\DeleteGameNet.jsx          | JavaScript JSX     |         50 |          1 |          7 |         58 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\gameNet\EditGameNetForm.jsx        | JavaScript JSX     |         93 |          2 |         15 |        110 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\gameNet\GameNetDetails.jsx         | JavaScript JSX     |         32 |          0 |          4 |         36 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\gameNet\GameNetsPage.jsx           | JavaScript JSX     |        130 |          1 |         10 |        141 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\index\DataChart.jsx                | JavaScript JSX     |         31 |          0 |          3 |         34 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\index\GameNetRegistrationChart.jsx | JavaScript JSX     |         67 |          0 |         10 |         77 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\index\GameSessionsChart.jsx        | JavaScript JSX     |         81 |          1 |          5 |         87 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\index\TicketBox.jsx                | JavaScript JSX     |         95 |          0 |          6 |        101 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\index\UserRegistrationChart.jsx    | JavaScript JSX     |         64 |          1 |          5 |         70 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\sessions\Sessions.jsx              | JavaScript JSX     |        170 |          4 |         15 |        189 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\tickets\TicketsSection.jsx         | JavaScript JSX     |         78 |          0 |          4 |         82 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\users\DeleteUserConfirm.jsx        | JavaScript JSX     |         26 |          0 |          1 |         27 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\users\EditUserModal.jsx            | JavaScript JSX     |         79 |          0 |          6 |         85 |
+| a:\projects\club-4k\src\components\templates\p-mainAdmin\users\UsersTable.jsx               | JavaScript JSX     |        164 |          7 |         15 |        186 |
+| a:\projects\club-4k\src\components\templates\p-user\EditProfile\EditProfile.jsx             | JavaScript JSX     |        247 |          7 |         33 |        287 |
+| a:\projects\club-4k\src\components\templates\p-user\challenge\ChallengeDoneBox.jsx          | JavaScript JSX     |         30 |          0 |          3 |         33 |
+| a:\projects\club-4k\src\components\templates\p-user\challenge\ChallengeReq.jsx              | JavaScript JSX     |         46 |          0 |          5 |         51 |
+| a:\projects\club-4k\src\components\templates\p-user\challenge\ChallengesDone.jsx            | JavaScript JSX     |         48 |          0 |          9 |         57 |
+| a:\projects\club-4k\src\components\templates\p-user\challenge\Requests.jsx                  | JavaScript JSX     |         36 |          1 |          4 |         41 |
+| a:\projects\club-4k\src\components\templates\p-user\comments\Comment.jsx                    | JavaScript JSX     |         24 |          0 |          2 |         26 |
+| a:\projects\club-4k\src\components\templates\p-user\comments\UserPanelComments.jsx          | JavaScript JSX     |         37 |         14 |          3 |         54 |
+| a:\projects\club-4k\src\components\templates\p-user\index\Challenge.jsx                     | JavaScript JSX     |         61 |          0 |          6 |         67 |
+| a:\projects\club-4k\src\components\templates\p-user\index\Challenges.jsx                    | JavaScript JSX     |         59 |          1 |          4 |         64 |
+| a:\projects\club-4k\src\components\templates\p-user\index\Comment.jsx                       | JavaScript JSX     |         25 |          0 |          3 |         28 |
+| a:\projects\club-4k\src\components\templates\p-user\index\Comments.jsx                      | JavaScript JSX     |         42 |          7 |          3 |         52 |
+| a:\projects\club-4k\src\components\templates\p-user\index\Tickets.jsx                       | JavaScript JSX     |         39 |          1 |          2 |         42 |
+| a:\projects\club-4k\src\components\templates\p-user\tickets\SendTicket\SendTicket.jsx       | JavaScript JSX     |        120 |          5 |         15 |        140 |
+| a:\projects\club-4k\src\components\templates\p-user\tickets\Tickets.jsx                     | JavaScript JSX     |         25 |          1 |          4 |         30 |
+| a:\projects\club-4k\src\components\templates\ranking\RankBox.jsx                            | JavaScript JSX     |         44 |          0 |         10 |         54 |
+| a:\projects\club-4k\src\components\templates\ranking\RankFilter.jsx                         | JavaScript JSX     |         32 |          2 |          6 |         40 |
+| a:\projects\club-4k\src\components\templates\ranking\SelectDropDown.jsx                     | JavaScript JSX     |         52 |          0 |          7 |         59 |
+| a:\projects\club-4k\src\components\templates\register-admin\registerAdmin.jsx               | JavaScript JSX     |        215 |          0 |         10 |        225 |
+| a:\projects\club-4k\src\components\templates\register\Register.jsx                          | JavaScript JSX     |        524 |          4 |         28 |        556 |
+| a:\projects\club-4k\src\components\templates\resetPassword\ResetPassword.jsx                | JavaScript JSX     |         55 |          0 |          8 |         63 |
+| a:\projects\club-4k\src\hooks\useUser.js                                                    | JavaScript         |         21 |          0 |          5 |         26 |
+| a:\projects\club-4k\src\utils\auth.js                                                       | JavaScript         |         59 |          0 |         15 |         74 |
+| a:\projects\club-4k\src\utils\challengeExpiration.js                                        | JavaScript         |         51 |         13 |         15 |         79 |
+| a:\projects\club-4k\src\utils\cleanUpPendingSession.js                                      | JavaScript         |         39 |          0 |          8 |         47 |
+| a:\projects\club-4k\src\utils\getAccessToken.js                                             | JavaScript         |         39 |          0 |         10 |         49 |
+| a:\projects\club-4k\src\utils\pusherClient.js                                               | JavaScript         |         49 |          2 |         10 |         61 |
+| a:\projects\club-4k\src\utils\pusherServer.js                                               | JavaScript         |         35 |          2 |          9 |         46 |
+| a:\projects\club-4k\src\utils\s3.js                                                         | JavaScript         |         29 |          0 |          7 |         36 |
+| Total                                                                                       |                    |     20,526 |        282 |      1,583 |     22,391 |
++---------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
