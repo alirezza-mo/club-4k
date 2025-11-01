@@ -716,72 +716,53 @@ export default function ScanSessionPage() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-gray-900 py-8 px-4">
-           {" "}
       <div className="max-w-3xl mx-auto">
-               {" "}
         <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/60 backdrop-blur p-6 md:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
-                   {" "}
           <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white text-center">
-                        اسکن بارکد کنسول          {" "}
+            اسکن بارکد کنسول
           </h1>
-                   {" "}
           <p className="text-gray-600 dark:text-gray-300 text-center mt-2">
-                        برای شروع یا پایان جلسه، بارکد روی کنسول را اسکن کنید.  
-                   {" "}
+            برای شروع یا پایان جلسه، بارکد روی کنسول را اسکن کنید.
           </p>
-                   {" "}
           <div className="mt-6 flex flex-col items-center">
-                        {/* ... بخش اسکنر (بدون تغییر) ... */}           {" "}
             <div className="w-full max-w-md aspect-square rounded-xl border-2 border-dashed border-emerald-400/70 dark:border-emerald-500/60 bg-emerald-50/40 dark:bg-emerald-900/10 flex items-center justify-center overflow-hidden">
-                           {" "}
-              <div id="reader" ref={scannerRef} className="w-full h-full" />   
-                     {" "}
+              <div id="reader" ref={scannerRef} className="w-full h-full" />
             </div>
-                       {" "}
             <div className="mt-4 flex gap-3">
-                           {" "}
               {!isScanning && (
                 <button
                   onClick={() => setShowPermissionModal(true)}
                   className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-[0_10px_30px_rgba(16,185,129,0.5)]"
                 >
-                                    شروع اسکن                {" "}
+                  شروع اسکن
                 </button>
               )}
-                           {" "}
               {isScanning && (
                 <button
                   onClick={stopScanner}
                   className="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-semibold"
-                  _
                 >
-                                    توقف اسکن                {" "}
+                  توقف اسکن
                 </button>
               )}
-                         {" "}
             </div>
-                       {" "}
             <form
               onSubmit={onManualSubmit}
               className="mt-5 w-full max-w-md flex items-center gap-2"
             >
-                           {" "}
               <input
                 value={manualBarcode}
                 onChange={(e) => setManualBarcode(e.target.value)}
                 placeholder="ورود دستی بارکد"
                 className="flex-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
-                           {" "}
               <button
                 type="submit"
                 className=" px-6 py-3 cursor-pointer  text-center rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-              > ارسال
+              >
+                ارسال
               </button>
-                         {" "}
             </form>
-                                    {/* بخش تایمر (با اصلاح startedAt) */}     
-                 {" "}
             {(state === "active" || state === "pendingEnd") &&
               currentUserId &&
               (player1 === currentUserId || player2 === currentUserId) && (
@@ -789,130 +770,83 @@ export default function ScanSessionPage() {
                                     {state === "active" && "جلسه فعال است"}     
                               {state === "pendingEnd" && "منتظر پایان جلسه"}   
                                 {role && <span> - نقش شما: بازیکن {role}</span>}
-                                   {" "}
                   {lastSession && lastSession.startedAt && (
                     <div className="mt-1 text-sm">
-                                            شروع:                      {" "}
+                      شروع:
                       {new Date(lastSession.startedAt).toLocaleTimeString(
                         "fa-IR"
                       )}
-                                         {" "}
                     </div>
                   )}
-                                   {" "}
                   <div className="mt-2 font-semibold">
-                                        مدت زمان: {formatTimer(timer)}         
-                           {" "}
+                    مدت زمان: {formatTimer(timer)}
                   </div>
-                                 {" "}
                 </div>
               )}
-                       {" "}
-            {/* [!!! تغییر 5: JSX کاملاً جدید برای ثبت و تایید نتیجه !!!] */}   
-                   {" "}
             {state === "active" &&
               currentUserId &&
               (player1 === currentUserId || player2 === currentUserId) && (
                 <div className="mt-4 w-full max-w-md rounded-xl bg-slate-50 dark:bg-slate-900/30 text-slate-900 dark:text-slate-100 p-4">
-                                   {" "}
                   <h3 className="font-bold mb-3 text-center text-lg">
-                                       {" "}
-                    {pendingResult ? "تایید نتیجه بازی" : "ثبت نتیجه بازی"}     
-                               {" "}
+                    {pendingResult ? "تایید نتیجه بازی" : "ثبت نتیجه بازی"}
                   </h3>
-                                   {" "}
                   {pendingResult ? (
-                    // [!!] بخش نمایش نتیجه در انتظار تایید
                     <div>
-                                           {" "}
                       <p className="mb-2 font-semibold text-center text-sm dark:text-gray-300">
-                                                نتیجه پیشنهادی:                
-                             {" "}
+                        نتیجه پیشنهادی:
                       </p>
-                                           {" "}
                       <div className="flex items-center justify-center gap-4 mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                                               {" "}
                         <div className="text-center">
-                                                   {" "}
                           <div className="text-xs text-gray-500 dark:text-gray-400">
-                                                        بازیکن اول              
-                                       {" "}
+                            بازیکن اول
                           </div>
-                                                   {" "}
                           <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                                                        {p1ProposedGoals}       
-                                             {" "}
+                            {p1ProposedGoals}
                           </div>
-                                                 {" "}
                         </div>
-                                               {" "}
-                        <div className="text-2xl font-bold text-gray-700 dark:text-gray-300">
-                                                    -                        {" "}
-                        </div>
-                                               {" "}
+                        <div className="text-2xl font-bold text-gray-700 dark:text-gray-300"></div>
                         <div className="text-center">
-                                                   {" "}
                           <div className="text-xs text-gray-500 dark:text-gray-400">
-                                                        بازیکن دوم              
-                                       {" "}
+                            بازیکن دوم
                           </div>
-                                                   {" "}
                           <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
-                                                        {p2ProposedGoals}       
-                                             {" "}
+                            {p2ProposedGoals}
                           </div>
-                                                 {" "}
                         </div>
-                                             {" "}
                       </div>
-                                           {" "}
                       {isCurrentUserOpponent ? (
-                        // این کاربر حریف است و باید تایید کند
                         <div className="flex gap-2">
-                                                   {" "}
                           <button
                             onClick={confirmPendingResult}
                             className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700"
                           >
-                                                        تایید نتیجه            
-                                         {" "}
+                            تایید نتیجه
                           </button>
-                                                   {" "}
                           <button
                             onClick={rejectPendingResult}
                             className="flex-1 px-4 py-2 bg-rose-500 text-white rounded-lg font-semibold hover:bg-rose-600"
                           >
-                                                        رد نتیجه                
-                                     {" "}
+                            رد نتیجه
                           </button>
-                                            _    {" "}
                         </div>
                       ) : (
-                        // این کاربر خود پیشنهاد دهنده است
                         <div className="mt-2 text-sm text-gray-600 dark:text-gray-300 text-center">
-                                                    شما نتیجه را ثبت کرده‌اید.
-                          منتظر تایید رقیب...                        {" "}
+                          شما نتیجه را ثبت کرده‌اید. منتظر تایید رقیب...
                         </div>
                       )}
-                                         {" "}
                     </div>
                   ) : (
-                    // [!!] بخش فرم ثبت نتیجه
                     <form
                       onSubmit={submitResult}
                       className="flex flex-col gap-4"
                     >
-                                           {" "}
                       <div className="flex gap-3 items-center">
-                                               {" "}
                         <label
                           className="text-sm font-medium w-16"
                           htmlFor="myGoals"
                         >
-                                                    گل شما:                    
-                             {" "}
+                          گل شما:
                         </label>
-                                          _    {" "}
                         <input
                           id="myGoals"
                           type="number"
@@ -923,19 +857,14 @@ export default function ScanSessionPage() {
                           placeholder="0"
                           required
                         />
-                                             {" "}
                       </div>
-                                           {" "}
                       <div className="flex gap-3 items-center">
-                                               {" "}
                         <label
                           className="text-sm font-medium w-16"
                           htmlFor="opponentGoals"
                         >
-                                                    گل حریف:                    
-                             {" "}
+                          گل حریف:
                         </label>
-                                               {" "}
                         <input
                           id="opponentGoals"
                           type="number"
@@ -948,102 +877,72 @@ export default function ScanSessionPage() {
                           placeholder="0"
                           required
                         />
-                                             {" "}
                       </div>
-                                           {" "}
                       <div className="flex gap-2 justify-end">
-                                               {" "}
                         <button
                           type="submit"
                           disabled={isSubmissionDisabled || !!pendingResult}
                           className="px-5 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
                         >
-                                                    ثبت و ارسال برای تایید      
-                                           {" "}
+                          ثبت و ارسال برای تایید
                         </button>
-                                             {" "}
                       </div>
-                                           {" "}
                       {isSubmissionDisabled && cooldownMessage && (
                         <div className="mt-2 text-xs text-amber-600 dark:text-amber-400 text-center">
-                                                    {cooldownMessage}           
-                                     {" "}
+                          {cooldownMessage}
                         </div>
                       )}
-                                           {" "}
                       <div className="mt-1 text-xs text-gray-500 text-center">
-                                                ثبت نتیجه بعدی حداقل 10 دقیقه پس
-                        از تایید این نتیجه                         ممکن است.    
-                                         {" "}
+                        ثبت نتیجه بعدی حداقل 10 دقیقه پساز تایید این نتیجه ممکن
+                        است.
                       </div>
-                                         {" "}
                     </form>
                   )}
-                                 {" "}
                 </div>
               )}
-                     {" "}
           </div>
-                    {/* ... بخش نکات و مقررات (بدون تغییر) ... */}         {" "}
           <div className="mt-8">
-                       {" "}
             <h2 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
-                            نکات و مقررات            {" "}
+              نکات و مقررات
             </h2>
-                       {" "}
             <ul className="mt-3 list-disc pr-6 text-gray-700 dark:text-gray-300 space-y-0.5">
-                           {" "}
               <li>
-                                برای شروع، ابتدا کاربر اول اسکن کند؛ سپس کاربر
-                دوم. برای پایان،دوباره به همین ترتیب.              {" "}
+                برای شروع، ابتدا کاربر اول اسکن کند؛ سپس کاربر دوم. برای
+                پایان،دوباره به همین ترتیب.
               </li>
-                           {" "}
               <li>
-                                در طول جلسه این کنسول برای دیگران قفل است تا
-                پایان کامل جلسه.              {" "}
+                در طول جلسه این کنسول برای دیگران قفل است تا پایان کامل جلسه.
               </li>
-                           {" "}
               <li>
-                                برای اسکن موفق، بارکد را در کادر مشخص ثابت نگه
-                دارید و از نور کافی استفاده کنید.              {" "}
+                برای اسکن موفق، بارکد را در کادر مشخص ثابت نگهدارید و از نور
+                کافی استفاده کنید.
               </li>
-                           {" "}
               <li>
-                                اگر دوربین در دسترس نبود، می‌توانید بارکد را به
-                صورت دستی واردکنید.              {" "}
+                اگر دوربین در دسترس نبود، می‌توانید بارکد را به صورت دستی
+                واردکنید.
               </li>
-                         {" "}
             </ul>
-                     {" "}
           </div>
-                 {" "}
         </div>
-             {" "}
       </div>
-            {/* ... مودال دسترسی دوربین (بدون تغییر) ... */}     {" "}
       {showPermissionModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-                   {" "}
           <div className="w-[90%] max-w-md rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 shadow-xl">
-                       {" "}
+               
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                            اجازه دسترسی به دوربین            {" "}
+              اجازه دسترسی به دوربین
             </h3>
-                       {" "}
             <p className="text-gray-700 dark:text-gray-300 mb-5">
-                            برای اسکن بارکد کنسول، اجازه دسترسی به دوربین لازم
-              است. آیا اجازه               می‌دهید؟            {" "}
+                برای اسکن بارکد کنسول، اجازه دسترسی به دوربین لازم است. آیا
+              اجازه می‌دهید؟
             </p>
-                       {" "}
             <div className="flex items-center justify-end gap-3">
-                           {" "}
               <button
                 onClick={() => setShowPermissionModal(false)}
                 className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100"
               >
-                                خیر              {" "}
+                خیر
               </button>
-                           {" "}
               <button
                 onClick={async () => {
                   setShowPermissionModal(false);
@@ -1051,16 +950,12 @@ export default function ScanSessionPage() {
                 }}
                 className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white"
               >
-                                بله، شروع اسکن              {" "}
+                بله، شروع اسکن
               </button>
-                         {" "}
             </div>
-                     {" "}
           </div>
-                 {" "}
         </div>
       )}
-         {" "}
     </div>
   );
 }
