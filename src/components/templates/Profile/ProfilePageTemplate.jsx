@@ -179,7 +179,7 @@ export default function ProfilePageTemplate({ userId }) {
                 src={
                   userProfile?.avatar
                     ? `${process.env.GET_LIARA}/${userProfile?.avatar}`
-                    : `/images/user.jpg`
+                    : `/images/unknown.jpg`
                 }
                 height={100}
                 width={100}
@@ -216,15 +216,15 @@ export default function ProfilePageTemplate({ userId }) {
             <div className="flex items-center justify-between">
               <div className="bg-white dark:bg-zinc-800 p-5 rounded-xl shadow-lg text-center ">
                 <p className="text-sm text-gray-400">تعداد بازی</p>
-                <p className="text-2xl font-bold text-orange-500">36</p>
+                <p className="text-2xl font-bold text-orange-500"> {userProfile?.game ? userProfile?.game : 0} </p>
               </div>
               <div className="bg-white dark:bg-zinc-800 p-5 rounded-xl shadow-lg text-center">
                 <p className="text-sm text-gray-400">برد</p>
-                <p className="text-2xl font-bold text-green-500">30</p>
+                <p className="text-2xl font-bold text-green-500"> {userProfile?.win ? userProfile?.win : 0} </p>
               </div>
               <div className="bg-white dark:bg-zinc-800 p-5 rounded-xl shadow-lg text-center">
                 <p className="text-sm text-gray-400">باخت</p>
-                <p className="text-2xl font-bold text-red-500">6</p>
+                <p className="text-2xl font-bold text-red-500"> {userProfile?.lose ? userProfile?.lose : 0} </p>
               </div>
             </div>
             <div className="flex items-center justify-center flex-col gap-5">
@@ -326,7 +326,10 @@ export default function ProfilePageTemplate({ userId }) {
               {userProfile?.bio || "خالی"}
             </p>
           </div>
-          <div className="w-full flex flex-col gap-5 p-5">
+
+          {/* بخش مربوط به افتخارات  */}
+
+          {/* <div className="w-full flex flex-col gap-5 p-5">
             <h3 className="text-3xl font-black dark:text-gray-400">
               {" "}
               افتخارات :{" "}
@@ -341,7 +344,9 @@ export default function ProfilePageTemplate({ userId }) {
                 <p> رتبه 1 در گلوبال </p>
               </div>
             </div>
-          </div>
+          </div> */}
+
+
         </section>
         <section className="container !p-0 rounded-lg bg-white dark:bg-gray-800 flex flex-col gap-10 items-center">
           <h3 className="text-2xl font-black dark:text-gray-400 mt-10">
@@ -385,12 +390,17 @@ export default function ProfilePageTemplate({ userId }) {
               <p className="text-gray-500">هیچ چالشی یافت نشد.</p>
             ) : (
               paginatedChallenges.map((challenge, idx) => {
-                const isProfileOwner = currentUser?.userName === userProfile?.userName;
-                const isInviter = isProfileOwner && challenge.inviter?.userName === currentUser?.userName;
-                const isInvited = isProfileOwner && challenge.invited?.userName === currentUser?.userName;
+                const isProfileOwner =
+                  currentUser?.userName === userProfile?.userName;
+                const isInviter =
+                  isProfileOwner &&
+                  challenge.inviter?.userName === currentUser?.userName;
+                const isInvited =
+                  isProfileOwner &&
+                  challenge.invited?.userName === currentUser?.userName;
                 return (
                   <div
-                    key={challenge._id + '-' + isInvited + '-' + idx}
+                    key={challenge._id + "-" + isInvited + "-" + idx}
                     className="max-w-md w-full sm:w-[350px] flex-shrink-0"
                   >
                     <ChallengeArticle
@@ -432,7 +442,9 @@ export default function ProfilePageTemplate({ userId }) {
               <button
                 className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-bold"
                 disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
               >
                 بعدی
               </button>

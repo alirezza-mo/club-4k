@@ -4,10 +4,7 @@ import { FaClock } from "react-icons/fa";
 import { getExpirationInfo } from "@/utils/challengeExpiration";
 
 function ChallengeBox({challenge}) {
-  console.log(challenge);
-  
   const expirationInfo = getExpirationInfo(challenge);
-  
   return (
     <>
       <div className='p-3 sm:p-6 rounded-lg dark:bg-gold dark:text-black bg-orange-600 text-white flex flex-col items-center justify-center gap-5 relative'>

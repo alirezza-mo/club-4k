@@ -1,4 +1,4 @@
-// app/components/Leaderboard.tsx
+
 "use client";
 
 import Link from "next/link";
@@ -20,7 +20,7 @@ export default function RankingChart() {
     { rank: 10, name: "کیانوش قهرمان", score: 7000 },
   ];
 
-  useEffect(() => {
+  useEffect(() =>  {
     const handleResize = () => {
       if (window.innerWidth < 640) {
         setDisplayCount(5);

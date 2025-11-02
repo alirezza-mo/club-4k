@@ -178,7 +178,7 @@ export async function POST(req) {
       { status: 200 }
     );
   } catch (err) {
-    console.error("Submit Result Error:", err); // Log کامل خطا
+    console.error("Submit Result Error:", err);
     return NextResponse.json(
       { message: "خطای داخلی سرور", error: err.message },
       { status: 500 }

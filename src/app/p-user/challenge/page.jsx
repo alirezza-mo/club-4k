@@ -13,7 +13,6 @@ import { checkAndExpireChallenges } from "@/utils/challengeExpiration";
 async function page() {
   await connectToDb();
   
-  // بررسی و انقضای چالش‌های منقضی شده
   await checkAndExpireChallenges();
   
   const token = await cookies().get("accessToken")?.value;

@@ -37,6 +37,18 @@ const schema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    game: {
+      type: Number,
+      default: 0,
+    },
+    win: {
+      type: Number,
+      default: 0,
+    },
+    lose: {
+      type: Number,
+      default: 0,
+    },
     lastResultAt: {
       type: Date,
       required: false,

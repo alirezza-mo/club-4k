@@ -7,16 +7,16 @@ import ChallengeModel from "../../../../../models/Challenge";
 import { checkAndExpireChallenges } from "@/utils/challengeExpiration";
 
 async function Challenge() {
+  await connectToDb();
 
-  await connectToDb()
-  
-  // بررسی و انقضای چالش‌های منقضی شده
   await checkAndExpireChallenges();
-  
-  const challengeRes = await ChallengeModel.find({ status: "accepted" }).populate("inviter invited location").sort({ fightTime: -1 }).limit(6).lean();
-  
 
-  
+  const challengeRes = await ChallengeModel.find({ status: "accepted" })
+    .populate("inviter invited location")
+    .sort({ fightTime: -1 })
+    .limit(6)
+    .lean();
+
   return (
     <>
       <section className="mt-20 w-full flex flex-col items-center gap-10">
@@ -28,24 +28,25 @@ async function Challenge() {
           </h3>
         </div>
         <div className="mt-10 w-full flex items-center justify-center gap-6 flex-wrap">
-          {
-            Array.isArray(challengeRes) && challengeRes.length > 0 ? (
-              challengeRes.map((challenge, index) => (
-                <ChallengeBox
-                  key={challenge._id || index}
-                  challenge={challenge}
-                  className="w-full sm:w-[300px] md:w-[350px] lg:w-[400px]"
-                />
-              ))
-            ) : (
-              <div className="bg-white dark:bg-black p-2 rounded-lg font-bold text-gray-800 dark:text-gray-400 text-center text-2xl">
-                چالشی برای نمایش وجود ندارد.
-              </div>
-            )
-          }
+          {Array.isArray(challengeRes) && challengeRes.length > 0 ? (
+            challengeRes.map((challenge, index) => (
+              <ChallengeBox
+                key={challenge._id || index}
+                challenge={challenge}
+                className="w-full sm:w-[300px] md:w-[350px] lg:w-[400px]"
+              />
+            ))
+          ) : (
+            <div className="bg-white dark:bg-black p-2 rounded-lg font-bold text-gray-800 dark:text-gray-400 text-center text-2xl">
+              چالشی برای نمایش وجود ندارد.
+            </div>
+          )}
         </div>
-        <Link href={"/challenge"} className="p-2 rounded-lg bg-red-600 text-white font-bold text-2xl">
-          به چالش کشیدن 
+        <Link
+          href={"/challenge"}
+          className="p-2 rounded-lg bg-red-600 text-white font-bold text-2xl"
+        >
+          به چالش کشیدن
         </Link>
       </section>
     </>

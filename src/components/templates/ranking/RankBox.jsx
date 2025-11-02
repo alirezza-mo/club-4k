@@ -34,8 +34,11 @@ export default function LeaderboardCard({ rank, name, score, avatar }) {
       
       <div className="w-16 h-16 rounded-full overflow-hidden shadow-md">
         <img
-          src={avatar || '/images/avatar-placeholder.jpg'}
-          alt={name}
+          src={
+                  avatar
+                    ? `${process.env.GET_LIARA}/${avatar}`
+                    : `/images/unknown.jpg`
+                }
           className="w-full h-full object-cover"
         />
       </div>
