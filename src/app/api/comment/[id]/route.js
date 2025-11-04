@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import connectToDb from "@/configs/db";
-import Comment from "@/models/Comment";
+import connectToDb from "../../../../../configs/db";
+import Comment from "../../../../../models/Comment";
 import { verifyAccessToken } from "@/utils/auth";
 import { cookies } from "next/headers";
 
