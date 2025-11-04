@@ -8,13 +8,13 @@ import { AiOutlineComment } from "react-icons/ai";
 import { CiEdit } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import { IoExitOutline } from "react-icons/io5";
-import { LuUsers } from "react-icons/lu";
 import { FaDiscourse } from "react-icons/fa6";
 import { GiBattleGear } from "react-icons/gi";
 import { IoGameController } from "react-icons/io5";
 import { FaUsers } from "react-icons/fa";
 import { CiChat1 } from "react-icons/ci";
 import Link from "next/link";
+import { MdSettingsSuggest } from "react-icons/md";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,6 +84,13 @@ function SideBar() {
         >
           <LuTicketCheck />
           تیکت ها
+        </Link>
+        <Link
+          href={"/main-admin/contact"}
+          className="flex items-center justify-center gap-5 dark:text-gold dark:hover:bg-gold dark:hover:text-black text-orange-600 text-lg hover:bg-orange-600 hover:text-white rounded-lg w-full p-1 cursor-pointer transition-all text-center "
+        >
+          <MdSettingsSuggest />
+          پیشنهادات
         </Link>
         <Link
           href={"/main-admin/comments"}

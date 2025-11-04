@@ -10,20 +10,17 @@ function ChallengeSection() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedChallenge, setSelectedChallenge] = useState([]);
   const [statusFilter, setStatusFilter] = useState("");
-  const [challengeType, setChallengeType] = useState("inviter")
+  const [challengeType, setChallengeType] = useState("inviter");
   const [userData, setUserData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
 
   useEffect(() => {
     fetchWithRefresh("/api/auth/me")
       .then((res) => res.json())
       .then((data) => setUserData(data));
   }, []);
-  
 
-  
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -38,15 +35,15 @@ function ChallengeSection() {
     fetchData();
   }, []);
 
-
   const handleChallengeCreated = (newChallenge) => {
     setChallenges((prev) => [...prev, newChallenge]);
   };
 
-
-
   const handleAccept = (challenge) => {
-    if (challenge.status === "pending" && challenge.invited?.userName === userData?.userName) {
+    if (
+      challenge.status === "pending" &&
+      challenge.invited?.userName === userData?.userName
+    ) {
       setChallenges((prev) =>
         prev.map((c) =>
           c._id === challenge._id ? { ...c, status: "accepted" } : c
@@ -72,7 +69,6 @@ function ChallengeSection() {
       });
     }
   };
-  
 
   const handleCancel = (challenge) => {
     setChallenges((prev) => prev.filter((c) => c.id !== challenge.id));
@@ -81,12 +77,12 @@ function ChallengeSection() {
   const filteredChallenges = statusFilter
     ? challenges.filter((challenge) => challenge.status === statusFilter)
     : challenges;
-    const filteredChallengesRole = filteredChallenges?.filter((challenge) => {
-      if (challengeType === "inviter") {
-        return challenge.inviter?.userName === userData?.userName;
-      }
-      return challenge.invited?.userName === userData?.userName;
-    });
+  const filteredChallengesRole = filteredChallenges?.filter((challenge) => {
+    if (challengeType === "inviter") {
+      return challenge.inviter?.userName === userData?.userName;
+    }
+    return challenge.invited?.userName === userData?.userName;
+  });
 
   // Pagination logic
   const totalPages = Math.ceil(filteredChallengesRole.length / itemsPerPage);
@@ -184,7 +180,9 @@ function ChallengeSection() {
             <button
               className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
             >
               بعدی
             </button>

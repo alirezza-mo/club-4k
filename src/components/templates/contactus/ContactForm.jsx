@@ -25,20 +25,34 @@ export default function ContactForm() {
     return null;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const error = validateForm();
-    if (error) {
-      setStatus({ type: 'error', message: error });
-      return;
-    }
-    // شبیه‌سازی ارسال فرم (بعداً به API وصل کنید)
-    setStatus({ type: 'loading', message: 'در حال ارسال...' });
-    setTimeout(() => {
-      setStatus({ type: 'success', message: 'پیام شما با موفقیت ارسال شد!' });
-      setFormData({ name: '', email: '', title: '', message: '' });
-    }, 1000);
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const error = validateForm();
+  if (error) {
+    setStatus({ type: "error", message: error });
+    return;
+  }
+
+  setStatus({ type: "loading", message: "در حال ارسال..." });
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message || "خطا در ارسال پیام");
+
+    setStatus({ type: "success", message: data.message });
+    setFormData({ name: "", email: "", title: "", message: "" });
+  } catch (err) {
+    setStatus({ type: "error", message: err.message });
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto font-vazir">

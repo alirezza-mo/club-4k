@@ -10,7 +10,7 @@ export default function SelectDropdown({ title, options, onSelectChange }) {
   const handleOptionClick = (value) => {
     setSelectedValue(value);
     setIsOpen(false);
-    onSelectChange?.(value); // 🔥 اضافه شد
+    onSelectChange?.(value);
   };
 
   return (

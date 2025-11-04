@@ -30,15 +30,17 @@ async function Motivational() {
         </div>
         <div className="mt-14 w-full rounded-lg flex items-center justify-center lg:justify-between gap-5 flex-wrap">
           {echos.map((echo) => (
-            <MotivationBox key={echo._id} message ={echo.message} userName = {echo.user?.userName} />
+            <MotivationBox
+              key={echo._id}
+              message={echo.message}
+              userName={echo.user?.userName}
+            />
           ))}
-          {
-            echos.length === 0 && (
-              <p className="text-gray-500 dark:text-gray-400">
-                هیچ جمله‌ای برای نمایش وجود ندارد.
-              </p>
-            )
-          }
+          {echos.length === 0 && (
+            <p className="text-gray-500 dark:text-gray-400">
+              هیچ جمله‌ای برای نمایش وجود ندارد.
+            </p>
+          )}
         </div>
       </section>
     </>

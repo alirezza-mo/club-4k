@@ -2,7 +2,6 @@
 import Navbar from "@/components/modules/Navbar/Navbar";
 import Footer from "@/components/modules/Footer/Footer";
 import ChallengeSection from "@/components/templates/challenge/ChallengeSection";
-import { cookies } from "next/headers";
 
 export default async function Challenges() {
   

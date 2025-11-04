@@ -2,7 +2,7 @@ import Layout from '@/components/layouts/UserPanelLayout'
 import SupportTicketForm from '@/components/templates/p-user/tickets/SendTicket/SendTicket'
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <>
     <Layout>
@@ -14,4 +14,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

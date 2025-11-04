@@ -38,7 +38,7 @@ export default function ScanSessionPage() {
 
   const fetchCurrentSession = useCallback(async (userId) => {
     if (!userId) return; // setIsLoading(true); // لودینگ را فقط در بار اول نشان می‌دهیم
-    try {
+    try  {
       const res = await fetchWithRefresh("/api/sessions/current-status", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

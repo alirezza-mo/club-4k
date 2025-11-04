@@ -1,6 +1,5 @@
 import React from 'react'
 import Ticket from '../../../modules/p-user/Ticket'
-import Link from 'next/link'
 
 function Tickets() {
   return (

@@ -7,7 +7,7 @@ import ChallengeModel from "../../../../../models/Challenge";
 import { checkAndExpireChallenges } from "@/utils/challengeExpiration";
 
 async function Challenge() {
-  await connectToDb();
+  await connectToDb()
 
   await checkAndExpireChallenges();
 

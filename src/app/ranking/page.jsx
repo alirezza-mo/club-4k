@@ -26,7 +26,6 @@ async function page() {
     }
   }
 
-
   return (
     <>
       <main className="relative bg-lime-200 dark:bg-black/95 ">
