@@ -1,62 +1,170 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🎮 سیستم مدیریت کلوب گیمینگ
 
-## Getting Started
+Fullstack Gaming Club Management System – Next.js
 
-First, run the development server:
+<div align="center"><img src="YOUR_BANNER_IMAGE" width="800" />یک وب‌اپلیکیشن فول‌استک حرفه‌ای برای مدیریت کلوب گیمینگ (PS4)
+ساخته شده برای یک کسب‌وکار واقعی و تبدیل شده به یک نمونه‌کار سطح بالا برای رزومه
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+</div>
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🏷️ Badges
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+<div align="center"><img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=nextdotjs" />
+<img src="https://img.shields.io/badge/TailwindCSS-38BDF8?style=for-the-badge&logo=tailwindcss" />
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb" />
+<img src="https://img.shields.io/badge/Pusher-6D4AFF?style=for-the-badge&logo=pusher" />
+<img src="https://img.shields.io/badge/Liara-2E77FF?style=for-the-badge" />
+<img src="https://img.shields.io/badge/SMS.ir-FF8800?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Responsive-Yes-success?style=for-the-badge" /></div>
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+📌 معرفی پروژه
 
-## Learn More
+این پروژه یک وب‌اپلیکیشن فول‌استک Next.js است که برای مدیریت کامل یک کلوب گیمینگ ساخته شده.
+کاربران ثبت‌نام می‌کنند، احراز هویت پیامکی می‌شوند، پروفایل می‌سازند، چت می‌کنند، مسابقه می‌دهند، نتیجه ثبت می‌کنند و در نهایت وارد رتبه‌بندی رقابتی سایت می‌شوند.
 
-To learn more about Next.js, take a look at the following resources:
+این پروژه یک نمونه‌کار قدرتمند برای نمایش مهارت‌ها در موارد زیر است:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+طراحی فول‌استک
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+کار با real-time
 
-## Deploy on Vercel
+امنیت
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+معماری پروژه
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ساخت پنل ادمین کامل
 
-## Realtime (Pusher) setup
 
-This project uses Pusher Channels for realtime notifications and chat to work seamlessly on Vercel (no custom WebSocket server).
 
-Environment variables required:
+---
 
-```
-PUSHER_APP_ID=your-app-id
-PUSHER_KEY=your-key
-PUSHER_SECRET=your-secret
-PUSHER_CLUSTER=eu
-NEXT_PUBLIC_PUSHER_KEY=your-key
-NEXT_PUBLIC_PUSHER_CLUSTER=eu
-```
+✨ قابلیت‌ها (Features)
 
-- Server triggers live events using `src/utils/pusherServer.js`.
-- Client subscribes using `src/utils/pusherClient.js`.
-- Per-user notifications use channel `user-{userId}` with events:
-  - `pending-result`
-  - `result-confirmed`
-- Global chat uses channel `chat-global` with event `new-message`.
+🔐 احراز هویت پیامکی (OTP – SMS.ir)
 
-Notes:
-- All socket.io and custom Express server code were removed.
-- Vercel rewrites for `/socket.io` are no longer needed.
+ارسال کد یک‌بارمصرف
+
+امنیت بالا
+
+بدون نیاز به رمز عبور
+
+
+👤 پروفایل حرفه‌ای
+
+آپلود عکس پروفایل و آواتار (Liara)
+
+بیو، وضعیت، تم
+
+نمایش آمار مسابقات
+
+
+💬 چت آنلاین Real-Time (Pusher)
+
+چت عمومی (global)
+
+چت خصوصی
+
+نمایش آنلاین بودن کاربران
+
+
+🆚 سیستم مسابقه و رقاب
+
+دعوت بازیکن
+
+زمان‌بندی مسابقه
+
+تأیید و ثبت نتیجه
+
+محاسبه امتیاز و تغییر رتبه
+
+
+🏆 رتبه‌بندی
+
+رتبه‌بندی ماهانه
+
+نمایش Top Players
+
+
+🛠️ پنل ادمین
+
+مدیریت کاربران
+
+مدیریت رقابت‌ها
+
+مدیریت محتوا
+
+
+📱 کاملاً ریسپانسیو
+
+طراحی شده برای موبایل، تبلت و دسکتاپ با TailwindCSS.
+
+
+
+---
+
+🗂️ معماری پروژه
+
+📁 app
+ ├── 📁 api              → API Routes
+ ├── 📁 dashboard        → Admin Panel
+ ├── 📁 user             → User Panel
+ ├── 📁 chat             → Real-time Chat
+ ├── 📁 matches          → Game Matches
+ └── layout.tsx          → Main Layout
+
+📁 components             → UI Components
+📁 lib                    → Helpers, DB, Auth
+📁 hooks                  → Custom Hooks
+📁 utils                  → Utilities
+📁 services               → External Services
+📁 styles                 → Global Styles
+
+
+---
+
+⚙️ تکنولوژی‌های استفاده‌شده
+
+بخش تکنولوژی
+
+Fullstack Next.js 14 (App Router), TypeScript
+UI/UX TailwindCSS
+Database MongoDB Atlas
+Object Storage Liara
+Real-Time Pusher
+OTP SMS.ir
+QR Scanner HTMLQRCode
+Deploy Vercel
+
+
+
+---
+
+🔗 لینک‌های اصلی
+
+🌍 نسخه آنلاین:
+
+(https://club-4k.vercel.app/)
+
+💻 سورس کد در گیت‌هاب:
+
+(https://github.com/alirezza-mo/club-4k)
+
+
+---
+
+
+👨‍💻 توسعه‌دهنده
+
+علیرضا – Frontend & Fullstack Developer
+
+📧 Email: alirezzamo118@gmail.com
+⚙️ GitHub: (https://github.com/alirezza-mo)
+
+
+---
+
+⭐ حمایت
+
+اگر پروژه براتون مفید بود، ⭐ در GitHub فراموش نشه 🌟
