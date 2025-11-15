@@ -87,6 +87,20 @@ export async function POST(req) {
       player1.lastResultAt = now;
       player2.lastResultAt = now;
 
+      // Update aggregate statistics: total games, wins and losses
+      // increment total games for both players
+      player1.game = (Number(player1.game) || 0) + 1;
+      player2.game = (Number(player2.game) || 0) + 1;
+
+      // increment wins / losses based on result
+      if (player1Goals > player2Goals) {
+        player1.win = (Number(player1.win) || 0) + 1;
+        player2.lose = (Number(player2.lose) || 0) + 1;
+      } else if (player1Goals < player2Goals) {
+        player2.win = (Number(player2.win) || 0) + 1;
+        player1.lose = (Number(player1.lose) || 0) + 1;
+      }
+
       // persist scores into session results
       sessionDoc.results = sessionDoc.results || [];
       sessionDoc.results.push({ player1Goals, player2Goals, recordedAt: now });

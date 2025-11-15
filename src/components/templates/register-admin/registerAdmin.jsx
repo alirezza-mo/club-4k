@@ -1,11 +1,12 @@
 "use client";
 import { validatePassword, validatePhone } from "@/utils/auth";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import swal from "sweetalert";
 import Link from "next/link";
 
 function RegisterAdmin() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [gameNet, setGameNet] = useState("");
   const [code, setCode] = useState("");
@@ -102,7 +103,7 @@ function RegisterAdmin() {
         icon: "error",
         button: "باشد",
       });
-    res.status === 200 && redirect("/p-admin");
+    res.status === 200 && router.push("/");
   };
 
   return (

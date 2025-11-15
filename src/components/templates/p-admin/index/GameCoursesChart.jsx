@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { useEffect, useState } from 'react';
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
@@ -21,6 +22,38 @@ export default function GameSessionPolarChart({ dataPerDay }) {
     'پنجشنبه',
     'جمعه',
   ];
+
+  // dynamic fetch
+  const [counts, setCounts] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      try {
+        const res = await (await import('@/utils/fetchWithRefresh')).default('/api/admin/sessions/weekly?scope=local', { credentials: 'include' });
+        const data = await res.json();
+        if (!mounted) return;
+        if (!res.ok) {
+          setError(data.error || 'خطا در دریافت آمار جلسات');
+          setCounts(Array(7).fill(0));
+        } else {
+          setCounts(data.dataPerDay || Array(7).fill(0));
+        }
+      } catch (err) {
+        if (!mounted) return;
+        setError(err.message || 'خطا در دریافت آمار جلسات');
+        setCounts(Array(7).fill(0));
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+    load();
+    return () => (mounted = false);
+  }, []);
+
+  const dataValues = dataPerDay ? days.map((d) => dataPerDay[d] || 0) : counts || Array(7).fill(0);
 
   const isDark =
     typeof window !== 'undefined' &&
@@ -99,7 +132,13 @@ export default function GameSessionPolarChart({ dataPerDay }) {
       <h2 className="text-center text-lg font-semibold text-gray-800 dark:text-gold mb-4">
         جلسات بازی در طول هفته
       </h2>
-      <PolarArea data={data} options={options} />
+      {loading ? (
+        <div className="text-sm text-gray-500">در حال بارگذاری نمودار...</div>
+      ) : error ? (
+        <div className="text-sm text-red-500">خطا: {error}</div>
+      ) : (
+        <PolarArea data={{ ...data, datasets: [{ ...data.datasets[0], data: dataValues }] }} options={options} />
+      )}
     </div>
   );
 }

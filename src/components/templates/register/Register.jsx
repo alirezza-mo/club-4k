@@ -2,7 +2,7 @@
 
 import { validatePassword, validatePhone } from "@/utils/auth";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import swal from "sweetalert";
@@ -10,6 +10,7 @@ import swal from "sweetalert";
 const options = ["دراگون", "مورتال", "4K", "گیم لند", "سبزکوه"];
 
 export default function Register() {
+  const router = useRouter();
   const [userName, setUserName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -235,7 +236,7 @@ export default function Register() {
         button: "باشد",
       });
 
-    res.status === 200 && redirect("/p-user");
+    res.status === 200 && router.push("/");
 
     setIsLoading(false);
   };

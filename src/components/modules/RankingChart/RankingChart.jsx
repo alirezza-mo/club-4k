@@ -25,9 +25,9 @@ export default function RankingChart() {
     fetch("/api/users")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        
-        const sorted = [...data].sort((a, b) => (b.xp || 0) - (a.xp || 0));
+        console.log(data.users);
+
+        const sorted = [...data.users].sort((a, b) => (b.xp || 0) - (a.xp || 0));
         const ranked = sorted.map((user, index) => ({
           ...user,
           rank: index + 1,
@@ -35,7 +35,7 @@ export default function RankingChart() {
         setUsers(ranked);
       });
   }, []);
-  
+
   return (
     <section className="py-12">
       <div className="mx-auto px-4">
@@ -97,7 +97,7 @@ export default function RankingChart() {
                     <Image
                       src={
                         player.avatar
-                          ? `${process.env.GET_LIARA}/${player?.avatar}`
+                          ? `${process.env.NEXT_PUBLIC_GET_LIARA}/${player?.avatar}`
                           : `/images/unknown.jpg`
                       }
                       height={96}
@@ -105,11 +105,6 @@ export default function RankingChart() {
                       alt={player?.userName || "profile"}
                       className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-white dark:border-gray-800 shadow-md"
                     />
-                    {
-                      console.log(player)
-                      
-                    }
-                    
                   </div>
                 </div>
 

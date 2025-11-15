@@ -12,9 +12,10 @@ import { CiLogout } from "react-icons/ci";
 import { IoExitOutline } from "react-icons/io5";
 import Link from "next/link";
 import swal from "sweetalert";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function SideBar({ userName, gameNet }) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);
@@ -45,14 +46,14 @@ function SideBar({ userName, gameNet }) {
           method: "POST",
           credentials: "include",
         })
-          .then((res) => {
-            if (res.ok) {
-              swal("با موفقیت از حساب خارج شدید!", {
-                icon: "success",
-              }).then(() => {
-                redirect("/");
-              });
-            } else {
+            .then((res) => {
+              if (res.ok) {
+                swal("با موفقیت از حساب خارج شدید!", {
+                  icon: "success",
+                }).then(() => {
+                  router.push("/");
+                });
+              } else {
               swal("خطایی رخ داد! دوباره تلاش کنید.", {
                 icon: "error",
               });

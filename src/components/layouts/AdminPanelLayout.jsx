@@ -1,10 +1,12 @@
 import React from "react";
 import Topbar from "../modules/P-admin/TopBar";
 import Sidebar from "../modules/P-admin/SideBar";
+import RefreshAccessToken from "@/components/Auth/RefreshAccessToken";
 function Layout({ children }) {
   return (
     <>
       <main className="w-full min-h-screen bg-amber-50 dark:bg-black/90">
+        <RefreshAccessToken />
           <section className="flex md:flex-row flex-col w-full justify-between">
             <div className="md:w-[20%]">
               <Sidebar />

@@ -7,13 +7,9 @@ import Chart from "@/components/templates/p-admin/index/Chart";
 import UserGrowthChart from "@/components/templates/p-admin/index/Chart";
 import ChallengePieChart from "@/components/templates/p-admin/index/ChallengeChart";
 import GameSessionPolarChart from "@/components/templates/p-admin/index/GameCoursesChart";
-import connectToDb from "../../../configs/db";
-import ChallengeModel from "../../../models/Challenge";
+// server-side DB fetch removed: DataCart fetches its own data
 
 async function page() {
-  await connectToDb();
-  const challenges = await ChallengeModel.find({})
-  
   return (
     <>
       <Layout>
@@ -21,7 +17,7 @@ async function page() {
           <h1 className="text-2xl font-bold text-orange-600 dark:text-gold mb-6 ">
             داشبورد ادمین
           </h1>
-          <DataCart challenges={challenges} />
+          <DataCart />
           <UserGrowthChart />
           <Tickets />
           <GameSessionPolarChart
@@ -36,7 +32,7 @@ async function page() {
             }}
           />
           <Notifications />
-          <ChallengePieChart total={30} success={20} failed={5} />
+          {/* <ChallengePieChart total={30} success={20} failed={5} /> */}
         </div>
       </Layout>
     </>

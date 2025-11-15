@@ -4,10 +4,11 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import swal from "sweetalert";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 
 function LoginAdmin() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +55,7 @@ function LoginAdmin() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(admin),
     });
-    res.status === 200 && redirect("/p-admin")
+    res.status === 200 && router.push("/")
     
     res.status === 400 && 
       swal({

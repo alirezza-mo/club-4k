@@ -58,9 +58,9 @@ function Login() {
     });
     console.log(res);
     
-    if(res.status === 200 || res.status === 201){
-       router.push("/p-user")
-    }
+     if(res.status === 200 || res.status === 201){
+       router.push("/")
+     }
 
     setIsLoading(false);
 
